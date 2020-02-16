@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Users(models.Model):
-	userName = models.CharField(max_length =255,unique=True)
+	user_id = models.AutoField(primary_key=True)
+	user_name = models.CharField(max_length =255,unique=True)
 	email = models.EmailField(max_length = 255,unique=True)	
 	password = models.CharField(max_length = 50)
 	is_active = models.BooleanField(default=True)
@@ -12,3 +13,5 @@ class Users(models.Model):
 		(2, 'User'),
 	)
 	role = models.IntegerField(default=2,choices=ROLES)
+
+# class Posts(models.Model):
