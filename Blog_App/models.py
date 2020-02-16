@@ -14,4 +14,12 @@ class Users(models.Model):
 	)
 	role = models.IntegerField(default=2,choices=ROLES)
 
-# class Posts(models.Model):
+class Posts(models.Model):
+	post_id = models.AutoField(primary_key=True)
+	title = models.CharField(max_length = 200)
+	image = models.ImageField(upload_to ='Images/')
+	content = models.TextField()
+	date = models.DateTimeField()
+	user_id = models.ForeignKey(Users,on_delete=models.CASCADE)
+
+
