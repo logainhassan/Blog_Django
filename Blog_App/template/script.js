@@ -1,3 +1,4 @@
+{% load static %}
  <!--   Core JS Files   -->
   <script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
   <script src="{% static 'assets/js/core/popper.min.js' %}"></script>
