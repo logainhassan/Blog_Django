@@ -1,5 +1,7 @@
 from django.contrib import admin
 from Blog_App.models import Forbidden
+from Blog_App.models import Users,Posts
+
 # Register your models here.
 
 class CustomForbidden(admin.ModelAdmin):
@@ -11,3 +13,5 @@ class CustomForbidden(admin.ModelAdmin):
 
 
 admin.site.register(Forbidden, CustomForbidden)
+admin.site.register(Users)
+admin.site.register(Posts)

@@ -35,84 +35,88 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Edit Profile</h4>
-                  <p class="card-category">Complete your profile</p>
+                  <h4 class="card-title">Add User</h4>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form action="" method="post" autocomplete="off">
+                    {% csrf_token %}
+                    
                     <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Company (disabled)</label>
-                          <input type="text" class="form-control" disabled>
-                        </div>
-                      </div>
-                      <div class="col-md-3">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control">
+                          <!-- <input type="text" class="form-control"> -->
+                          {{form.user_name}}
                         </div>
                       </div>
-                      <div class="col-md-4">
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email address</label>
-                          <input type="email" class="form-control">
+                          <!-- <input type="email" class="form-control"> -->
+                          {{form.email}}
                         </div>
                       </div>
                     </div>
+
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Password</label>
+                          <!-- <input type="Password" class="form-control"> -->
+                          {{form.password}}
                         </div>
                       </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Confirm Password</label>
+                          <input type="Password" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">City</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Country</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>About Me</label>
-                          <div class="form-group">
-                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                            <textarea class="form-control" rows="5"></textarea>
+                          <div class="form-check">
+                            <label class="form-check-label">
+<!--                                 <input class="form-check-input" type="checkbox" value=""> -->
+                              {{form.is_active}}
+                                Active
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
                           </div>
                         </div>
                       </div>
                     </div>
+                    
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="dropdown" style="margin-bottom: 60px;">
+                          
+                          <!-- <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           Role 
+                          </button> -->
+                           {{form.role}}
+                          <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                          </div> -->
+                         
+                        </div>
+                      </div>
+                    </div>
+
+
+
                     <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
                     <div class="clearfix"></div>
                   </form>
