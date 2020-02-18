@@ -26,5 +26,3 @@ def delete_forbidden_word(request, num):
 	forbidden_word = Forbidden.objects.get(id = num)
 	forbidden_word.delete()
 	return HttpResponseRedirect('/Blog_App/Forbidden_Words')
-	form = UserForm()
-	return render(request, 'admin/user.html',{'form':form})
