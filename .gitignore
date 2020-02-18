@@ -5,3 +5,7 @@
 /Blog_Django_Project/__pycache__/wsgi.cpython-36.pyc
 
 
+
+/Blog_Django_Project/__pycache__/*
+/.idea/*
+/Blog_App/__pycache__/*
