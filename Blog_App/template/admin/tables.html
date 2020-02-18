@@ -5,8 +5,9 @@
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Table List</a>
+           <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0)">Users</a>
+            <button class="btn btn-primary btn-round"><a href="/user.html"> Add User</a></button>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -30,18 +31,18 @@
       </nav>
       <!-- End Navbar -->
       <div class="content">
+
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Simple Table</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h4 class="card-title ">Users List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
-                      <thead class=" text-primary">
+                      <thead class=" text-primary" align="center">
                         <th>
                           ID
                         </th>
@@ -49,118 +50,52 @@
                           Name
                         </th>
                         <th>
-                          Country
+                          Email
                         </th>
                         <th>
-                          City
+                          Status
                         </th>
                         <th>
-                          Salary
+                          Role
+                        </th>
+                        <th>
+                          Actions
                         </th>
                       </thead>
-                      <tbody>
+                      <tbody align="center">
+                        {% for user in all_users %}
                         <tr>
-                          <td>
-                            1
-                          </td>
-                          <td>
-                            Dakota Rice
-                          </td>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            Oud-Turnhout
-                          </td>
-                          <td class="text-primary">
-                            $36,738
-                          </td>
+                          <td>{{user.user_id}}</td>
+                          <td>{{user.user_name}}</td>
+                          <td>{{user.email}}</td>
+                          
+                            {% if user.active == true %}
+                              <td style="color :green;">Active</td>
+                            {% else %}
+                              <td style="color :red;">InActive</td>
+                            {%endif%}
+                      
+                          <td>{% if user.role == 0 %}
+                          Super Admin
+                          {% elif user.role == 1 %}
+                          Admin
+                          {% else %}
+                          User
+                           {%endif%}</td>
+                            <td>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Edit">
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Delete">
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                       </td>
+                         <!--  <td><a href = "viewst/{{st.id}}">Show</a></td>
+                          <td><a href = "editst/{{st.id}}">Edit</a></td>
+                          <td><a href = "delst/{{st.id}}">Delete</a></td> -->
                         </tr>
-                        <tr>
-                          <td>
-                            2
-                          </td>
-                          <td>
-                            Minerva Hooper
-                          </td>
-                          <td>
-                            Curaçao
-                          </td>
-                          <td>
-                            Sinaai-Waas
-                          </td>
-                          <td class="text-primary">
-                            $23,789
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            3
-                          </td>
-                          <td>
-                            Sage Rodriguez
-                          </td>
-                          <td>
-                            Netherlands
-                          </td>
-                          <td>
-                            Baileux
-                          </td>
-                          <td class="text-primary">
-                            $56,142
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            4
-                          </td>
-                          <td>
-                            Philip Chaney
-                          </td>
-                          <td>
-                            Korea, South
-                          </td>
-                          <td>
-                            Overland Park
-                          </td>
-                          <td class="text-primary">
-                            $38,735
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            5
-                          </td>
-                          <td>
-                            Doris Greene
-                          </td>
-                          <td>
-                            Malawi
-                          </td>
-                          <td>
-                            Feldkirchen in Kärnten
-                          </td>
-                          <td class="text-primary">
-                            $63,542
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            6
-                          </td>
-                          <td>
-                            Mason Porter
-                          </td>
-                          <td>
-                            Chile
-                          </td>
-                          <td>
-                            Gloucester
-                          </td>
-                          <td class="text-primary">
-                            $78,615
-                          </td>
-                        </tr>
+                      {%endfor%}
+              
                       </tbody>
                     </table>
                   </div>
