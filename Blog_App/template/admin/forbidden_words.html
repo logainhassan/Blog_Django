@@ -35,9 +35,15 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">Forbidden Words Table</h4>
-                  <p class="card-category"> Edit, delete or add Forbidden Words here</p>
-                  <button type="button" class="btn btn-info"><a href="/Blog_App/Forbidden_Words/Add_Forbidden_Word">Add new Word</a></button>
+                  <div class="row">
+                    <div class="col-6 col-sm-6">
+                      <h4 class="card-title ">Forbidden Words Table</h4>
+                      <p class="card-category"> Edit, delete or add Forbidden Words here</p>
+                    </div>
+                    <div class="col-6 col-sm-6">
+                      <button type="button" class="btn btn-info d-block m-auto"><a href="/Blog_App/Forbidden_Words/Add_Forbidden_Word">Add new Word</a></button>
+                    </div>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -54,7 +60,7 @@
                           <td>{{words.id}}</td>
                           <td>{{words.word}}</td>
                           <td class="text-primary">
-                            <a href="#">edit</a>
+                            <a href="Edit_Forbidden_Word/{{words.id}}">edit</a>
                             <a href="Delete_Forbidden_Word/{{words.id}}">delete</a>
                           </td>
                         </tr>

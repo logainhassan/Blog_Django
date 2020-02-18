@@ -37,3 +37,14 @@ def add_forbidden_word(request):
 			form.save()
 			return HttpResponseRedirect('/Blog_App/Forbidden_Words')
 	return render(request, 'admin/add_forbidden_word.html', context)
+
+def edit_forbidden_word(request, num):
+	f_word = Forbidden.objects.get(id = num)
+	if request.method == "POST":
+		form = ForbiddenForm(request.POST, instance = f_word)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+	form = ForbiddenForm(instance = f_word)
+	context = {'form': form}
+	return render(request, 'admin/add_forbidden_word.html', context)
