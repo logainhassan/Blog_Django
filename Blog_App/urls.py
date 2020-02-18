@@ -4,4 +4,5 @@ from django.urls import path
 urlpatterns = [
     path('table/', views.table),
     path('user/',views.user),
+    path('category/',views.all_Category)
 ]
