@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Forbidden
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from Blog_App.forms import UserForm
+from Blog_App.forms import UserForm, ForbiddenForm
 from Blog_App.models import Users,Posts
 # Create your views here.
 
@@ -26,3 +26,14 @@ def delete_forbidden_word(request, num):
 	forbidden_word = Forbidden.objects.get(id = num)
 	forbidden_word.delete()
 	return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+
+
+def add_forbidden_word(request):
+	form = ForbiddenForm()
+	context = {'form': form}
+	if request.method == "POST":
+		form = ForbiddenForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+	return render(request, 'admin/add_forbidden_word.html', context)
