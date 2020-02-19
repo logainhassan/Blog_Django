@@ -4,3 +4,4 @@
 /Blog_App/__pycache__/*
 *.pyc
 __pycache__
+Blog_App/migrations/*.py
