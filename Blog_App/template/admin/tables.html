@@ -7,7 +7,7 @@
         <div class="container-fluid">
            <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:void(0)">Users</a>
-            <button class="btn btn-primary btn-round"><a href="/user.html"> Add User</a></button>
+            <button class="btn btn-primary btn-round"><a href="add_user"> Add User</a></button>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -83,16 +83,13 @@
                           User
                            {%endif%}</td>
                             <td>
-                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Edit">
-                                <i class="material-icons">edit</i>
-                              </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Delete">
-                                <i class="material-icons icon-image-preview">delete_outline</i>
-                              </button>
-                       </td>
-                         <!--  <td><a href = "viewst/{{st.id}}">Show</a></td>
-                          <td><a href = "editst/{{st.id}}">Edit</a></td>
-                          <td><a href = "delst/{{st.id}}">Delete</a></td> -->
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.user_id}}';" data-original-title="Edit">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.user_id}}';" data-original-title="Delete">
+                                  <i class="material-icons icon-image-preview">delete_outline</i>
+                                </button>
+                            </td>
                         </tr>
                       {%endfor%}
               
