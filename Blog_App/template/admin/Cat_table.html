@@ -6,8 +6,8 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
            <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Users</a>
-            <button class="btn btn-primary btn-round"><a href="add_user"> Add User</a></button>
+            <a class="navbar-brand" href="javascript:void(0)">Categories</a>
+            <button class="btn btn-primary btn-round"><a href="add_Category"> Add Category</a></button>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -42,17 +42,27 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                        <table class="table">
-                          <thead text-primary>
+                        <table class="table" >
+                          <thead text-primary align="center"> 
                             {%for field in fields%}
                             <th>{{field.name}}</th>
                             {%endfor%}
+                            <th>Actions</th>
                           </thead>
-                          <tbody>
+                          <tbody align="center">
                             {%for cat in Categories%}
                             <tr>
                               <td>{{cat.id}}</td>
                               <td>{{cat.Name}}</td>
+                               <td>
+                              
+                                <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_category/{{cat.id}}';" data-original-title="Edit">
+                                  <i class="material-icons">edit</i>
+                                </button>
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_category/{{cat.id}}';" data-original-title="Delete">
+                                  <i class="material-icons icon-image-preview">delete_outline</i>
+                                </button>
+                            </td>
                             </tr>
                             {%endfor%}
                           </tbody>
