@@ -1,5 +1,6 @@
 from django import forms 
-from Blog_App.models import Users
+from Blog_App.models import Users ,Category
+
 
 class UserForm(forms.ModelForm):
 	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -24,3 +25,10 @@ class UserForm(forms.ModelForm):
 	    		raise forms.ValidationError("The two password fields must match.")
 	    return cleaned_data
 	
+class Category_form(forms.ModelForm):
+	class Meta:
+		model=Category
+		fields=('Name',)
+		widgets={
+		'Name':forms.TextInput(attrs={'class' :'form-control'})
+		}
