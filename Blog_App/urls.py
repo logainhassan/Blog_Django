@@ -8,4 +8,5 @@ urlpatterns = [
     path('table/add_user',views.addUser),
     path('table/edit_user/<num>',views.editUser),
     path('table/delete_user/<num>',views.deleteUser),
+    path('category/edit_category/<num>',views.edit_Category)
 ]
