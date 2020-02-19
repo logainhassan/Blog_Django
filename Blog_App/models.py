@@ -10,6 +10,8 @@ class Forbidden(models.Model):
 
 class Category(models.Model):
     Name = models.CharField(max_length=200)
+    def get_model_fields(self):
+        return self._meta.fields
 
 
 class Users(models.Model):
