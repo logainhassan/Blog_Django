@@ -3,6 +3,7 @@ from .models import *
 from Blog_App.forms import UserForm , Category_form
 from Blog_App.models import Users,Posts
 from django.http import HttpResponseRedirect
+from django.views.generic import  ListView
 
 # Create your views here.
 
@@ -53,7 +54,7 @@ def all_Category(request):
 	objects=Category.objects.all()
 	fields=Category.get_model_fields(Category)
 	context={
-		'Categories' : objects ,
+		'object_list' : objects ,
 		 'fields' : fields ,
 		 'title' : "Categories"
 		 }
@@ -96,3 +97,21 @@ def add_Category(request):
 			'title':'Add'
 			}
 		return render(request,"admin/category.html",context)
+
+class Cat_searchResults(ListView):
+	model=Category
+	# queryset=Category.objects.filter(Name__icontains='Sports')
+	template_name='admin/Cat_table.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list=Category.objects.filter(
+		Name__icontains=query
+		)
+		return object_list
+	def get_context_data(self,**kwargs):
+		data = super().get_context_data(**kwargs)
+		data['page_title'] = 'Authors'
+		data['fields']=Category.get_model_fields(Category)
+		return data
+
+			
