@@ -76,3 +76,23 @@ def edit_Category(request,num):
 			}
 		
 		return render(request,'admin/category.html',context)
+
+def delete_Category(request,num):
+	cat_obj=Category.objects.filter(pk=num).first()
+	cat_obj.delete()
+	return HttpResponseRedirect("/Blog_App/category")
+
+
+def add_Category(request):
+	if request.method=="POST":
+		cat_form=Category_form(request.POST)
+		if cat_form.is_valid():
+			cat_form.save()
+		return HttpResponseRedirect("/Blog_App/category")	
+	else:
+		cat_form=Category_form()
+		context={
+			'cat_form':cat_form,
+			'title':'Add'
+			}
+		return render(request,"admin/category.html",context)
