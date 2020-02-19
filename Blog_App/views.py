@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from Blog_App.forms import UserForm
+from Blog_App.forms import UserForm , Category_form
 from Blog_App.models import Users,Posts
 from django.http import HttpResponseRedirect
 
@@ -58,3 +58,21 @@ def all_Category(request):
 		 'title' : "Categories"
 		 }
 	return render(request,'admin/Cat_table.html',context)
+
+
+
+def edit_Category(request,num):
+	cat_obj=Category.objects.filter(pk=num).first()
+	if(request.method=="POST"):
+		cat_form=Category_form(request.POST,instance=cat_obj)
+		if cat_form.is_valid():
+			cat_form.save()
+		return HttpResponseRedirect	("/Blog_App/category")
+	else:
+		cat_form=Category_form(instance=cat_obj)
+		context={
+			'cat_form':cat_form,
+			'title':'Edit'
+			}
+		
+		return render(request,'admin/category.html',context)
