@@ -2,3 +2,5 @@
 /Blog_Django_Project/__pycache__/*
 /.idea/*
 /Blog_App/__pycache__/*
+*.pyc
+__pycache__

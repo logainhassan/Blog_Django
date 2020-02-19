@@ -42,7 +42,7 @@
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                        {% comment %} <table class="table">
+                        <table class="table">
                           <thead text-primary>
                             {%for field in fields%}
                             <th>{{field.name}}</th>
@@ -56,68 +56,11 @@
                             </tr>
                             {%endfor%}
                           </tbody>
-                        </table> {% endcomment %}
+                        </table>
                         
                         
                     
-                   <h4 class="card-title ">Users List</h4>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary" align="center">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Email
-                        </th>
-                        <th>
-                          Status
-                        </th>
-                        <th>
-                          Role
-                        </th>
-                        <th>
-                          Actions
-                        </th>
-                      </thead>
-                      <tbody align="center">
-                        {% for user in all_users %}
-                        <tr>
-                          <td>{{user.user_id}}</td>
-                          <td>{{user.user_name}}</td>
-                          <td>{{user.email}}</td>
-                          
-                            {% if user.active == true %}
-                              <td style="color :green;">Active</td>
-                            {% else %}
-                              <td style="color :red;">InActive</td>
-                            {%endif%}
-                      
-                          <td>{% if user.role == 0 %}
-                          Super Admin
-                          {% elif user.role == 1 %}
-                          Admin
-                          {% else %}
-                          User
-                           {%endif%}</td>
-                            <td>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.user_id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.user_id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
-                        </tr>
-                      {%endfor%}
-              
-                      </tbody>
-                    </table> 
+               
                   </div>
                 </div>
               </div>
