@@ -9,5 +9,6 @@ urlpatterns = [
     path('table/edit_user/<num>',views.editUser),
     path('category/delete_category/<num>',views.delete_Category),
     path('category/edit_category/<num>',views.edit_Category),
-    path('category/add_category',views.add_Category)
+    path('category/add_category',views.add_Category),
+    path('category/search/',views.Cat_searchResults.as_view())
 ]
