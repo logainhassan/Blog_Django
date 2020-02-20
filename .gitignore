@@ -1,4 +1,11 @@
 /Blog_Django_Project/settings.py
+/Blog_Django_Project/__pycache__/__init__.cpython-36.pyc
+/Blog_Django_Project/__pycache__/settings.cpython-36.pyc
+/Blog_Django_Project/__pycache__/urls.cpython-36.pyc
+/Blog_Django_Project/__pycache__/wsgi.cpython-36.pyc
+
+
+
 /Blog_Django_Project/__pycache__/*
 /.idea/*
 /Blog_App/__pycache__/*

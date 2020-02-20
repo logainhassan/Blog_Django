@@ -32,8 +32,8 @@ class Posts(models.Model):
     post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='Images/')
-    content = models.TextField(max_length=200)
-    date = models.DateTimeField()
+    content = models.TextField()
+    date = models.DateTimeField(default=datetime.datetime.now())
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
 
 

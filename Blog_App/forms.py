@@ -1,5 +1,5 @@
 from django import forms 
-from Blog_App.models import Users ,Category
+from Blog_App.models import Users ,Category, Posts
 
 
 class UserForm(forms.ModelForm):
@@ -31,4 +31,13 @@ class Category_form(forms.ModelForm):
 		fields=('Name',)
 		widgets={
 		'Name':forms.TextInput(attrs={'class' :'form-control'})
+		}
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Posts
+		fields = ('title','image','content','user_id')
+		widgets = {
+		'title' : forms.TextInput(attrs={'class':'form-control'}),
+		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
+		'content' : forms.TextInput(attrs={'class':'form-control'}),
 		}
