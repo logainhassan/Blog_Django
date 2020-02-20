@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
+from Blog_App.forms import UserForm,PostForm
 from .models import *
 from Blog_App.forms import UserForm , Category_form ,ForbiddenForm
 from django.views.generic import  ListView
@@ -46,7 +47,9 @@ def deleteUser(request,num):
 
 
 def user(request):
-	return render(request, 'admin/user.html')
+	# return render(request, 'admin/user.html')
+	form = UserForm()
+	return render(request, 'admin/user.html',{'form':form})
 
 
 def Forbidden_Words(request):
@@ -147,3 +150,36 @@ class Cat_searchResults(ListView):
 		return data
 
 			
+def posts(request):
+	all_posts = Posts.objects.all()
+
+	context = {'all_posts':all_posts}
+	return render(request,'admin/posts.html',context)
+
+def addPost(request):
+	form = PostForm()
+	if request.method=="POST":
+		form = PostForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('posts/')
+	else:	
+		context = {'form':form}
+		return render(request,'admin/add_post.html',context)
+
+def editPost(request,num):
+	post = Posts.objects.get(post_id=num)
+	if request.method=="POST":
+		form = PostForm(request.POST,instance=post)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('admin/posts.html')
+	else:
+		form = PostForm(instance=post)
+		context ={'form':form}
+		return render(request,'admin/edit_post.html',context)
+
+def deletePost(request,num):
+	post= Posts.objects.get(post_id=num)
+	post.delete()
+	return HttpResponseRedirect('admin/posts.html')
