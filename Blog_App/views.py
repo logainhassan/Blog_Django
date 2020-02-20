@@ -1,10 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from Blog_App.forms import UserForm, ForbiddenForm
+from django.http import HttpResponse ,HttpResponseRedirect
 from .models import *
-from Blog_App.forms import UserForm , Category_form
-from Blog_App.models import Users,Posts
+from Blog_App.forms import UserForm , Category_form ,ForbiddenForm
 from django.views.generic import  ListView
 
 # Create your views here.

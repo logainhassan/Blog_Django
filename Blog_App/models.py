@@ -5,20 +5,20 @@ import datetime
 # Create your models here.
 
 class Forbidden(models.Model):
-    word = models.CharField(max_length=255)
+    word = models.CharField(max_length=100)
 
 
 class Category(models.Model):
-    Name = models.CharField(max_length=200)
+    Name = models.CharField(max_length=100)
     def get_model_fields(self):
         return self._meta.fields
 
 
 class Users(models.Model):
     user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(max_length=255, unique=True)
-    email = models.EmailField(max_length=255, unique=True)
-    password = models.CharField(max_length=50)
+    user_name = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     ROLES = (
         (0, 'Super_Admin'),
@@ -30,9 +30,9 @@ class Users(models.Model):
 
 class Posts(models.Model):
     post_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='Images/')
-    content = models.TextField()
+    content = models.TextField(max_length=200)
     date = models.DateTimeField()
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
 

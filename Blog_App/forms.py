@@ -16,20 +16,6 @@ class UserForm(forms.ModelForm):
 			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 
-class ForbiddenForm(forms.ModelForm):
-	class Meta:
-		model = Forbidden
-		fields = ('word',)
-		widgets = {
-			'word' : forms.TextInput(attrs={'class':'form-control'}),
-			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
-			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
-		# 'confirm_password':forms.PasswordInput(attrs={'class':'form-control'}),
-			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
-		}
-
 	def clean(self):
 	    cleaned_data = super(UserForm, self).clean()
 	    password = cleaned_data.get("password")
@@ -45,4 +31,13 @@ class Category_form(forms.ModelForm):
 		fields=('Name',)
 		widgets={
 		'Name':forms.TextInput(attrs={'class' :'form-control'})
+		}
+
+
+class ForbiddenForm(forms.ModelForm):
+	class Meta:
+		model = Forbidden
+		fields = ('word',)
+		widgets = {
+			'word' : forms.TextInput(attrs={'class':'form-control'}),
 		}
