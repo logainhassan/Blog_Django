@@ -33,7 +33,7 @@ class Posts(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='Images/')
     content = models.TextField()
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=datetime.datetime.now())
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
 
 
