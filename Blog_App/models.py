@@ -62,3 +62,8 @@ class User_Category(models.Model):
 
     # def __init__(self):
     #     return self.id
+
+
+class Post_Category(models.Model):
+	post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
+	Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
