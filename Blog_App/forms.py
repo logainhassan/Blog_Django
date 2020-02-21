@@ -1,4 +1,6 @@
 from django import forms 
+from Blog_App.models import Forbidden
+from Blog_App.models import Users ,Category
 from Blog_App.models import Users ,Category, Posts
 
 
@@ -8,12 +10,11 @@ class UserForm(forms.ModelForm):
 		model = Users
 		fields = ('user_name','email','password','confirm_password','is_active','role')
 		widgets = {
-		'user_name' : forms.TextInput(attrs={'class':'form-control'}),
-		'email' : forms.EmailInput(attrs={'class':'form-control'}),
-		'password' : forms.PasswordInput(attrs={'class':'form-control'}),
-		# 'confirm_password':forms.PasswordInput(attrs={'class':'form-control'}),
-		'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-		'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
+			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
+			'email' : forms.EmailInput(attrs={'class':'form-control'}),
+			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
+			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 
 	def clean(self):
@@ -32,6 +33,16 @@ class Category_form(forms.ModelForm):
 		widgets={
 		'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
+
+
+class ForbiddenForm(forms.ModelForm):
+	class Meta:
+		model = Forbidden
+		fields = ('word',)
+		widgets = {
+			'word' : forms.TextInput(attrs={'class':'form-control'}),
+		}
+		
 class PostForm(forms.ModelForm):
 	class Meta:
 		model = Posts

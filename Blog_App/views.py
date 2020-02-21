@@ -1,9 +1,8 @@
 from django.shortcuts import render
+from django.http import HttpResponse ,HttpResponseRedirect
 from Blog_App.forms import UserForm,PostForm
 from .models import *
-from Blog_App.forms import UserForm , Category_form
-from Blog_App.models import Users,Posts
-from django.http import HttpResponseRedirect
+from Blog_App.forms import UserForm , Category_form ,ForbiddenForm
 from django.views.generic import  ListView
 
 # Create your views here.
@@ -48,9 +47,43 @@ def deleteUser(request,num):
 
 
 def user(request):
+	# return render(request, 'admin/user.html')
 	form = UserForm()
 	return render(request, 'admin/user.html',{'form':form})
 
+
+def Forbidden_Words(request):
+	all_forbidden_words = Forbidden.objects.all()
+	context = {'forbidden_words': all_forbidden_words}
+	return render(request, 'admin/forbidden_words.html', context)
+
+
+def delete_forbidden_word(request, num):
+	forbidden_word = Forbidden.objects.get(id = num)
+	forbidden_word.delete()
+	return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+
+
+def add_forbidden_word(request):
+	form = ForbiddenForm()
+	context = {'form': form}
+	if request.method == "POST":
+		form = ForbiddenForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+	return render(request, 'admin/add_forbidden_word.html', context)
+
+def edit_forbidden_word(request, num):
+	f_word = Forbidden.objects.get(id = num)
+	if request.method == "POST":
+		form = ForbiddenForm(request.POST, instance = f_word)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Blog_App/Forbidden_Words')
+	form = ForbiddenForm(instance = f_word)
+	context = {'form': form}
+	return render(request, 'admin/add_forbidden_word.html', context)
 
 def all_Category(request):
 	objects=Category.objects.all()
@@ -116,6 +149,7 @@ class Cat_searchResults(ListView):
 		data['fields']=Category.get_model_fields(Category)
 		return data
 
+			
 def posts(request):
 	all_posts = Posts.objects.all()
 
