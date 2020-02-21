@@ -136,10 +136,10 @@ def addPost(request):
 def editPost(request,num):
 	post = Posts.objects.get(post_id=num)
 	if request.method=="POST":
-		form = PostForm(request.POST,instance=post)
+		form = PostForm(request.POST, request.FILES,instance=post)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('admin/posts.html')
+			return HttpResponseRedirect('posts/')
 	else:
 		form = PostForm(instance=post)
 		context ={'form':form}
@@ -149,3 +149,8 @@ def deletePost(request,num):
 	post= Posts.objects.get(post_id=num)
 	post.delete()
 	return HttpResponseRedirect('admin/posts.html')
+
+def post(request,num):
+	post = Posts.objects.get(post_id=num)
+	context = {'post':post}
+	return render(request,'admin/post.html',context)

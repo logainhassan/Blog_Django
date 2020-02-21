@@ -68,7 +68,7 @@
                         <tr>
                           <td>{{post.post_id}}</td>
                           <td>{{post.title}}</td>
-                          <td>{{post.image}}</td>
+                          <td><img class="img-fluid" style="height: 100px;" src="{{post.image.url}}"></td>
                           <td>{{post.content}}</td>
                           <td>{{post.date}}</td>
                           <td>{{post.user_id}}</td>
@@ -83,7 +83,7 @@
                                 </a>
                               </button>
                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Delete">
-                                <a href="/Blog_App/delete_post/{{post.post_id}}">
+                                <a href="/Blog_App/posts/{{post.post_id}}">
                                     <i class="material-icons icon-image-preview">delete_outline</i>
                                 </a>
                               </button>
@@ -91,6 +91,7 @@
                          <!--  <td><a href = "viewst/{{st.id}}">Show</a></td>
                           <td><a href = "editst/{{st.id}}">Edit</a></td>
                           <td><a href = "delst/{{st.id}}">Delete</a></td> -->
+                      
                         </tr>
                       {%endfor%}
               
