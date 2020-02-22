@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{%include 'adminlayout/head.html'%}
+
+
+<body class="dark-edition">
+  <div class="wrapper ">
+
+    {% include 'adminlayout/sidebar.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+  </div>
+ 
+  {% include 'adminlayout/script.html' %}
+
+</body>
+
+</html>
