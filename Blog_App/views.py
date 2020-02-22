@@ -9,7 +9,7 @@ from django.views.generic import  ListView
 
 
 def table(request):
-	all_users = Users.objects.all()
+	all_users = User.objects.all()
 	context ={'all_users' : all_users}
 	return render(request, 'admin/tables.html',context)
 
@@ -27,7 +27,7 @@ def addUser(request):
 
 
 def editUser(request,num):
-	user = Users.objects.get(user_id =num)
+	user = User.objects.get(id =num)
 	if request.method == "POST":
 		user_form = UserForm(request.POST,instance = user)
 		if user_form.is_valid():
@@ -40,7 +40,7 @@ def editUser(request,num):
 
 
 def deleteUser(request,num):
-	user = Users.objects.get(user_id = num)
+	user = User.objects.get(id = num)
 	user.delete()
 	return HttpResponseRedirect("/Blog_App/table")
 
@@ -151,7 +151,7 @@ class Cat_searchResults(ListView):
 
 			
 def posts(request):
-	all_posts = Posts.objects.all()
+	all_posts = Post.objects.all()
 
 	context = {'all_posts':all_posts}
 	return render(request,'admin/posts.html',context)
@@ -168,7 +168,7 @@ def addPost(request):
 		return render(request,'admin/add_post.html',context)
 
 def editPost(request,num):
-	post = Posts.objects.get(post_id=num)
+	post = Post.objects.get(id=num)
 	if request.method=="POST":
 		form = PostForm(request.POST,instance=post)
 		if form.is_valid():
@@ -180,6 +180,6 @@ def editPost(request,num):
 		return render(request,'admin/edit_post.html',context)
 
 def deletePost(request,num):
-	post= Posts.objects.get(post_id=num)
+	post= Post.objects.get(id=num)
 	post.delete()
 	return HttpResponseRedirect('admin/posts.html')
