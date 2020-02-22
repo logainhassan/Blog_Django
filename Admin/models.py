@@ -26,6 +26,7 @@ class User(models.Model):
         (2, 'User'),
     )
     role = models.IntegerField(default=2, choices=ROLES)
+    image = models.ImageField(upload_to='Images/',max_length=500,default=None)
 
 
 class Post(models.Model):
@@ -35,6 +36,10 @@ class Post(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{}{}'.format(self.title,str(self.user.name))
+    def get_absolute_url(self):
+        return "/post/%i" % self.pk
 
 
 class User_Post(models.Model):
@@ -51,8 +56,11 @@ class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
     date = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=200)
-    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name='replies')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    def __str__(self):
+        return '{} : {}'.format(self.content,str(self.date))
     # post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
 
