@@ -162,7 +162,7 @@ def addPost(request):
 		form = PostForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('posts/')
+			return HttpResponseRedirect('/Blog_App/posts/')
 	else:	
 		context = {'form':form}
 		return render(request,'admin/add_post.html',context)
@@ -173,7 +173,7 @@ def editPost(request,num):
 		form = PostForm(request.POST, request.FILES,instance=post)
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('posts/')
+			return HttpResponseRedirect('/Blog_App/posts/')
 	else:
 		form = PostForm(instance=post)
 		context ={'form':form}
@@ -182,7 +182,7 @@ def editPost(request,num):
 def deletePost(request,num):
 	post= Posts.objects.get(post_id=num)
 	post.delete()
-	return HttpResponseRedirect('admin/posts.html')
+	return HttpResponseRedirect('/Blog_App/posts/')
 
 def post(request,num):
 	post = Posts.objects.get(post_id=num)
