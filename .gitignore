@@ -12,3 +12,7 @@
 *.pyc
 __pycache__
 Blog_App/migrations/*.py
+/migrations
+.log
+*.pot
+__pycache__/
