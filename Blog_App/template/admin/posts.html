@@ -66,24 +66,24 @@
                       <tbody align="center">
                         {% for post in all_posts %}
                         <tr>
-                          <td>{{post.post_id}}</td>
+                          <td>{{post.id}}</td>
                           <td>{{post.title}}</td>
                           <td><img class="img-fluid" style="height: 100px;" src="{{post.image.url}}"></td>
                           <td>{{post.content}}</td>
                           <td>{{post.date}}</td>
-                          <td>{{post.user_id}}</td>
+                          <td>{{post.user.id}}</td>
                           
                           <td>
                             <!-- <div class="navbar-wrapper">
                                 <button class="btn btn-primary btn-round"><a href="/Blog_App/edit_post/{{post.post_id}}"> Edit Post</a></button>
                               </div> -->
                             <button type="button" rel="tooltip"  title="" class="btn btn-white btn-link btn-sm" data-original-title="Edit">
-                                <a href="/Blog_App/edit_post/{{post.post_id}}">
+                                <a href="/Blog_App/edit_post/{{post.id}}">
                                     <i class="material-icons" >edit</i>
                                 </a>
                               </button>
                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Delete">
-                                <a href="/Blog_App/posts/{{post.post_id}}">
+                                <a href="/Blog_App/posts/{{post.id}}">
                                     <i class="material-icons icon-image-preview">delete_outline</i>
                                 </a>
                               </button>
