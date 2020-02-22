@@ -33,7 +33,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='Images/')
     content = models.TextField()
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -49,7 +49,7 @@ class User_Post(models.Model):
 
 class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
-    date = models.DateField(default=datetime.datetime.now())
+    date = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=200)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
