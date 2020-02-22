@@ -14,5 +14,5 @@ class CustomForbidden(admin.ModelAdmin):
 
 admin.site.register(Forbidden, CustomForbidden)
 admin.site.register(Category)
-admin.site.register(Users)
-admin.site.register(Posts)
+admin.site.register(User)
+admin.site.register(Post)

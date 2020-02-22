@@ -1,13 +1,12 @@
 from django import forms 
 from Blog_App.models import Forbidden
-from Blog_App.models import Users ,Category
-from Blog_App.models import Users ,Category, Posts
+from Blog_App.models import *
 
 
 class UserForm(forms.ModelForm):
 	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	class Meta:
-		model = Users
+		model = User
 		fields = ('user_name','email','password','confirm_password','is_active','role')
 		widgets = {
 			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -45,8 +44,8 @@ class ForbiddenForm(forms.ModelForm):
 		
 class PostForm(forms.ModelForm):
 	class Meta:
-		model = Posts
-		fields = ('title','image','content','user_id')
+		model = Post
+		fields = ('title','image','content','user')
 		widgets = {
 		'title' : forms.TextInput(attrs={'class':'form-control'}),
 		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
