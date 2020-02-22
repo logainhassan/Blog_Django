@@ -18,9 +18,10 @@ urlpatterns = [
     path('category/edit_category/<num>',views.edit_Category),
     path('category/add_category',views.add_Category),
     path('category/search/',views.Cat_searchResults.as_view()),
-    # path('Blog_App/add_post/posts/',views.posts),
+
     path('posts/',views.posts),
     path('add_post/',views.addPost),
     path('edit_post/<num>',views.editPost),
     path('posts/<num>',views.deletePost),
+    path('post/<num>',views.post),
 ]
