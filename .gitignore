@@ -16,3 +16,4 @@ Blog_App/migrations/*.py
 .log
 *.pot
 __pycache__/
+migrations/
