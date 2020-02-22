@@ -88,7 +88,7 @@
                       <tbody align="center">
                         {% for user in all_users %}
                         <tr>
-                          <td>{{user.user_id}}</td>
+                          <td>{{user.id}}</td>
                           <td>{{user.user_name}}</td>
                           <td>{{user.email}}</td>
                           
@@ -106,10 +106,10 @@
                           User
                            {%endif%}</td>
                             <td>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.user_id}}';" data-original-title="Edit">
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
                                   <i class="material-icons">edit</i>
                                 </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.user_id}}';" data-original-title="Delete">
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
                                   <i class="material-icons icon-image-preview">delete_outline</i>
                                 </button>
                             </td>
