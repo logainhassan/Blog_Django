@@ -3,16 +3,32 @@ from Admin.models import *
 from django.shortcuts import get_object_or_404
 from Blog.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
-
+  
 # Create your views here.
+def allTags():
+    tags=Tag.objects.all()
+    return tags;
+
+def allCategories():
+    categories=Category.objects.all()
+    return categories
+
+
 def allPosts(request) :
-    return render(request,'Blog/allPosts.html',)   
+    
+    tags=allTags()
+    cats=allCategories()
+    context={
+        'cats':cats,
+        'tags':tags,
+        }
+    return render(request,'Blog/allPosts.html',context)   
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
     comments=Comment.objects.filter(post=post,reply=None).order_by('id')
-
-
+    tags=allTags()
+    cats=allCategories()
     if request.method=='POST':
         comment_form=CommentForm(request.POST or None)
         if comment_form.is_valid():
@@ -33,6 +49,9 @@ def PostDetails(request,num):
     context={
         'post':post,
         'comments':comments,
-        'commentForm':comment_form
+        'commentForm':comment_form,
+        'cats':cats,
+        'tags':tags
     } 
     return render(request,'Blog/postDetails.html',context)  
+
