@@ -185,6 +185,16 @@ def deletePost(request,num):
 	return HttpResponseRedirect('/Admin/posts/')
 
 def post(request,num):
-	post = Posts.objects.get(post_id=num)
+	post = Post.objects.get(post_id=num)
 	context = {'post':post}
 	return render(request,'admin/post.html',context)
+
+# def postDetails(request,num):
+# 	post = Post.objects.get(post_id=num)
+# 	context = {'post':post}
+# 	return render(request,'Admin/postDetails.html',context)
+
+def allposts(request):
+	post = Post.objects.all()
+	context = {'post':post}
+	return render(request,'Blog/posts.html',context)

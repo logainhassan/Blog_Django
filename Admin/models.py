@@ -56,7 +56,7 @@ class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
     date = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=200)
-    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name='replies')
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True ,blank=True, related_name='replies')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     def __str__(self):
