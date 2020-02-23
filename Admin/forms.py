@@ -31,7 +31,13 @@ class Category_form(forms.ModelForm):
 		widgets={
 		'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
-
+class TagForm(forms.ModelForm):
+	class Meta:
+		model=Tag
+		fields=('name',)
+		widgets={
+			'name':forms.TextInput(attrs={'class':'form-control'})
+		}
 
 class ForbiddenForm(forms.ModelForm):
 	class Meta:
