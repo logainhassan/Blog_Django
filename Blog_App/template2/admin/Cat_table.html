@@ -44,16 +44,16 @@
                   <div class="table-responsive">
                         <table class="table" >
                           <thead text-primary align="center"> 
-                            {%for field in fields%}
+                            {% for field in fields %}
                             <th>{{field.name}}</th>
-                            {%endfor%}
-                            {%if fields%}
+                            {% endfor %}
+                            {% if fields %}
                             <th>Actions</th>
-                            {%endif%}
+                            {% endif %}
                           </thead>
                           <tbody align="center">
-                            {%if object_list%}
-                            {%for cat in object_list%}
+                            {% if object_list %}
+                            {% for cat in object_list %}
                             <tr>
                               <td>{{cat.id}}</td>
                               <td>{{cat.Name}}</td>
@@ -67,10 +67,10 @@
                                 </button>
                             </td>
                             </tr>
-                            {%endfor%}
-                            {%else%}
+                            {% endfor %}
+                            {% else %}
                             <td colspan="{{fields|length|add:"1"}}">No results Found</td>
-                            {%endif%}
+                            {% endif %}
 
 
                             

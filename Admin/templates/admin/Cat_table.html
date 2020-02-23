@@ -16,6 +16,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
+          
             <form class="navbar-form" action="/Admin/category/search" method="GET">
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search..." name="q">
@@ -46,14 +47,14 @@
                           <thead text-primary align="center"> 
                             {%for field in fields%}
                             <th>{{field.name}}</th>
-                            {%endfor%}
-                            {%if fields%}
+                            {% endfor%}
+                            {% if fields %}
                             <th>Actions</th>
                             {%endif%}
                           </thead>
                           <tbody align="center">
-                            {%if object_list%}
-                            {%for cat in object_list%}
+                            {% if object_list %}
+                            {% for cat in object_list %}
                             <tr>
                               <td>{{cat.id}}</td>
                               <td>{{cat.Name}}</td>
@@ -67,8 +68,8 @@
                                 </button>
                             </td>
                             </tr>
-                            {%endfor%}
-                            {%else%}
+                            {% endfor %}
+                            {% else %}
                             <td colspan="{{fields|length|add:"1"}}">No results Found</td>
                             {%endif%}
 
