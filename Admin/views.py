@@ -4,6 +4,7 @@ from Admin.forms import UserForm,PostForm
 from .models import *
 from Admin.forms import UserForm , Category_form ,ForbiddenForm
 from django.views.generic import  ListView
+from django.db.models import Q
 
 # Create your views here.
 
@@ -85,6 +86,17 @@ def edit_forbidden_word(request, num):
 	context = {'form': form}
 	return render(request, 'admin/add_forbidden_word.html', context)
 
+def Search_forbidden_word(request):
+	template = 'admin/forbidden_words.html'
+	query = request.GET.get('word')
+	results = Forbidden.objects.filter(Q(word__icontains = query))
+
+	context = {
+		'results': results
+	}
+	return render(request, template, context)
+
+
 def all_Category(request):
 	objects=Category.objects.all()
 	fields=Category.get_model_fields(Category)
@@ -140,12 +152,12 @@ class Cat_searchResults(ListView):
 	def get_queryset(self):
 		query=self.request.GET.get('q')
 		object_list=Category.objects.filter(
-		Name__icontains=query
+			Name__icontains=query
 		)
 		return object_list
 	def get_context_data(self,**kwargs):
 		data = super().get_context_data(**kwargs)
-		data['page_title'] = 'Authors'
+		# data['page_title'] = 'Authors'
 		data['fields']=Category.get_model_fields(Category)
 		return data
 
