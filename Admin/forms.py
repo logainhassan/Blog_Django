@@ -29,7 +29,7 @@ class Category_form(forms.ModelForm):
 		model=Category
 		fields=('Name',)
 		widgets={
-		'Name':forms.TextInput(attrs={'class' :'form-control'})
+			'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
 
 
@@ -46,7 +46,7 @@ class PostForm(forms.ModelForm):
 		model = Post
 		fields = ('title','image','content','user')
 		widgets = {
-		'title' : forms.TextInput(attrs={'class':'form-control'}),
-		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
-		'content' : forms.TextInput(attrs={'class':'form-control'}),
+			'title' : forms.TextInput(attrs={'class':'form-control'}),
+			'image' : forms.FileInput(attrs={'class':'form-control-image'}),
+			'content' : forms.TextInput(attrs={'class':'form-control'}),
 		}
