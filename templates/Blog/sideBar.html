@@ -6,9 +6,11 @@
 						</div>
 						<div class="category-widget">
 							<ul>
-								<li>
+								{% comment %} <li>
 									<a href="#">Lifestyle <span>451</span></a>
 									<a href="#" class="supscripe-btn">Subscripe</a>
+									<a>{{post.category.all}} </a>
+									<a>{{cats}}</a>
 								</li>
 								<li>
 									<a href="#">Fashion <span>230</span></a>
@@ -25,7 +27,14 @@
 								<li>
 									<a href="#">Health <span>24</span></a>
 									<a href="#" class="supscripe-btn">Subscripe</a>
+								</li> {% endcomment %}
+
+								{% for cat in cats  %}
+								<li>
+									<a href="#">{{cat.Name}} <span>{{cat.categories.all|length}}</span></a>
+									<a href="#" class="supscripe-btn">Subscripe</a>
 								</li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -39,17 +48,11 @@
 						</div>
 						<div class="tags-widget">
 							<ul>
-								<li><a href="#">Social</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Travel</a></li>
-								<li><a href="#">Technology</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Life</a></li>
-								<li><a href="#">News</a></li>
-								<li><a href="#">Magazine</a></li>
-								<li><a href="#">Food</a></li>
-								<li><a href="#">Health</a></li>
+							{% for tag in tags  %}
+							<li><a href="#">{{tag.name}}</a></li>
+							{% endfor %}
+								
+								
 							</ul>
 						</div>
 					</div>
