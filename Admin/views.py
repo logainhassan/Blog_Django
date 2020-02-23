@@ -12,7 +12,7 @@ from django.db.models import Q
 def table(request):
 	all_users = User.objects.all()
 	context ={'all_users' : all_users}
-	return render(request, 'admin/tables.html',context)
+	return render(request, 'Admin/tables.html',context)
 
 
 def addUser(request):
@@ -24,7 +24,7 @@ def addUser(request):
 	else:
 		user_form =UserForm() 
 		context = {'user_form':user_form}
-		return render(request,'admin/user.html',context)
+		return render(request,'Admin/user.html',context)
 
 
 def editUser(request,num):
@@ -37,7 +37,7 @@ def editUser(request,num):
 	else:
 		user_form = UserForm(instance = user)
 		context = {'user_form':user_form}
-		return render(request,'admin/user.html',context)
+		return render(request,'Admin/user.html',context)
 
 
 def deleteUser(request,num):
@@ -48,15 +48,15 @@ def deleteUser(request,num):
 
 
 def user(request):
-	# return render(request, 'admin/user.html')
+	# return render(request, 'Admin/user.html')
 	form = UserForm()
-	return render(request, 'admin/user.html',{'form':form})
+	return render(request, 'Admin/user.html',{'form':form})
 
 
 def Forbidden_Words(request):
 	all_forbidden_words = Forbidden.objects.all()
 	context = {'forbidden_words': all_forbidden_words}
-	return render(request, 'admin/forbidden_words.html', context)
+	return render(request, 'Admin/forbidden_words.html', context)
 
 
 def delete_forbidden_word(request, num):
@@ -73,7 +73,7 @@ def add_forbidden_word(request):
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/Admin/Forbidden_Words')
-	return render(request, 'admin/add_forbidden_word.html', context)
+	return render(request, 'Admin/add_forbidden_word.html', context)
 
 def edit_forbidden_word(request, num):
 	f_word = Forbidden.objects.get(id = num)
@@ -84,7 +84,7 @@ def edit_forbidden_word(request, num):
 			return HttpResponseRedirect('/Admin/Forbidden_Words')
 	form = ForbiddenForm(instance = f_word)
 	context = {'form': form}
-	return render(request, 'admin/add_forbidden_word.html', context)
+	return render(request, 'Admin/add_forbidden_word.html', context)
 
 def Search_forbidden_word(request):
 	template = 'admin/forbidden_words.html'
@@ -105,7 +105,7 @@ def all_Category(request):
 		 'fields' : fields ,
 		 'title' : "Categories"
 		 }
-	return render(request,'admin/Cat_table.html',context)
+	return render(request,'Admin/Cat_table.html',context)
 
 
 
@@ -123,7 +123,7 @@ def edit_Category(request,num):
 			'title':'Edit'
 			}
 		
-		return render(request,'admin/category.html',context)
+		return render(request,'Admin/category.html',context)
 
 def delete_Category(request,num):
 	cat_obj=Category.objects.filter(pk=num).first()
@@ -143,12 +143,12 @@ def add_Category(request):
 			'cat_form':cat_form,
 			'title':'Add'
 			}
-		return render(request,"admin/category.html",context)
+		return render(request,"Admin/category.html",context)
 
 class Cat_searchResults(ListView):
 	model=Category
 	# queryset=Category.objects.filter(Name__icontains='Sports')
-	template_name='admin/Cat_table.html'
+	template_name='Admin/Cat_table.html'
 	def get_queryset(self):
 		query=self.request.GET.get('q')
 		object_list=Category.objects.filter(
@@ -166,7 +166,7 @@ def posts(request):
 	all_posts = Post.objects.all()
 
 	context = {'all_posts':all_posts}
-	return render(request,'admin/posts.html',context)
+	return render(request,'Admin/posts.html',context)
 
 def addPost(request):
 	form = PostForm()
@@ -177,7 +177,7 @@ def addPost(request):
 			return HttpResponseRedirect('/Admin/posts/')
 	else:	
 		context = {'form':form}
-		return render(request,'admin/add_post.html',context)
+		return render(request,'Admin/add_post.html',context)
 
 def editPost(request,num):
 	post = Post.objects.get(id=num)
@@ -189,7 +189,7 @@ def editPost(request,num):
 	else:
 		form = PostForm(instance=post)
 		context ={'form':form}
-		return render(request,'admin/edit_post.html',context)
+		return render(request,'Admin/edit_post.html',context)
 
 def deletePost(request,num):
 	post= Post.objects.get(id=num)
@@ -199,4 +199,4 @@ def deletePost(request,num):
 def post(request,num):
 	post = Posts.objects.get(post_id=num)
 	context = {'post':post}
-	return render(request,'admin/post.html',context)
+	return render(request,'Admin/post.html',context)

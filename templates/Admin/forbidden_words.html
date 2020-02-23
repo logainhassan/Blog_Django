@@ -1,13 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'Admin/base.html' %}
 
 {% block content %}
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
-           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Categories</a>
-            <button class="btn btn-primary btn-round"><a href="/Admin/category/add_category"> Add Category</a></button>
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="javascript:void(0)">Forbidden Words List</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -16,10 +15,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-          
-            <form class="navbar-form" action="/Admin/category/search" method="GET">
+
+            <form class="navbar-form" action="/Admin/Forbidden_Words/Search_Forbidden_Word" method="GET">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search..." name="q">
+                <input type="text" value="" class="form-control" placeholder="Search..." name="word">
                 <button type="submit" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -32,56 +31,56 @@
       </nav>
       <!-- End Navbar -->
       <div class="content">
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">{{title}}</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <div class="row">
+                    <div class="col-6 col-sm-6">
+                      <h4 class="card-title ">Forbidden Words Table</h4>
+                      <p class="card-category"> Edit, delete or add Forbidden Words here</p>
+                    </div>
+                    <div class="col-6 col-sm-6">
+                      <button type="button" class="btn btn-info d-block m-auto"><a href="/Admin/Forbidden_Words/Add_Forbidden_Word">Add new Word</a></button>
+                    </div>
+                  </div>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
-                        <table class="table" >
-                          <thead text-primary align="center"> 
-                            {%for field in fields%}
-                            <th>{{field.name}}</th>
-                            {% endfor%}
-                            {% if fields %}
-                            <th>Actions</th>
-                            {%endif%}
-                          </thead>
-                          <tbody align="center">
-                            {% if object_list %}
-                            {% for cat in object_list %}
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th> ID </th>
+                        <th> Forbidden Word </th>
+                        <th> Actions</th>
+                      </thead>
+                      <tbody>
+
+                      {% for words in forbidden_words %}
+                        <tr>
+                          <td>{{words.id}}</td>
+                          <td>{{words.word}}</td>
+                          <td class="text-primary">
+                            <a href="Edit_Forbidden_Word/{{words.id}}">edit</a>
+                            <a href="Delete_Forbidden_Word/{{words.id}}">delete</a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if results %}
+                          {% for words in results %}
                             <tr>
-                              <td>{{cat.id}}</td>
-                              <td>{{cat.Name}}</td>
-                               <td>
-                              
-                                <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/edit_category/{{cat.id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/delete_category/{{cat.id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
+                              <td>{{words.id}}</td>
+                              <td>{{words.word}}</td>
+                              <td class="text-primary">
+                                <a href="Edit_Forbidden_Word/{{words.id}}">edit</a>
+                                <a href="Delete_Forbidden_Word/{{words.id}}">delete</a>
+                              </td>
                             </tr>
                             {% endfor %}
-                            {% else %}
-                            <td colspan="{{fields|length|add:"1"}}">No results Found</td>
-                            {%endif%}
-
-
-                            
-                             
-                          </tbody>
-                        </table>
-                        
-                        
-                       
-               
+                        {% endif %}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Admin/base.html' %}
 
 {% block content %}
     <div class="main-panel">
@@ -6,9 +6,10 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
            <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Users</a>
-            <button class="btn btn-primary btn-round"><a href="add_user"> Add User</a></button>
+            <a class="navbar-brand" href="javascript:void(0)">Posts</a>
+            <button class="btn btn-primary btn-round"><a href="/Admin/add_post/"> Add Post</a></button>
           </div>
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
@@ -37,30 +38,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">{{title}}</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                        {% comment %} <table class="table">
-                          <thead text-primary>
-                            {%for field in fields%}
-                            <th>{{field.name}}</th>
-                            {%endfor%}
-                          </thead>
-                          <tbody>
-                            {%for cat in Categories%}
-                            <tr>
-                              <td>{{cat.id}}</td>
-                              <td>{{cat.Name}}</td>
-                            </tr>
-                            {%endfor%}
-                          </tbody>
-                        </table> {% endcomment %}
-                        
-                        
-                    
-                   <h4 class="card-title ">Users List</h4>
+                  <h4 class="card-title ">Posts List</h4>
                 </div>
                 <div class="card-body">
                   <div class="table-responsive">
@@ -70,54 +48,55 @@
                           ID
                         </th>
                         <th>
-                          Name
+                          Title
                         </th>
                         <th>
-                          Email
+                          Image
                         </th>
                         <th>
-                          Status
+                          Content
                         </th>
                         <th>
-                          Role
+                          Date
                         </th>
                         <th>
-                          Actions
+                          User
                         </th>
                       </thead>
                       <tbody align="center">
-                        {% for user in all_users %}
+                        {% for post in all_posts %}
                         <tr>
-                          <td>{{user.id}}</td>
-                          <td>{{user.user_name}}</td>
-                          <td>{{user.email}}</td>
+                          <td>{{post.id}}</td>
+                          <td>{{post.title}}</td>
+                          <td><img class="img-fluid" style="height: 100px;" src="{{post.image.url}}"></td>
+                          <td>{{post.content}}</td>
+                          <td>{{post.date}}</td>
+                          <td>{{post.user.id}}</td>
                           
-                            {% if user.active == true %}
-                              <td style="color :green;">Active</td>
-                            {% else %}
-                              <td style="color :red;">InActive</td>
-                            {%endif%}
+                          <td>
+                            <!-- <div class="navbar-wrapper">
+                                <button class="btn btn-primary btn-round"><a href="/Blog_App/edit_post/{{post.post_id}}"> Edit Post</a></button>
+                              </div> -->
+                            <button type="button" rel="tooltip"  title="" class="btn btn-white btn-link btn-sm" data-original-title="Edit">
+                                <a href="/Admin/edit_post/{{post.id}}">
+                                    <i class="material-icons" >edit</i>
+                                </a>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-original-title="Delete">
+                                <a href="/Admin/posts/{{post.id}}">
+                                    <i class="material-icons icon-image-preview">delete_outline</i>
+                                </a>
+                              </button>
+                       </td>
+                         <!--  <td><a href = "viewst/{{st.id}}">Show</a></td>
+                          <td><a href = "editst/{{st.id}}">Edit</a></td>
+                          <td><a href = "delst/{{st.id}}">Delete</a></td> -->
                       
-                          <td>{% if user.role == 0 %}
-                          Super Admin
-                          {% elif user.role == 1 %}
-                          Admin
-                          {% else %}
-                          User
-                           {%endif%}</td>
-                            <td>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
                         </tr>
                       {%endfor%}
               
                       </tbody>
-                    </table> 
+                    </table>
                   </div>
                 </div>
               </div>
