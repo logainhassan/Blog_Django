@@ -26,18 +26,18 @@ class User(models.Model):
         (2, 'User'),
     )
     role = models.IntegerField(default=2, choices=ROLES)
-    image = models.ImageField(upload_to='Images/',max_length=500,default=None)
+    image = models.ImageField(upload_to='Users/',max_length=500,default=None)
 
 
 class Post(models.Model):
     # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='Images/',max_length=500)
+    image = models.ImageField(upload_to='Posts/',max_length=500)
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
-        return '{}{}'.format(self.title,str(self.user.name))
+        return '{}{}'.format(self.title,str(self.user.user_name))
     def get_absolute_url(self):
         return "/post/%i" % self.pk
 

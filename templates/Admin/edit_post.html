@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Admin/base.html' %}
 
 {% block content %}
  <div class="main-panel">
@@ -23,12 +23,13 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Add Post</h4>
+                  <h4 class="card-title">Edit Post</h4>
                 </div>
                 <div class="card-body">
-                  <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+                  <form action="" method="post" autocomplete="off">
                     {% csrf_token %}
                     
+                    {{form.as_p}}
                     <!-- <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
@@ -37,33 +38,32 @@
                           {{form.title}}
                         </div>
                       </div>
-                    </div> -->
+                    </div>
 
-                    {{form.as_p}}
+                    
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-md-6">                    
                         <div class="form-group">
                           <label for="exampleFormControlFile1">Insert Image</label>
                           <input type="file" class="form-control-file" id="exampleFormControlFile1">
                           {{form.image}}
-                          
                         </div>
                     </div>
-                </div> -->
+                </div>
 
-                    <!-- <div class="row">
+                    <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Content</label>
-                          <input type="text" class="form-control"> 
+                       
                           {{form.content}}
                         </div>
                       </div>
-                    </div> -->
+                    </div>
+ -->
 
-
-                    <button type="submit" class="btn btn-primary pull-right">Add Post</button>
+                    <button type="submit" class="btn btn-primary pull-right">Update Post</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
