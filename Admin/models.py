@@ -28,6 +28,13 @@ class User(models.Model):
     role = models.IntegerField(default=2, choices=ROLES)
     image = models.ImageField(upload_to='Users/',max_length=500,default=None)
 
+class Tag(models.Model):
+    name=models.CharField(max_length=100)
+    def get_model_fields(self):
+        return self._meta.fields
+    def __str__(self):
+        return self.name
+    
 
 class Post(models.Model):
     # post_id = models.AutoField(primary_key=True)
@@ -36,6 +43,7 @@ class Post(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tag=models.ManyToManyField(Tag,related_name="tags")
     def __str__(self):
         return '{}{}'.format(self.title,str(self.user.user_name))
     def get_absolute_url(self):
@@ -62,6 +70,10 @@ class Comment(models.Model):
     def __str__(self):
         return '{} : {}'.format(self.content,str(self.date))
     # post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
+
+
+
+
 
 
 # class User_Category(models.Model):
