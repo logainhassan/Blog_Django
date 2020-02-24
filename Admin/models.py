@@ -6,12 +6,18 @@ import datetime
 
 class Forbidden(models.Model):
     word = models.CharField(max_length=100)
+    def __str__(self):
+        return self.word
+    
 
 
 class Category(models.Model):
     Name = models.CharField(max_length=100)
     def get_model_fields(self):
         return self._meta.fields
+    def __str__(self):
+        return self.Name
+    
 
 
 class User(models.Model):
@@ -27,6 +33,9 @@ class User(models.Model):
     )
     role = models.IntegerField(default=2, choices=ROLES)
     image = models.ImageField(upload_to='Users/',max_length=500,default=None)
+    def __str__(self):
+        return self.user_name
+    
 
 class Tag(models.Model):
     name=models.CharField(max_length=100)
@@ -43,8 +52,8 @@ class Post(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    tag=models.ManyToManyField(Tag,related_name="tags")
-    category=models.ManyToManyField(Category,related_name='categories')
+    tag=models.ManyToManyField(Tag,related_name="posts")
+    category=models.ManyToManyField(Category,related_name='posts')
     def __str__(self):
         return '{}{}'.format(self.title,str(self.user.user_name))
     def get_absolute_url(self):
