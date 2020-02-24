@@ -26,7 +26,7 @@ def allPosts(request) :
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
-    comments=Comment.objects.filter(post=post,reply=None).order_by('id')
+    comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags=allTags()
     cats=allCategories()
     if request.method=='POST':
@@ -38,7 +38,7 @@ def PostDetails(request,num):
             # if reply_id:
             #     replays_qs=Comment.objects.get(id=reply_id)
             #     print(replays_qs)
-            comment=Comment.objects.create(post=post,content=content,user_id=2,reply_id=reply_id)
+            comment = Comment.objects.create(post=post,content=content,user_id=2,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
@@ -64,7 +64,7 @@ def categoryPosts(request,name):
         'posts':posts,
         'cats':categories,
         'tags':tags
-        }
+    }
     return render(request,'Blog/cat_tag.html',context)
 
 def tagPosts(request,name):
