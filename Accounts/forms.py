@@ -32,24 +32,24 @@ class UserCreationForm(forms.ModelForm):
 		return user
 
 
-# class UserLoginForm(forms.Form):
-# 	query = forms.CharField(label = 'Username')
-# 	password = forms.CharField(label = 'Password',widget=forms.PasswordInput)
+class UserLoginForm(forms.Form):
+	query = forms.CharField(label = 'Usersername',widget=forms.TextInput(attrs={'class':'input100'}))
+	password = forms.CharField(label = 'Password',widget=forms.PasswordInput(attrs={'class':'input100'}))
 
-# 	def clean(self,*args,**kwargs):
-# 		query = self.cleaned_data.get('query')
-# 		password = self.cleaned_data.get('password')
-# 		# user_qs_final = User.objects.filter(
-# 		# 		Q(username__iexact=query) |
-# 		# 		Q(email__iexact=query)
-# 		# 	).distinct()
-# 		user_qs_final = User.objects.filter(
-# 				Q(username__iexact=query)
-# 			).distinct()
-# 		if not user_qs_final.exists() and user_qs_final.count != 1:
-# 			raise forms.ValidationError("Invalid credentials - user does not exist")
-# 		user_obj = user_qs_final.first()
-# 		if not user_obj.check_password(password):
-# 			raise forms.ValidationError("credentials are not correct")
-# 		self.cleaned_data["user_obj"] = user_obj
-# 		return super(UserLoginForm, self).clean(*args,**kwargs)
+	def clean(self,*args,**kwargs):
+		query = self.cleaned_data.get('query')
+		password = self.cleaned_data.get('password')
+		# user_qs_final = User.objects.filter(
+		# 		Q(username__iexact=query) |
+		# 		Q(email__iexact=query)
+		# 	).distinct()
+		user_qs_final = User.objects.filter(
+				Q(username__iexact=query)
+			).distinct()
+		if not user_qs_final.exists() and user_qs_final.count != 1:
+			raise forms.ValidationError("Invalid credentials - user does not exist")
+		user_obj = user_qs_final.first()
+		if not user_obj.check_password(password):
+			raise forms.ValidationError("credentials are not correct")
+		self.cleaned_data["user_obj"] = user_obj
+		return super(UserLoginForm, self).clean(*args,**kwargs)
