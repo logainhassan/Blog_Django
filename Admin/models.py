@@ -110,7 +110,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to='Posts/',max_length=500)
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     tag=models.ManyToManyField(Tag,related_name="posts")
     category=models.ManyToManyField(Category,related_name='posts')
 
