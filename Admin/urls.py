@@ -23,7 +23,7 @@ urlpatterns = [
     path('add_post/',views.addPost),
     path('edit_post/<num>',views.editPost),
     path('posts/<num>',views.deletePost),
-    path('post/<num>',views.post),
-    # path('postDetails/<num>',views.postDetails),
-    path('allposts/',views.allposts),
+    # path('post/<num>',views.post),
+    path('posts/search/',views.PostSearch.as_view()),
+
 ]

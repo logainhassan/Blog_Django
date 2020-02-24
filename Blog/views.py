@@ -6,7 +6,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 def allPosts(request) :
-    return render(request,'Blog/allPosts.html',)   
+    recent = recentPosts()
+    allposts = posts()
+    context = {
+        'recent':recent,
+        'allposts':allposts
+        }
+    return render(request,'Blog/allPosts.html', context)   
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
@@ -36,3 +42,11 @@ def PostDetails(request,num):
         'commentForm':comment_form
     } 
     return render(request,'Blog/postDetails.html',context)  
+
+def recentPosts():
+    all_top = Post.objects.order_by('-date')[:4]
+    return all_top
+    
+def posts():
+    posts = Post.objects.all().order_by('-date')
+    return posts

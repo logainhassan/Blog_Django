@@ -4,6 +4,7 @@ from Admin.forms import UserForm,PostForm
 from .models import *
 from Admin.forms import UserForm , Category_form ,ForbiddenForm
 from django.views.generic import  ListView
+from django.db.models import Q
 
 # Create your views here.
 
@@ -152,7 +153,6 @@ class Cat_searchResults(ListView):
 			
 def posts(request):
 	all_posts = Post.objects.all()
-
 	context = {'all_posts':all_posts}
 	return render(request,'Admin/posts.html',context)
 
@@ -184,17 +184,22 @@ def deletePost(request,num):
 	post.delete()
 	return HttpResponseRedirect('/Admin/posts/')
 
-def post(request,num):
-	post = Post.objects.get(post_id=num)
-	context = {'post':post}
-	return render(request,'admin/post.html',context)
+# def post(request,num):
+# 	post = Post.objects.get(post_id=num)
+# 	context = {'post':post}
+# 	return render(request,'admin/post.html',context)
 
 # def postDetails(request,num):
 # 	post = Post.objects.get(post_id=num)
 # 	context = {'post':post}
 # 	return render(request,'Admin/postDetails.html',context)
 
-def allposts(request):
-	post = Post.objects.all()
-	context = {'post':post}
-	return render(request,'Blog/posts.html',context)
+class PostSearch(ListView):
+	model = Post
+	template_name = 'Admin/posts.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		postlist = Post.objects.filter(
+			Q(title__icontains=query) | Q(content__icontains=query)
+		)
+		return postlist
