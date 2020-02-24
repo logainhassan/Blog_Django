@@ -5,7 +5,7 @@ urlpatterns=[
     path('',views.allPosts),
     path('post/<num>',views.PostDetails),
     path('category/<name>',views.categoryPosts),
-    path('tag/<name>',views.TagsPosts)
+    path('tag/<name>',views.tagPosts)
 
 
     
