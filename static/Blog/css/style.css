@@ -65,7 +65,7 @@ h4 {
 h5 {}
 
 p {
-  margin: 0px 0px 20px;
+  margin: 0px 0px 15px;
 }
 
 a {
@@ -772,7 +772,9 @@ textarea.input {
   color: #ee4266;
   font-weight: 700;
   font-size: 12px;
+  padding-right: 5px;
   text-transform: uppercase;
+  transition: all .2s ease-in-out;
 }
 
 .post-category a:after {
@@ -780,7 +782,7 @@ textarea.input {
   display: inline-block;
 }
 .post-category a:hover {
-  color: #fff;
+  color: black;
 }
 
 .post-category a:last-child:after {
