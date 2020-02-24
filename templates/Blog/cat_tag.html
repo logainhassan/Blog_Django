@@ -1,0 +1,52 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+{% block content %}
+<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-8">
+					<!-- post -->
+                    {% for post in posts  %}
+					<div class="post post-row">
+						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
+						<div class="post-body">
+							<div class="post-category">
+                                {% for cat in post.category.all  %}
+								<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
+                                {% endfor %}
+							</div>
+							<h3 class="post-title"><a href="blog-post.html">{{post.title}}</a></h3>
+							<ul class="post-meta">
+								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li>{{post.date}}</li>
+							</ul>
+							<p>{{post.content}}</p>
+						</div>
+					</div>
+					<!-- /post -->
+                    {% endfor %}
+					
+
+					
+
+					
+
+					{% comment %} <div class="section-row loadmore text-center">
+						<a href="#" class="primary-button">Load More</a>
+					</div> {% endcomment %}
+				</div>
+				<div class="col-md-4">
+
+					{% include 'Blog/sideBar.html' %}
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+	
+{% endblock  %}

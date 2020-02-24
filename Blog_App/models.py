@@ -1,8 +1,5 @@
 from django.db import models
 import datetime
-from django.core.validators import RegexValidator
-
-PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$'
 
 
 # Create your models here.
@@ -21,8 +18,7 @@ class User(models.Model):
     # user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
-        message="Password must contain at least one letter, at least one number, and be longer than eight charaters.",code="invalid_password")],)
+    password = models.CharField(max_length=100)
     is_active = models.BooleanField(default=True)
     ROLES = (
         (0, 'Super_Admin'),
