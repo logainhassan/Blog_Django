@@ -2,27 +2,27 @@ from django import forms
 from Admin.models import *
 
 
-class UserForm(forms.ModelForm):
-	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
-	class Meta:
-		model = User
-		fields = ('user_name','email','password','confirm_password','is_active','role')
-		widgets = {
-			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
-			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
-			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
-		}
+# class UserForm(forms.ModelForm):
+# 	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+# 	class Meta:
+# 		model = MyUser
+# 		fields = ('user_name','email','password','confirm_password','is_active','role')
+# 		widgets = {
+# 			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
+# 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
+# 			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
+# 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+# 			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
+# 		}
 
-	def clean(self):
-	    cleaned_data = super(UserForm, self).clean()
-	    password = cleaned_data.get("password")
-	    confirm_password = cleaned_data.get("confirm_password")
-	    if password and confirm_password:
-	    	if password != confirm_password:
-	    		raise forms.ValidationError("The two password fields must match.")
-	    return cleaned_data
+# 	def clean(self):
+# 	    cleaned_data = super(UserForm, self).clean()
+# 	    password = cleaned_data.get("password")
+# 	    confirm_password = cleaned_data.get("confirm_password")
+# 	    if password and confirm_password:
+# 	    	if password != confirm_password:
+# 	    		raise forms.ValidationError("The two password fields must match.")
+# 	    return cleaned_data
 	
 class Category_form(forms.ModelForm):
 	class Meta:
@@ -31,7 +31,13 @@ class Category_form(forms.ModelForm):
 		widgets={
 		'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
-
+class TagForm(forms.ModelForm):
+	class Meta:
+		model=Tag
+		fields=('name',)
+		widgets={
+			'name':forms.TextInput(attrs={'class':'form-control'})
+		}
 
 class ForbiddenForm(forms.ModelForm):
 	class Meta:
@@ -40,13 +46,18 @@ class ForbiddenForm(forms.ModelForm):
 		widgets = {
 			'word' : forms.TextInput(attrs={'class':'form-control'}),
 		}
-		
+
+
 class PostForm(forms.ModelForm):
+	# choices=Post.tag.all()
+    
+	# tag=forms.MultipleChoiceField(choices=(('s','s'),('s','a')),widget =forms.CheckboxSelectMultiple())
 	class Meta:
 		model = Post
-		fields = ('title','image','content','user')
+		fields = ('title','image','content','user','tag','category')
 		widgets = {
 		'title' : forms.TextInput(attrs={'class':'form-control'}),
 		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
 		'content' : forms.TextInput(attrs={'class':'form-control'}),
 		}
+		# tag = forms.MultipleChoiceField(choices=CHOICES, widget=forms.CheckboxSelectMultiple())

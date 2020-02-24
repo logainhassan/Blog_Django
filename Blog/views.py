@@ -3,22 +3,35 @@ from Admin.models import *
 from django.shortcuts import get_object_or_404
 from Blog.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
-
+  
 # Create your views here.
+def allTags():
+    tags=Tag.objects.all()
+    return tags
+
+def allCategories():
+    categories=Category.objects.all()
+    return categories
+
+
 def allPosts(request) :
     recent = recentPosts()
     allposts = posts()
+    tags=allTags()
+    cats=allCategories()
     context = {
         'recent':recent,
         'allposts':allposts
+        'cats':cats,
+        'tags':tags,
         }
-    return render(request,'Blog/allPosts.html', context)   
+    return render(request,'Blog/allPosts.html',context)
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
     comments=Comment.objects.filter(post=post,reply=None).order_by('id')
-
-
+    tags=allTags()
+    cats=allCategories()
     if request.method=='POST':
         comment_form=CommentForm(request.POST or None)
         if comment_form.is_valid():
@@ -34,14 +47,15 @@ def PostDetails(request,num):
             # comment_form.save()
     else:
         comment_form= CommentForm()        
-
-    
     context={
         'post':post,
         'comments':comments,
-        'commentForm':comment_form
+        'commentForm':comment_form,
+        'cats':cats,
+        'tags':tags
     } 
     return render(request,'Blog/postDetails.html',context)  
+
 
 def recentPosts():
     all_top = Post.objects.order_by('-date')[:4]
@@ -50,3 +64,27 @@ def recentPosts():
 def posts():
     posts = Post.objects.all().order_by('-date')
     return posts
+
+def categoryPosts(request,name):
+    category=Category.objects.get(Name=name)
+    posts=category.posts.all()
+    tags=allTags()
+    categories=allCategories()
+    context={
+        'posts':posts,
+        'cats':categories,
+        'tags':tags
+        }
+    return render(request,'Blog/cat_tag.html',context)
+
+def tagPosts(request,name):
+    tag=Tag.objects.get(name=name)
+    posts=tag.posts.all()
+    tags=allTags()
+    categories=allCategories()
+    context={
+        'posts':posts,
+        'cats':categories,
+        'tags':tags
+        }
+    return render(request,'Blog/cat_tag.html',context)

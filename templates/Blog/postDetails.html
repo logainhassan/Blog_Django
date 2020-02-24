@@ -17,7 +17,11 @@
 						</figure>
 						<div class="section-post-info">
 							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
+							{% comment %} <span>Categories:</span> {% endcomment %}
+							{% for cat in post.category.all  %}
+								<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
+							{% endfor %}
+								
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
@@ -38,10 +42,11 @@
 						<div class="post-tags ">
 							<ul>
 								<li >TAGS:</li>
-								<li ><a href="#" style="padding:5px ;background:#DDD; ">Social</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Health</a></li>
+								{% for tag in post.tag.all  %}
+								
+								<li ><a href="/tag/{{tag.name}}" style=" ">{{tag.name}}</a></li>
+								
+								{% endfor %}
 							</ul>
 						</div>
 					</div>

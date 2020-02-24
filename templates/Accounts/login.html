@@ -1,0 +1,50 @@
+{% extends 'Accounts/base.html' %}
+
+	{% block content %}
+		<form class="login100-form validate-form" action="" method="post" autocomplete="off" style="padding-top: 18%;padding-bottom: 0px;">
+            {% csrf_token %}
+			<span class="login100-form-title p-b-34">
+				Account Login
+			</span>
+ 			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name" style="height: 55px; margin-bottom: 0px;">
+				 {{form.query}}
+				<span class="focus-input100"></span>
+			</div>
+			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type password" style="height: 55px; margin-bottom: 0px;">
+				{{form.password}}
+				<span class="focus-input100"></span>
+			</div>
+			<div >
+ 				<h4 style="color:red;">{{ form.non_field_errors.as_text }}</h4>
+ 			</div>
+
+			
+			<div class="container-login100-form-btn">
+				<button class="login100-form-btn">
+					Sign in
+				</button>
+			</div>
+
+			<div class="w-full text-center p-t-27 p-b-239">
+				<span class="txt1">
+					Forgot
+				</span>
+
+				<a href="#" class="txt2">
+					User name / password?
+				</a>
+				<div>
+				<span class="txt1">
+					not registered?
+				</span>
+				<a href="../register" class="txt2" >
+					Sign Up
+				</a>
+				</div>
+				
+			</div>
+
+			
+		</form>
+	{% endblock %}
+			
