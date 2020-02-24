@@ -55,3 +55,26 @@ def PostDetails(request,num):
     } 
     return render(request,'Blog/postDetails.html',context)  
 
+def categoryPosts(request,name):
+    category=Category.objects.get(Name=name)
+    posts=category.posts.all()
+    tags=allTags()
+    categories=allCategories()
+    context={
+        'posts':posts,
+        'cats':categories,
+        'tags':tags
+        }
+    return render(request,'Blog/cat_tag.html',context)
+
+def tagPosts(request,name):
+    tag=Tag.objects.get(name=name)
+    posts=tag.posts.all()
+    tags=allTags()
+    categories=allCategories()
+    context={
+        'posts':posts,
+        'cats':categories,
+        'tags':tags
+        }
+    return render(request,'Blog/cat_tag.html',context)
