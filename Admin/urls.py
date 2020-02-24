@@ -8,37 +8,19 @@ urlpatterns = [
     # User part
     path('table/', views.table),
     path('user/',views.user),
-<<<<<<< HEAD
     path('table/delete_user/<num>',views.deleteUser),
     path('table/add_user',views.addUser),
     path('table/edit_user/<num>',views.editUser),
 
     # Forbidden_Words part 
-||||||| merged common ancestors
-=======
-    path('table/add_user',views.addUser),
-    path('table/edit_user/<num>',views.editUser),
-    path('table/delete_user/<num>',views.deleteUser),
-
->>>>>>> 3a21a0374be24cea13dee268d1d79be00e733dda
     path('Forbidden_Words/', views.Forbidden_Words),
     path('Forbidden_Words/Add_Forbidden_Word', views.add_forbidden_word),
     path('Forbidden_Words/Edit_Forbidden_Word/<num>', views.edit_forbidden_word),
     path('Forbidden_Words/Delete_Forbidden_Word/<num>', views.delete_forbidden_word),
-<<<<<<< HEAD
     path('Forbidden_Words/Search_Forbidden_Word', views.Search_forbidden_word),
 
     # Category part
     path('category/',views.all_Category),
-||||||| merged common ancestors
-    path('table/delete_user/<num>',views.deleteUser),
-    path('category/',views.all_Category),
-    path('table/add_user',views.addUser),
-    path('table/edit_user/<num>',views.editUser),
-=======
-
-    path('category/',views.all_Category),  
->>>>>>> 3a21a0374be24cea13dee268d1d79be00e733dda
     path('category/delete_category/<num>',views.delete_Category),
     path('category/edit_category/<num>',views.edit_Category),
     path('category/add_category',views.add_Category),
