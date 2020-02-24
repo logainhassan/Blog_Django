@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
-from Admin.forms import UserForm,PostForm
+from Admin.forms import PostForm
+from Accounts.forms import UserCreationForm
 from .models import *
-from Admin.forms import UserForm , Category_form ,ForbiddenForm
+from Admin.forms import Category_form ,ForbiddenForm
 from django.views.generic import  ListView
 
 # Create your views here.
@@ -16,7 +17,7 @@ def table(request):
 
 def addUser(request):
 	if request.method == "POST":
-		user_form = UserForm(request.POST)
+		user_form = UserCreationForm(request.POST)
 		if user_form.is_valid():
 			user_form.save()
 		return HttpResponseRedirect("/Admin/table")
@@ -29,12 +30,12 @@ def addUser(request):
 def editUser(request,num):
 	user = User.objects.get(id =num)
 	if request.method == "POST":
-		user_form = UserForm(request.POST,instance = user)
+		user_form = UserCreationForm(request.POST,instance = user)
 		if user_form.is_valid():
 			user_form.save()
 		return HttpResponseRedirect("/Admin/table")
 	else:
-		user_form = UserForm(instance = user)
+		user_form = UserCreationForm(instance = user)
 		context = {'user_form':user_form}
 		return render(request,'Admin/user.html',context)
 
@@ -48,7 +49,7 @@ def deleteUser(request,num):
 
 def user(request):
 	# return render(request, 'Admin/user.html')
-	form = UserForm()
+	form = UserCreationForm()
 	return render(request, 'Admin/user.html',{'form':form})
 
 
