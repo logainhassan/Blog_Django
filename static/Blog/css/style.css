@@ -722,6 +722,7 @@ textarea.input {
 .post {
   position: relative;
   margin-bottom: 30px;
+  transition: all .3s ease-in-out;
 }
 
 .post .post-body {
@@ -779,7 +780,7 @@ textarea.input {
   display: inline-block;
 }
 .post-category a:hover {
-  color:black;
+  color: #fff;
 }
 
 .post-category a:last-child:after {
@@ -792,7 +793,7 @@ textarea.input {
 
 .post-meta li {
   display: inline-block;
-  color: #97989b;
+  color: #bdbec1;
   font-size: 12px;
   text-transform: uppercase;
 }
