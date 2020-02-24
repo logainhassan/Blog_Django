@@ -59,6 +59,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return "/post/%i" % self.pk
 
+    def content_short(self):
+        return self.content[:200]
+
 
 class User_Post(models.Model):
     id = models.CharField(primary_key=True, max_length=30)
