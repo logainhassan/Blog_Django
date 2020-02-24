@@ -1,6 +1,9 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import ( BaseUserManager,AbstractBaseUser)
+from django.core.validators import RegexValidator
+
+PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$'
 
 class MyUserManager(BaseUserManager):
   def create_user(self,username,email,password=None):
@@ -29,6 +32,9 @@ class MyUser(AbstractBaseUser):
   first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
   last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
   email = models.EmailField(max_length=254, unique=True,verbose_name='email address')
+  password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
+        message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
+        ,code="invalid_password")],)
   ROLES = (
       (0, 'Super_Admin'),
       (1, 'Admin'),

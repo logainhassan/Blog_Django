@@ -1,26 +1,21 @@
 {% extends 'Accounts/base.html' %}
 
 	{% block content %}
-		 <form class="login100-form validate-form" action="" method="post" autocomplete="off">
+		<form class="login100-form validate-form" action="" method="post" autocomplete="off" style="padding-top: 18%;padding-bottom: 0px;">
             {% csrf_token %}
 			<span class="login100-form-title p-b-34">
 				Account Login
 			</span>
-<!-- 			{{form.as_p}}
- -->		
- 			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
-				<!-- <input id="first-name" class="input100" type="text" name="username" placeholder="User name"> -->
+ 			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name" style="height: 55px; margin-bottom: 0px;">
 				 {{form.query}}
-				<!--  {{form.errors}} -->
 				<span class="focus-input100"></span>
 			</div>
-			<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
-				<!-- <input class="input100" type="password" name="pass" placeholder="Password"> -->
+			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type password" style="height: 55px; margin-bottom: 0px;">
 				{{form.password}}
 				<span class="focus-input100"></span>
 			</div>
 			<div >
- 				<h4>{{ form.non_field_errors.as_text }}</h4>
+ 				<h4 style="color:red;">{{ form.non_field_errors.as_text }}</h4>
  			</div>
 
 			

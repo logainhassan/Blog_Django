@@ -3,38 +3,61 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.db.models import Q
 from Admin.models import MyUser
+from django.utils import timezone
+from django.contrib.auth.hashers import check_password
 
 
 User = get_user_model()	
 
 class UserCreationForm(forms.ModelForm):
-	password1 =forms.CharField(label="Password",widget=forms.PasswordInput)
-	password2 =forms.CharField(label="Password Confirmation",widget=forms.PasswordInput)
+	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
+	password2 =forms.CharField(label="Password Confirmation",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password Confirmation'}))
 
 	class Meta:
-		model = MyUser
-		fields =['username','email']
+		model = User
+		fields =('username','email','password')
+		widgets = {
+			'username' : forms.TextInput(attrs={'class':'input100','placeholder':'UserName'}),
+			'email' : forms.EmailInput(attrs={'class':'input100','placeholder':'Email'}),
+			'password' : forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}),
+		}
+	
+	def clean_username(self):
+		username = self.cleaned_data['username'].lower()
+		r = User.objects.filter(username=username)
+		if r.count():
+			raise  forms.ValidationError("Username already exists")
+		return username
 
-	def clean_password(self):
-		password1 =self.cleaned_data.get('password1')
-		password2 =self.cleaned_data.get('password2')
-		if password1 and password2 and password1 != password2:
-			raise forms.ValidationError('Passwords do not match')
+	def clean_email(self):
+		email = self.cleaned_data['email'].lower()
+		r = User.objects.filter(email=email)
+		if r.count():
+			raise  forms.ValidationError("Email already exists")
+		return email
+
+	def clean_password2(self):
+		cleaned_data = super(UserCreationForm, self).clean()
+		password =cleaned_data.get('password')
+		password2 =cleaned_data.get('password2')
+
+		if password and password2 and password != password2:
+			 raise forms.ValidationError('Passwords do not match')
 		return password2
 
 
 	def save(self,commit=True):
-		user = super(UserCreationForm,self).save(commit=False)
-		user.set_password(self.cleaned_data['password1'])
-
+		user = super(UserCreationForm,self).save(commit)
+		user.set_password(self.cleaned_data['password'])
+		user.last_login = timezone.now()
 		if commit:
 			user.save()
 		return user
 
 
 class UserLoginForm(forms.Form):
-	query = forms.CharField(label = 'Usersername',widget=forms.TextInput(attrs={'class':'input100'}))
-	password = forms.CharField(label = 'Password',widget=forms.PasswordInput(attrs={'class':'input100'}))
+	query = forms.CharField(label = 'Usersername',widget=forms.TextInput(attrs={'class':'input100','placeholder':'UserName'}))
+	password = forms.CharField(label = 'Password',widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 
 	def clean(self,*args,**kwargs):
 		query = self.cleaned_data.get('query')

@@ -12,10 +12,11 @@ def register(request, *args , **kwargs):
 	form = UserCreationForm(request.POST or None)
 	if form.is_valid():
 		form.save()
-		return HttpResponseRedirect('/login')
+		return HttpResponseRedirect('../login')
 	context = {
 		'form' : form
 	}
+
 	return render(request,"Accounts/register.html",context)
 
 def login_view(request, *args , **kwargs):
@@ -26,9 +27,11 @@ def login_view(request, *args , **kwargs):
 		user = User.objects.get(username=request.POST['query'])
 		request.session['user_id'] = user.id
 		return HttpResponseRedirect("/")	
-	else:
-		print(form.errors) 	
-	return render(request,"Accounts/login.html",{"form":form})
+
+	context = {
+		'form' : form
+	}	
+	return render(request,"Accounts/login.html",context)
 
 def logout_view(request):
 	try:
