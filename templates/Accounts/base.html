@@ -1,0 +1,33 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+{%include 'Accounts/head.html'%}
+
+
+<body>
+ 	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+
+		    {% block content %}
+		    {% endblock %}
+
+				<div class="login100-more" style="background-image: url({% static 'Accounts/images/bg.jpg' %}); background-size:cover; background-position:center;"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div id="dropDownSelect1"></div>
+	
+
+
+ 
+  {% include 'Accounts/script.html' %}
+
+</body>
+
+</html>
