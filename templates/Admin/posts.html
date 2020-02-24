@@ -44,27 +44,15 @@
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary" align="center">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Title
-                        </th>
-                        <th>
-                          Image
-                        </th>
-                        <th>
-                          Content
-                        </th>
-                        <th>
-                          Date
-                        </th>
-                        <th>
-                          User
-                        </th>
+                        <th> ID </th>
+                        <th> Title </th>
+                        <th> Image </th>
+                        <th> Content </th>
+                        <th> Date </th>
+                        <th> User </th>
                         <th> Tags</th>
-                        <th>Categories</th>
-                        <th>Actions</th>
+                        <th> Categories </th>
+                        <th> Actions </th>
                       </thead>
                       <tbody align="center">
                         {% for post in all_posts %}
@@ -78,14 +66,14 @@
                           <td>
                             <ul>
                             {% for tag in post.tag.all  %}
-                            <li>{{tag.name}}</li>
+                              <li>{{tag.name}}</li>
                             {% endfor %}
                             </ul>
                           </td>
                           <td>
                             <ul>
                             {% for category in post.category.all  %}
-                            <li>{{category.Name}}</li>
+                              <li>{{category.Name}}</li>
                             {% endfor %}
                             </ul>
                           </td>
