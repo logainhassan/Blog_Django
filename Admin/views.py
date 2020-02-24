@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
 from Admin.forms import UserForm,PostForm
 from .models import *
-from Admin.forms import UserForm , Category_form ,ForbiddenForm
+from Admin.forms import *
 from django.views.generic import  ListView
 from django.db.models import Q
 
@@ -200,3 +200,76 @@ def post(request,num):
 	post = Posts.objects.get(post_id=num)
 	context = {'post':post}
 	return render(request,'Admin/post.html',context)
+
+
+# def tags(request):
+#     tags=Tag.objects.all()
+# 	context={
+# 		'tags': tags
+# 		}
+# 	return render(request,'Admin/tags.html',context)
+
+def tags(request):
+	tags=Tag.objects.all()
+	fields=Tag.get_model_fields(Tag)
+	context={
+		'object_list':tags,
+		'fields':fields,
+		'title':'Tags'
+		}
+	return render(request,'Admin/tags.html',context)
+
+def add_tag(request):
+	form=TagForm()
+	if request.method=='POST':
+		form=TagForm(request.POST)
+		if form.is_valid():
+			form.save()
+		return HttpResponseRedirect("/Admin/tags/")
+	else:
+		context={
+			'TagForm':form,
+			'title':'Add'
+			}
+		return render(request,'Admin/tag.html',context)
+
+
+	
+
+def edit_tag(request,num):
+	form=TagForm()
+	tag=Tag.objects.get(pk=num)
+	if request.method=='POST':
+		form=TagForm(request.POST,instance=tag)
+		if form.is_valid():
+			form.save()
+		return HttpResponseRedirect('/Admin/tags/')
+	else:
+		form=TagForm(instance=tag)
+		context={
+			'TagForm':form,
+			'title':'Edit'
+			}
+		return render(request,'Admin/tag.html',context)
+    
+
+def delete_tag(request,num):
+	tag=Tag.objects.get(pk=num)
+	tag.delete()
+	return HttpResponseRedirect('/Admin/tags/')
+
+
+
+class Tag_searchResults(ListView):
+	model=Tag
+	template_name='Admin/tags.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list=Tag.objects.filter(
+			name__icontains=query
+		)
+		return object_list
+	def get_context_data(self,**kwargs):
+		data=super().get_context_data(**kwargs)
+		data['fields']=Tag.get_model_fields(Tag)
+		return data

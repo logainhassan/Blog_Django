@@ -31,7 +31,13 @@ class Category_form(forms.ModelForm):
 		widgets={
 			'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
-
+class TagForm(forms.ModelForm):
+	class Meta:
+		model=Tag
+		fields=('name',)
+		widgets={
+			'name':forms.TextInput(attrs={'class':'form-control'})
+		}
 
 class ForbiddenForm(forms.ModelForm):
 	class Meta:
@@ -40,13 +46,18 @@ class ForbiddenForm(forms.ModelForm):
 		widgets = {
 			'word' : forms.TextInput(attrs={'class':'form-control'}),
 		}
-		
+
+
 class PostForm(forms.ModelForm):
+	# choices=Post.tag.all()
+    
+	# tag=forms.MultipleChoiceField(choices=(('s','s'),('s','a')),widget =forms.CheckboxSelectMultiple())
 	class Meta:
 		model = Post
-		fields = ('title','image','content','user')
+		fields = ('title','image','content','user','tag','category')
 		widgets = {
-			'title' : forms.TextInput(attrs={'class':'form-control'}),
-			'image' : forms.FileInput(attrs={'class':'form-control-image'}),
-			'content' : forms.TextInput(attrs={'class':'form-control'}),
+		'title' : forms.TextInput(attrs={'class':'form-control'}),
+		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
+		'content' : forms.TextInput(attrs={'class':'form-control'}),
 		}
+		# tag = forms.MultipleChoiceField(choices=CHOICES, widget=forms.CheckboxSelectMultiple())
