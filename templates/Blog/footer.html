@@ -13,7 +13,7 @@
 								
 								{% for cat in cats  %}
 								<li>
-									<a href="#">{{cat.Name}} <span>{{cat.categories.all|length}}</span></a>
+									<a href="/category/{{cat.Name}}">{{cat.Name}} <span>{{cat.posts.all|length}}</span></a>
 									
 								</li>
 								{% endfor %}
@@ -28,7 +28,7 @@
 							<ul>
 								{% for tag in tags  %}
 								
-								<li ><a href="#" style=" ">{{tag.name}}</a></li>
+								<li ><a href="/tag/{{tag.name}}" style=" ">{{tag.name}}</a></li>
 								
 								{% endfor %}
 							</ul>

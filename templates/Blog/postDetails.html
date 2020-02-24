@@ -19,7 +19,7 @@
 							<div class="post-category">
 							{% comment %} <span>Categories:</span> {% endcomment %}
 							{% for cat in post.category.all  %}
-								<a href="category.html">{{cat.Name}}</a>
+								<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
 							{% endfor %}
 								
 							</div>
@@ -44,7 +44,7 @@
 								<li >TAGS:</li>
 								{% for tag in post.tag.all  %}
 								
-								<li ><a href="#" style=" ">{{tag.name}}</a></li>
+								<li ><a href="/tag/{{tag.name}}" style=" ">{{tag.name}}</a></li>
 								
 								{% endfor %}
 							</ul>
