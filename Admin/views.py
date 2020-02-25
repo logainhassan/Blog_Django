@@ -12,7 +12,7 @@ from django.db.models import Q
 
 
 def table(request):
-	all_users = User.objects.all()
+	all_users = MyUser.objects.all()
 	context ={'all_users' : all_users}
 	return render(request, 'Admin/tables.html',context)
 
@@ -30,7 +30,7 @@ def addUser(request):
 
 
 def editUser(request,num):
-	user = User.objects.get(id =num)
+	user = MyUser.objects.get(id =num)
 	if request.method == "POST":
 		user_form = UserCreationForm(request.POST,instance = user)
 		if user_form.is_valid():
@@ -43,7 +43,7 @@ def editUser(request,num):
 
 
 def deleteUser(request,num):
-	user = User.objects.get(id = num)
+	user = MyUser.objects.get(id = num)
 	user.delete()
 	return HttpResponseRedirect("/Admin/table")
 
@@ -155,7 +155,7 @@ class Cat_searchResults(ListView):
 			
 def posts(request):
 	all_posts = Post.objects.all()
-	context = {'all_posts':all_posts}
+	context = {'object_list':all_posts}
 	return render(request,'Admin/posts.html',context)
 
 def addPost(request):
@@ -191,10 +191,10 @@ class PostSearch(ListView):
 	template_name = 'Admin/posts.html'
 	def get_queryset(self):
 		query=self.request.GET.get('q')
-		postlist = Post.objects.filter(
+		object_list = Post.objects.filter(
 			Q(title__icontains=query) | Q(content__icontains=query)
 		)
-		return postlist
+		return object_list
 
 def post(request,num):
 	post = Posts.objects.get(post_id=num)

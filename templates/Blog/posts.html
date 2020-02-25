@@ -14,8 +14,14 @@
 						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">{{Category.name}}</a>
-								<a href="category.html">Lifestyle</a>
+								{% for category in post.category.all %}
+								<a href="/category/{{category.Name}}">{{category.Name}}</a>
+								{%endfor%}
+							</div>
+							<div class="post-tag" style="font-weight:bold;">
+								{% for tag in post.tag.all %}
+								<a href="/tag/{{tag.name}}">{{tag.name}}</a>
+								{%endfor%}
 							</div>
 							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
 							<ul class="post-meta">

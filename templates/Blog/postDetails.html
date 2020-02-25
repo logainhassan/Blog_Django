@@ -6,7 +6,7 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-6">
 					<!-- post share -->
 
 					<!-- post content -->
@@ -36,7 +36,18 @@
 						
 					</div>
 					<!-- /post content -->
-
+					<!-- like and dislike buttons -->
+					<div class="section-row">
+						<div class="post-like">
+							<form method="POST" action="">
+								{% csrf_token %}
+								<input name="like" value="Like" type="submit" checked data-toggle="toggle" data-on="liked" data-off="like">
+								<input name="dislike" value="Dislike" type="submit" checked data-toggle="toggle" data-on="disliked" data-off="dislike">
+								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
+							</form>
+						</div>
+					</div>
+					<!-- /like and dislike buttons -->
 					<!-- post tags -->
 					<div class="section-row">
 						<div class="post-tags ">
@@ -170,6 +181,9 @@
 						</form>
 					</div>
 					<!-- /post comment -->
+				</div>
+				<div class="col-md-2">
+
 				</div>
 				<div class="col-md-4">
 				

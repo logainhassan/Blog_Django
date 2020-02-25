@@ -24,7 +24,14 @@
 								<a class="post-img" href="/post/{{top.id}}"><img class="img-fluid" style="height: 200px;" src="{{top.image.url}}" alt=""></a>
 								<div class="post-body">
 									<div class="post-category">
-										<a href="category.html">Travel</a>
+										{% for category in top.category.all %}
+										<a href="/category/{{category.Name}}">{{category.Name}}</a>
+										{%endfor%}
+										<div class="post-tag">
+											{% for tag in top.tag.all %}
+											<a style="font-weight:bold; color: black;" href="/tag/{{tag.name}}">{{tag.name}}</a>
+											{%endfor%}
+										</div>
 										<h3>{{top.title}}</h3>
 									</div>
 									<h3 class="post-title"><a href="/post/{{top.id}}">{{top.content}}</a></h3>

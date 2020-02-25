@@ -21,7 +21,7 @@ def allPosts(request) :
     cats=allCategories()
     context = {
         'recent':recent,
-        'allposts':allposts
+        'allposts':allposts,
         'cats':cats,
         'tags':tags,
         }
@@ -45,8 +45,18 @@ def PostDetails(request,num):
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
+        like_form = Likes(request.POST)
+        if request.POST.get('like'):
+            user = MyUser.objects.get(id=1)
+            like = User_Post.objects.create(post=post,user=user,like=True)
+            like.save()
+        if request.POST.get('dislike'):
+            user = MyUser.objects.get(id=1)
+            like = User_Post.objects.create(post=post,user=user,like=False)
+            like.save()
     else:
-        comment_form= CommentForm()        
+        comment_form= CommentForm()  
+           
     context={
         'post':post,
         'comments':comments,
@@ -88,3 +98,16 @@ def tagPosts(request,name):
         'tags':tags
         }
     return render(request,'Blog/cat_tag.html',context)
+
+# def like(request,num):  
+#     post=get_object_or_404(Post,id=num)
+#     if request.method == 'POST':
+#         like_form = Likes(request.POST)
+#         if request.POST.get('like'):
+#             like = User_Post.objects.create(post=num,user=1,like=True)
+#             like.save()
+#     return HttpResponseRedirect(post.get_absolute_url())
+        # elif request.POST.get('dislike'):
+        #     User_Post.like = False
+    
+
