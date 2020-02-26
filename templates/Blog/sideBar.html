@@ -32,7 +32,8 @@
 								{% for cat in cats  %}
 								<li>
 									<a href="/category/{{cat.Name}}">{{cat.Name}} <span>{{cat.posts.all|length}}</span></a>
-									<a href="#" class="supscripe-btn">Subscripe</a>
+									<a href="/category/sub-category/{{cat.id}}" class="supscripe-btn">Subscripe</a>
+									<a href="/category/unsub-category/{{cat.id}}" class="supscripe-btn">un Subscripe</a>
 								</li>
 								{% endfor %}
 							</ul>
