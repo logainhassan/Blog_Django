@@ -49,7 +49,7 @@
                             {%endfor%}
                           </thead>
                           <tbody>
-                            {%for cat in Categories%}
+                             {%for cat in Categories%}
                             <tr>
                               <td>{{cat.id}}</td>
                               <td>{{cat.Name}}</td>
@@ -89,12 +89,12 @@
                         {% for user in all_users %}
                         <tr>
                           <td>{{user.id}}</td>
-                          <td>{{user.user_name}}</td>
+                          <td>{{user.username}}</td>
                           <td>{{user.email}}</td>
                           
-                            {% if user.active == true %}
+                            {% if user.is_active == 1 %}
                               <td style="color :green;">Active</td>
-                            {% else %}
+                            {% elif user.is_active == 0 %}
                               <td style="color :red;">InActive</td>
                             {%endif%}
                       
