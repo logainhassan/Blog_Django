@@ -23,20 +23,21 @@ def addUser(request):
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('/Admin/users/')
-		context = {'form':form}
-		return render(request,'Admin/user.html',context)
-	else:	
-		context = {'form':form}
-		return render(request,'Admin/user.html',context)
+
+	context = {'form':form}
+	return render(request,'Admin/user.html',context)
 
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
-	form = UserChangeForm(request.POST or None,instance = user)
-	if form.is_valid():
-		form.save()
-		return HttpResponseRedirect("/Admin/users")
+	form = UserChangeForm(instance = user)
+	print("formaaak       " ,user.avatar.url)
+	if request.method == "POST":
+		form = UserChangeForm(request.POST ,request.FILES ,instance = user)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect("/Admin/users")
 
-	context = {'form':form}
+	context = {'form':form,'avatar':user.avatar.url}
 	return render(request,'Admin/edit_user.html',context)
 
 
