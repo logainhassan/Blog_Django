@@ -93,4 +93,4 @@ def sub_category(request,num):
         category.subscribes.add(request.user)   
         category.save()
     print(request.user)
-    return render(request,"Blog/cat_tag.html",{"subs":subs})
+    return HttpResponseRedirect("/")
