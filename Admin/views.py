@@ -11,7 +11,7 @@ from django.views.generic import  ListView
 
 
 def table(request):
-	all_users = User.objects.all()
+	all_users = MyUser.objects.all()
 	context ={'all_users' : all_users}
 	return render(request, 'Admin/tables.html',context)
 
