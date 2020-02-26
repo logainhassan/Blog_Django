@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 # Create your views here.
 def allTags():
     tags=Tag.objects.all()
-    return tags;
+    return tags
 
 def allCategories():
     categories=Category.objects.all()
@@ -15,14 +15,17 @@ def allCategories():
 
 
 def allPosts(request) :
-    
+    recent = recentPosts()
+    allposts = posts()
     tags=allTags()
     cats=allCategories()
-    context={
+    context = {
+        'recent':recent,
+        'allposts':allposts,
         'cats':cats,
         'tags':tags,
         }
-    return render(request,'Blog/allPosts.html',context)   
+    return render(request,'Blog/allPosts.html',context)
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
@@ -42,10 +45,18 @@ def PostDetails(request,num):
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
+        like_form = Likes(request.POST)
+        if request.POST.get('like'):
+            user = MyUser.objects.get(id=1)
+            like = User_Post.objects.create(post=post,user=user,like=True)
+            like.save()
+        if request.POST.get('dislike'):
+            user = MyUser.objects.get(id=1)
+            like = User_Post.objects.create(post=post,user=user,like=False)
+            like.save()
     else:
-        comment_form= CommentForm()        
-
-    
+        comment_form= CommentForm()  
+           
     context={
         'post':post,
         'comments':comments,
@@ -54,6 +65,15 @@ def PostDetails(request,num):
         'tags':tags
     } 
     return render(request,'Blog/postDetails.html',context)  
+
+
+def recentPosts():
+    all_top = Post.objects.order_by('-date')[:4]
+    return all_top
+    
+def posts():
+    posts = Post.objects.all().order_by('-date')
+    return posts
 
 def categoryPosts(request,name):
     category=Category.objects.get(Name=name)
@@ -78,3 +98,16 @@ def tagPosts(request,name):
         'tags':tags
         }
     return render(request,'Blog/cat_tag.html',context)
+
+# def like(request,num):  
+#     post=get_object_or_404(Post,id=num)
+#     if request.method == 'POST':
+#         like_form = Likes(request.POST)
+#         if request.POST.get('like'):
+#             like = User_Post.objects.create(post=num,user=1,like=True)
+#             like.save()
+#     return HttpResponseRedirect(post.get_absolute_url())
+        # elif request.POST.get('dislike'):
+        #     User_Post.like = False
+    
+

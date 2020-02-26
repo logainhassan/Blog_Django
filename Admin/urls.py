@@ -26,6 +26,7 @@ urlpatterns = [
     path('add_post/',views.addPost),
     path('edit_post/<num>',views.editPost),
     path('posts/<num>',views.deletePost),
+    path('posts/search/',views.PostSearch.as_view()),
     path('post/<num>',views.post),
 
     path('tags/',views.tags),
@@ -33,6 +34,5 @@ urlpatterns = [
     path('editTag/<num>',views.edit_tag),
     path('delTag/<num>',views.delete_tag),
     path('tag/search/',views.Tag_searchResults.as_view()),
-
 
 ]

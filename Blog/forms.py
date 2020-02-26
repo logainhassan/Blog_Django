@@ -12,3 +12,8 @@ class CommentForm(forms.ModelForm):
             
             'content':forms.Textarea(attrs={'class':'form-control input' , 'placeholder':'Message' }),
         }
+
+class Likes(forms.ModelForm):
+	class Meta:
+		model = User_Post
+		fields = ()
