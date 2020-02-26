@@ -17,9 +17,9 @@
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+            <form class="navbar-form" method="GET" action="/Admin/posts/search/">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
+                <input type="text" name="q" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -67,14 +67,14 @@
                         <th>Actions</th>
                       </thead>
                       <tbody align="center">
-                        {% for post in all_posts %}
+                        {% for post in object_list %}
                         <tr>
                           <td>{{post.id}}</td>
                           <td>{{post.title}}</td>
                           <td><img class="img-fluid" style="height: 100px;" src="{{post.image.url}}"></td>
                           <td >{{post.content}}</td>
                           <td>{{post.date}}</td>
-                          <td>{{post.user.id}}</td>
+                          <td>{{post.user.user_name}}</td>
                           <td>
                             <ul>
                             {% for tag in post.tag.all  %}
@@ -89,7 +89,6 @@
                             {% endfor %}
                             </ul>
                           </td>
-                          
                           
                           <td>
                             <!-- <div class="navbar-wrapper">

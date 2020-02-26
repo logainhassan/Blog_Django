@@ -5,8 +5,10 @@ from .models import *
 from Admin.forms import *
 
 from django.views.generic import  ListView
+from django.db.models import Q
 
 # Create your views here.
+
 
 
 def user(request):
@@ -50,7 +52,7 @@ def editUser(request,num):
 
 
 def deleteUser(request,num):
-	user = User.objects.get(id = num)
+	user = MyUser.objects.get(id = num)
 	user.delete()
 	return HttpResponseRedirect("/Admin/users")
 
@@ -162,8 +164,7 @@ class Cat_searchResults(ListView):
 			
 def posts(request):
 	all_posts = Post.objects.all()
-
-	context = {'all_posts':all_posts}
+	context = {'object_list':all_posts}
 	return render(request,'Admin/posts.html',context)
 
 def addPost(request):
@@ -193,6 +194,16 @@ def deletePost(request,num):
 	post= Post.objects.get(id=num)
 	post.delete()
 	return HttpResponseRedirect('/Admin/posts/')
+
+class PostSearch(ListView):
+	model = Post
+	template_name = 'Admin/posts.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list = Post.objects.filter(
+			Q(title__icontains=query) | Q(content__icontains=query)
+		)
+		return object_list
 
 def post(request,num):
 	post = Posts.objects.get(post_id=num)
