@@ -10,12 +10,8 @@ from django.db.models import Q
 # Create your views here.
 
 
-<<<<<<< HEAD
-def table(request):
-=======
 
 def user(request):
->>>>>>> 71a1c8c502a0ae6b5539607c65a4d9b9d8ed9f1a
 	all_users = MyUser.objects.all()
 	context ={'all_users' : all_users}
 	return render(request, 'Admin/tables.html',context)

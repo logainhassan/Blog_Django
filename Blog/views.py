@@ -55,14 +55,8 @@ def PostDetails(request,num):
             like = User_Post.objects.create(post=post,user=user,like=False)
             like.save()
     else:
-<<<<<<< HEAD
         comment_form= CommentForm()        
-
-
-=======
-        comment_form= CommentForm()  
            
->>>>>>> 71a1c8c502a0ae6b5539607c65a4d9b9d8ed9f1a
     context={
         'post':post,
         'comments':comments,
@@ -105,7 +99,6 @@ def tagPosts(request,name):
         }
     return render(request,'Blog/cat_tag.html',context)
 
-<<<<<<< HEAD
 
 def sub_category(request,num):
     category=Category.objects.get(id=num)
@@ -121,7 +114,6 @@ def sub_category(request,num):
         category.save()
     print(request.user)
     return HttpResponseRedirect("/")
-=======
 # def like(request,num):  
 #     post=get_object_or_404(Post,id=num)
 #     if request.method == 'POST':
@@ -134,4 +126,3 @@ def sub_category(request,num):
         #     User_Post.like = False
     
 
->>>>>>> 71a1c8c502a0ae6b5539607c65a4d9b9d8ed9f1a
