@@ -56,14 +56,13 @@ class MyUser(AbstractBaseUser):
   def get_short_name(self):
       return self.email
 
-
-# def has_perm(self,perm,obj=None):
+  def has_perm(self,perm,obj=None):
 #     "Does the user have a specific permission ?"
-#     return True
+      return True
 
-# def has_module_perms(self,app_label):
+  def has_module_perms(self,app_label):
 #     "Does the user have a permissions to view the app `app_label` ?"
-#     return True
+      return True
 
 class Forbidden(models.Model):
     word = models.CharField(max_length=100)
