@@ -4,7 +4,6 @@ from django import forms
 from django.db.models import Q
 from Admin.models import MyUser
 from django.utils import timezone
-from django.contrib.auth.hashers import check_password
 
 
 User = get_user_model()	
@@ -15,9 +14,11 @@ class UserCreationForm(forms.ModelForm):
 
 	class Meta:
 		model = User
-		fields =('username','email','password')
+		fields =('username','first_name','last_name','email','password')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'input100','placeholder':'UserName'}),
+			'first_name' : forms.TextInput(attrs={'class':'input100','placeholder':'FirstName','required':'True'}),
+			'last_name' : forms.TextInput(attrs={'class':'input100','placeholder':'LastName','required':'True'}),
 			'email' : forms.EmailInput(attrs={'class':'input100','placeholder':'Email'}),
 			'password' : forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}),
 		}
@@ -56,23 +57,22 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserLoginForm(forms.Form):
-	query = forms.CharField(label = 'Usersername',widget=forms.TextInput(attrs={'class':'input100','placeholder':'UserName'}))
+	query = forms.CharField(label = 'query',widget=forms.TextInput(attrs={'class':'input100','placeholder':'UserName/Email'}))
 	password = forms.CharField(label = 'Password',widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 
 	def clean(self,*args,**kwargs):
 		query = self.cleaned_data.get('query')
 		password = self.cleaned_data.get('password')
-		# user_qs_final = User.objects.filter(
-		# 		Q(username__iexact=query) |
-		# 		Q(email__iexact=query)
-		# 	).distinct()
 		user_qs_final = User.objects.filter(
-				Q(username__iexact=query)
+				Q(username__iexact=query) |
+				Q(email__iexact=query)
 			).distinct()
 		if not user_qs_final.exists() and user_qs_final.count != 1:
 			raise forms.ValidationError("Invalid credentials - user does not exist")
 		user_obj = user_qs_final.first()
 		if not user_obj.check_password(password):
 			raise forms.ValidationError("credentials are not correct")
+		if not user_obj.is_active:
+			raise forms.ValidationError("sorry you are blocked contact the admin")
 		self.cleaned_data["user_obj"] = user_obj
 		return super(UserLoginForm, self).clean(*args,**kwargs)

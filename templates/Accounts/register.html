@@ -1,7 +1,7 @@
 {% extends 'Accounts/base.html' %}
 
 	{% block content %}
-		<form class="login100-form validate-form" action="" method="post" autocomplete="off" style="padding-top: 14%;padding-bottom: 0px;">
+		<form class="login100-form validate-form" action="" method="post" autocomplete="off" style="padding-top: 9%;padding-bottom: 0px;">
             {% csrf_token %}
 			<span class="login100-form-title p-b-34">
 				Account Registration
@@ -18,6 +18,14 @@
 			</div>
 			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
 				 {{form.email}}
+				<span class="focus-input100"></span>
+			</div>
+			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+				 {{form.first_name}}
+				<span class="focus-input100"></span>
+			</div>
+			<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+				 {{form.last_name}}
 				<span class="focus-input100"></span>
 			</div>
 			

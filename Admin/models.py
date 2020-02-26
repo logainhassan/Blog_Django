@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import ( BaseUserManager,AbstractBaseUser)
 from django.core.validators import RegexValidator
 
-PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$'
+PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$'
 
 class MyUserManager(BaseUserManager):
   def create_user(self,username,email,password=None):
