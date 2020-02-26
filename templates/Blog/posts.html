@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-8">
+					<!-- post -->
+					
+					{% for post in allposts %}
+					<div class="post post-row">
+						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
+						<div class="post-body">
+							<div class="post-category">
+								{% for category in post.category.all %}
+								<a href="/category/{{category.Name}}">{{category.Name}}</a>
+								{%endfor%}
+							</div>
+							<div class="post-tag" style="font-weight:bold;">
+								{% for tag in post.tag.all %}
+								<a href="/tag/{{tag.name}}">{{tag.name}}</a>
+								{%endfor%}
+							</div>
+							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
+							<ul class="post-meta">
+								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li>{{post.date}}</li>
+							</ul>
+						</div>
+					</div>
+					{%endfor%}
+<!-- 
+					<div class="section-row loadmore text-center">
+						<a href="#" class="primary-button">Load More</a>
+					</div> -->
+				</div>
+				<div class="col-md-4">
+
+					
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
+	

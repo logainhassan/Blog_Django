@@ -14,8 +14,8 @@ class Category(models.Model):
         return self._meta.fields
 
 
-class Users(models.Model):
-    user_id = models.AutoField(primary_key=True)
+class User(models.Model):
+    # user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=100)
@@ -28,19 +28,19 @@ class Users(models.Model):
     role = models.IntegerField(default=2, choices=ROLES)
 
 
-class Posts(models.Model):
-    post_id = models.AutoField(primary_key=True)
+class Post(models.Model):
+    # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='Images/')
-    content = models.TextField(max_length=200)
-    date = models.DateTimeField()
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class User_Post(models.Model):
     id = models.CharField(primary_key=True, max_length=30)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     like = models.BooleanField()
 
     # def __init__(self):
@@ -48,17 +48,22 @@ class User_Post(models.Model):
 
 
 class Comment(models.Model):
-    id = models.IntegerField(primary_key=True)
-    date = models.DateField(default=datetime.datetime.now())
+    # id = models.IntegerField(primary_key=True)
+    date = models.DateField(auto_now_add=True)
     content = models.TextField(max_length=200)
-    reply_id = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
-    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
 
-class User_Category(models.Model):
-    User_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+# class User_Category(models.Model):
+#     User_id = models.ForeignKey(User, on_delete=models.CASCADE)
+#     Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     # def __init__(self):
     #     return self.id
+
+
+# class Post_Category(models.Model):
+# 	post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
+# 	Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)

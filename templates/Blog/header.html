@@ -1,0 +1,71 @@
+{% load static %}
+<!-- HEADER -->
+	<header id="header">
+		<!-- NAV -->
+		<div id="nav">
+			<!-- Top Nav -->
+			<div id="nav-top">
+				<div class="container">
+
+					<!-- logo -->
+					<div class="nav-logo">
+						<a href="index.html" class="logo"><img src="{% static 'Blog/img/logo.png'%}" alt=""></a>
+					</div>
+					<!-- /logo -->
+
+					<!-- search & aside toggle -->
+					<div class="nav-btns">
+						{% if user.role == 0 or user.role == 1 %}
+							<a href="Admin/users" style="margin-right: 10px;">Manage App</a>
+					    {% endif %}
+
+						{% if user.is_authenticated %}
+							<a href="/Accounts/logout">Log Out</a>
+					    {% else %}
+					    	<a href="/Accounts/login">Log In</a>
+					     {% endif %}	
+						<button class="aside-btn"><i class="fa fa-bars"></i></button>
+						<button class="search-btn"><i class="fa fa-search"></i></button>
+						<div id="nav-search">
+							<form>
+								<input class="input" name="search" placeholder="Enter your search...">
+							</form>
+							<button class="nav-close search-close">
+								<span></span>
+							</button>
+						</div>
+					</div>
+					<!-- /search & aside toggle -->
+				</div>
+			</div>
+			<!-- /Top Nav -->
+
+			<!-- Main Nav -->
+			<div id="nav-bottom">
+				<div class="container">
+					<!-- nav -->
+					<ul class="nav-menu">
+						<li><a href="/">Home</a></li>
+						<li><a href="about.html">About Us</a></li>
+						<li><a href="author.html">Author Page</a></li>
+
+					</ul>
+					<!-- /nav -->
+				</div>
+			</div>
+			<!-- /Main Nav -->
+
+			<!-- Aside Nav -->
+			<div id="nav-aside">
+				<ul class="nav-aside-menu">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="about.html">About Us</a></li>
+					<li><a href="author.html">Author Page</a></li>
+				</ul>
+				<button class="nav-close nav-aside-close"><span></span></button>
+			</div>
+			<!-- /Aside Nav -->
+		</div>
+		<!-- /NAV -->
+	</header>
+	<!-- /HEADER -->
