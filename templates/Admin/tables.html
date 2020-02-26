@@ -66,53 +66,49 @@
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary" align="center">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Email
-                        </th>
-                        <th>
-                          Status
-                        </th>
-                        <th>
-                          Role
-                        </th>
-                        <th>
-                          Actions
-                        </th>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Avatar</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Actions</th>
                       </thead>
                       <tbody align="center">
                         {% for user in all_users %}
                         <tr>
                           <td>{{user.id}}</td>
                           <td>{{user.username}}</td>
+                          <td>{{user.first_name}}</td>
+                          <td>{{user.last_name}}</td>
                           <td>{{user.email}}</td>
+                          {% if user.avatar %}
+                          <td><img class="img-fluid" style="height: 100px;" src="{{user.avatar.url}}"></td>
+                          {% endif %}
                           
-                            {% if user.is_active == 1 %}
-                              <td style="color :green;">Active</td>
-                            {% elif user.is_active == 0 %}
-                              <td style="color :red;">InActive</td>
-                            {%endif%}
+                          {% if user.is_active == 1 %}
+                            <td style="color :green;">Active</td>
+                          {% elif user.is_active == 0 %}
+                            <td style="color :red;">InActive</td>
+                          {%endif%}
                       
                           <td>{% if user.role == 0 %}
                           Super Admin
                           {% elif user.role == 1 %}
-                          Admin
+                           Admin
                           {% else %}
-                          User
-                           {%endif%}</td>
-                            <td>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
+                            User
+                          {%endif%}</td>
+                          <td>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                          </td>
                         </tr>
                       {%endfor%}
               

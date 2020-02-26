@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse ,HttpResponseRedirect
-from Admin.forms import PostForm,UserCreationForm
+from Admin.forms import PostForm,UserCreationForm,UserChangeForm
 from .models import *
 from Admin.forms import *
 
@@ -16,50 +17,33 @@ def user(request):
 
 
 def addUser(request):
-	form = UserCreationForm(request.POST or None)
-	if form.is_valid():
-		form.save()
-		return HttpResponseRedirect("/Admin/users")
-	context = {
-		
-		'form' : form
-	}
-	return render(request,'Admin/user.html',context)
-
-	# if request.method == "POST":
-	# 	user_form = UserCreationForm(request.POST)
-	# 	if user_form.is_valid():
-	# 		user_form.save()
-	# 	return HttpResponseRedirect("/Admin/table")
-	# else:
-	# 	user_form =UserForm() 
-	# 	context = {'user_form':user_form}
-	# 	return render(request,'Admin/user.html',context)
+	form = UserCreationForm()
+	if request.method=="POST":
+		form = UserCreationForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Admin/users/')
+		context = {'form':form}
+		return render(request,'Admin/user.html',context)
+	else:	
+		context = {'form':form}
+		return render(request,'Admin/user.html',context)
 
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
-	if request.method == "POST":
-		form = UserCreationForm(request.POST,instance = user)
-		if form.is_valid():
-			form.save()
+	form = UserChangeForm(request.POST or None,instance = user)
+	if form.is_valid():
+		form.save()
 		return HttpResponseRedirect("/Admin/users")
-	else:
-		form = UserCreationForm(instance = user)
-		context = {'form':form}
-		return render(request,'Admin/user.html',context)
+
+	context = {'form':form}
+	return render(request,'Admin/edit_user.html',context)
 
 
 def deleteUser(request,num):
 	user = User.objects.get(id = num)
 	user.delete()
 	return HttpResponseRedirect("/Admin/users")
-
-
-
-# def user(request):
-# 	# return render(request, 'Admin/user.html')
-# 	form = UserCreationForm()
-# 	return render(request, 'Admin/user.html',{'form':form})
 
 
 def Forbidden_Words(request):
