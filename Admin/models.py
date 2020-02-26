@@ -121,7 +121,7 @@ class Post(models.Model):
 
 
 class User_Post(models.Model):
-    id = models.CharField(primary_key=True, max_length=30)
+    #id = models.CharField(primary_key=True, max_length=30, auto_created=True)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     like = models.BooleanField()
