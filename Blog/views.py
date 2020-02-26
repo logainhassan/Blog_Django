@@ -46,17 +46,28 @@ def PostDetails(request,num):
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
         like_form = Likes(request.POST)
+        user = MyUser.objects.get(id=11)
         if request.POST.get('like'):
-            user = MyUser.objects.get(id=1)
-            like = User_Post.objects.create(post=post,user=user,like=True)
-            like.save()
+            likeExist = User_Post.objects.filter(user=user,post=post,like=True)
+            if likeExist.exists():
+                likeExist.delete()
+            else:
+                like = User_Post.objects.create(post=post,user=user,like=True)
+                like.save()
         if request.POST.get('dislike'):
-            user = MyUser.objects.get(id=1)
-            like = User_Post.objects.create(post=post,user=user,like=False)
-            like.save()
+            dislikeExist = User_Post.objects.filter(user=user,post=post,like=False)
+            if dislikeExist.exists():
+                dislikeExist.delete()
+            else:
+                dislike = User_Post.objects.create(post=post,user=user,like=False)
+                dislike.save()
+            maxDislikes = User_Post.objects.filter(like = '0').count() 
+            if maxDislikes==10:
+	            post.delete()
+	            return HttpResponseRedirect('')
     else:
         comment_form= CommentForm()  
-           
+    
     context={
         'post':post,
         'comments':comments,

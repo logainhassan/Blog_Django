@@ -41,8 +41,9 @@
 						<div class="post-like">
 							<form method="POST" action="">
 								{% csrf_token %}
-								<input name="like" value="Like" type="submit" checked data-toggle="toggle" data-on="liked" data-off="like">
-								<input name="dislike" value="Dislike" type="submit" checked data-toggle="toggle" data-on="disliked" data-off="dislike">
+								<input name="like" value="Like" type="submit">
+								<input name="dislike" value="Dislike" type="submit">
+								<i class="fas fa-thumbs-up"></i>
 								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
 							</form>
 						</div>
