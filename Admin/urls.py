@@ -3,12 +3,13 @@ from Admin import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
-    path('table/', views.table),
-    path('user/',views.user),
-    path('table/add_user',views.addUser),
-    path('table/edit_user/<num>',views.editUser),
-    path('table/delete_user/<num>',views.deleteUser),
+    path('users/', views.user),
+    # path('user/',views.user),
+    path('users/add_user',views.addUser),
+    path('users/edit_user/<num>',views.editUser),
+    path('users/delete_user/<num>',views.deleteUser),
 
     path('Forbidden_Words/', views.Forbidden_Words),
     path('Forbidden_Words/Add_Forbidden_Word', views.add_forbidden_word),
