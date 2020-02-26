@@ -12,7 +12,7 @@ from django.views.generic import  ListView
 
 def user(request):
 	all_users = MyUser.objects.all()
-	context ={'all_users' : all_users}
+	context ={'all_users' : all_users,"title":"User List"}
 	return render(request, 'Admin/tables.html',context)
 
 

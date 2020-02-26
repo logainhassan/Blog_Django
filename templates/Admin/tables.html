@@ -38,30 +38,8 @@
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title ">{{title}}</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                        {% comment %} <table class="table">
-                          <thead text-primary>
-                            {%for field in fields%}
-                            <th>{{field.name}}</th>
-                            {%endfor%}
-                          </thead>
-                          <tbody>
-                             {%for cat in Categories%}
-                            <tr>
-                              <td>{{cat.id}}</td>
-                              <td>{{cat.Name}}</td>
-                            </tr>
-                            {%endfor%}
-                          </tbody>
-                        </table> {% endcomment %}
-                        
-                        
-                    
-                   <h4 class="card-title ">Users List</h4>
-                </div>
+                
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
@@ -77,37 +55,54 @@
                         <th>Actions</th>
                       </thead>
                       <tbody align="center">
-                        {% for user in all_users %}
-                        <tr>
-                          <td>{{user.id}}</td>
-                          <td>{{user.username}}</td>
-                          <td>{{user.first_name}}</td>
-                          <td>{{user.last_name}}</td>
-                          <td>{{user.email}}</td>
-                          {% if user.avatar %}
-                          <td><img class="img-fluid" style="height: 100px;" src="{{user.avatar.url}}"></td>
+                        {% for users in all_users %}
+                          {% if users.id == user.id %}
+                          <tr style="background: #23425e;">
+                          {% else %}
+                           <tr>
+                          {% endif %}
+                          <td>{{users.id}}</td>
+                          <td>{{users.username}}</td>
+                          <td>{{users.first_name}}</td>
+                          <td>{{users.last_name}}</td>
+                          <td>{{users.email}}</td>
+                          {% if users.avatar %}
+                          <td><img class="img-fluid" style="height: 100px;" src="{{users.avatar.url}}"></td>
                           {% endif %}
                           
-                          {% if user.is_active == 1 %}
+                          {% if users.is_active == 1 %}
                             <td style="color :green;">Active</td>
-                          {% elif user.is_active == 0 %}
+                          {% elif users.is_active == 0 %}
                             <td style="color :red;">InActive</td>
                           {%endif%}
                       
-                          <td>{% if user.role == 0 %}
+                          <td>{% if users.role == 0 %}
                           Super Admin
-                          {% elif user.role == 1 %}
+                          {% elif users.role == 1 %}
                            Admin
                           {% else %}
                             User
                           {%endif%}</td>
                           <td>
-                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
+                            {% if user.role == 1 %}
+                             {% if users.role == 1 or users.role == 0 %}
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title="Disable Edit" disabled>
                                 <i class="material-icons">edit</i>
                               </button>
-                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Disable Delete" disabled>
                                 <i class="material-icons icon-image-preview">delete_outline</i>
                               </button>
+
+                            {% else %}
+                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Delete" >
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                               {% endif%}
+                            {% endif%}
+
                           </td>
                         </tr>
                       {%endfor%}
@@ -116,7 +111,6 @@
                     </table> 
                   </div>
                 </div>
-              </div>
             </div>
             
           </div>
