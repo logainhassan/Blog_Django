@@ -28,10 +28,10 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-  username = models.CharField(max_length=200, unique=True,verbose_name='username')
+  username = models.CharField(max_length=150, unique=True,verbose_name='username')
   first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
   last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
-  email = models.EmailField(max_length=254, unique=True,verbose_name='email address')
+  email = models.EmailField(max_length=150, unique=True,verbose_name='email address')
   password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
         message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
         ,code="invalid_password")],)
@@ -56,14 +56,13 @@ class MyUser(AbstractBaseUser):
   def get_short_name(self):
       return self.email
 
-
-# def has_perm(self,perm,obj=None):
+  def has_perm(self,perm,obj=None):
 #     "Does the user have a specific permission ?"
-#     return True
+      return True
 
-# def has_module_perms(self,app_label):
+  def has_module_perms(self,app_label):
 #     "Does the user have a permissions to view the app `app_label` ?"
-#     return True
+      return True
 
 class Forbidden(models.Model):
     word = models.CharField(max_length=100)
@@ -74,6 +73,7 @@ class Forbidden(models.Model):
 
 class Category(models.Model):
     Name = models.CharField(max_length=100)
+    subscribes=models.ManyToManyField(MyUser,related_name="users")
     def get_model_fields(self):
         return self._meta.fields
     def __str__(self):
@@ -95,7 +95,7 @@ class Category(models.Model):
 #     role = models.IntegerField(default=2, choices=ROLES)
 #     image = models.ImageField(upload_to='Users/',max_length=500,default=None)
 
-
+    
 class Tag(models.Model):
     name=models.CharField(max_length=100)
     def get_model_fields(self):
@@ -115,7 +115,7 @@ class Post(models.Model):
     category=models.ManyToManyField(Category,related_name='posts')
 
     def __str__(self):
-        return '{}{}'.format(self.title,str(self.user.user_name))
+        return '{}{}'.format(self.title,str(self.user.username))
     def get_absolute_url(self):
         return "/post/%i" % self.pk
 
