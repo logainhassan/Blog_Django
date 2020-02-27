@@ -122,11 +122,12 @@ class Post(models.Model):
 
 
 class User_Post(models.Model):
-    #id = models.CharField(primary_key=True, max_length=30, auto_created=True)
+    # id = models.CharField(primary_key=True, max_length=30,)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     like = models.BooleanField()
-
+    class Meta:
+        unique_together = ('user','post')
     # def __init__(self):
     #     return self.like
 
