@@ -29,10 +29,18 @@ def allPosts(request) :
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
+<<<<<<< HEAD
+    comments=Comment.objects.filter(post=post,reply=None).order_by('id')
+    tags=allTags()
+    cats=allCategories()
+    color = 0
+    if request.method=='POST':
+=======
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags = allTags()
     cats = allCategories()
     if request.method == 'POST':
+>>>>>>> fc637ad68bccafef670544e9a65edc527055551e
         comment_form=CommentForm(request.POST or None)
         if comment_form.is_valid():
             content=request.POST.get('content')
@@ -46,10 +54,12 @@ def PostDetails(request,num):
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
         like_form = Likes(request.POST)
-        user = MyUser.objects.get(id=11)
+        user = MyUser.objects.get(id=1)
         if request.POST.get('like'):
             likeExist = User_Post.objects.filter(user=user,post=post,like=True)
+            color = 1
             if likeExist.exists():
+                
                 likeExist.delete()
             else:
                 like = User_Post.objects.create(post=post,user=user,like=True)
@@ -74,13 +84,14 @@ def PostDetails(request,num):
         'comments':comments,
         'commentForm':comment_form,
         'cats':cats,
-        'tags':tags
+        'tags':tags,
+        'color':color,
     } 
     return render(request,'Blog/postDetails.html',context)  
 
 
 def recentPosts():
-    all_top = Post.objects.order_by('-date')[:4]
+    all_top = Post.objects.order_by('-date')[:5]
     return all_top
     
 def posts():

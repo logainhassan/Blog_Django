@@ -204,7 +204,7 @@ class PostSearch(ListView):
 		return object_list
 
 def post(request,num):
-	post = Posts.objects.get(post_id=num)
+	post = Post.objects.get(id=num)
 	context = {'post':post}
 	return render(request,'Admin/post.html',context)
 

@@ -14,8 +14,8 @@ class UserCreationForm(forms.ModelForm):
 
 
 	class Meta:
-		model = User
-		fields =('username','email','first_name','last_name','avatar', 'password','is_active','role')
+		model = MyUser
+		fields =('username','email','password','is_active','role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -29,14 +29,14 @@ class UserCreationForm(forms.ModelForm):
 	
 	def clean_username(self):
 		username = self.cleaned_data['username'].lower()
-		r = User.objects.filter(username=username)
+		r = MyUser.objects.filter(username=username)
 		if r.count():
 			raise  forms.ValidationError("Username already exists")
 		return username
 
 	def clean_email(self):
 		email = self.cleaned_data['email'].lower()
-		r = User.objects.filter(email=email)
+		r = MyUser.objects.filter(email=email)
 		if r.count():
 			raise  forms.ValidationError("Email already exists")
 		return email
