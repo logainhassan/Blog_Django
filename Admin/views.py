@@ -176,6 +176,11 @@ def posts(request):
 	context = {'object_list':all_posts}
 	return render(request,'Admin/posts.html',context)
 
+def view_Post_Details(request, num):
+	all_post_Details = Post.objects.get(id = num)
+	context = {'all_post_Details':all_post_Details}
+	return render(request,'Admin/post_Ditails.html',context)
+
 def addPost(request):
 	form = PostForm()
 	if request.method=="POST":
