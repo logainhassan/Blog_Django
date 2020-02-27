@@ -72,7 +72,7 @@ class UserChangeForm(forms.ModelForm):
 	
 
 	class Meta:
-		model = User
+		model = MyUser
 		fields = ('username','email','first_name','last_name','avatar', 'is_active', 'role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
