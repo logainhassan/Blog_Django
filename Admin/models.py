@@ -40,6 +40,7 @@ class MyUser(AbstractBaseUser):
         (1, 'Admin'),
         (2, 'User'),
     )
+    
     role = models.IntegerField(default=2, choices=ROLES,verbose_name='role')
     is_active = models.BooleanField(default=True,verbose_name='active status')
     avatar = models.ImageField(max_length=200,upload_to='Images/',null=True)
