@@ -28,13 +28,13 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-  username = models.CharField(max_length=150, unique=True,verbose_name='username')
-  first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
-  last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
-  email = models.EmailField(max_length=150, unique=True,verbose_name='email address')
-  password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
-        message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
-        ,code="invalid_password")],)
+    username = models.CharField(max_length=150, unique=True,verbose_name='username')
+    first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
+    last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
+    email = models.EmailField(max_length=150, unique=True,verbose_name='email address')
+    password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
+            message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
+            ,code="invalid_password")],)
     ROLES = (
         (0, 'Super_Admin'),
         (1, 'Admin'),
@@ -57,13 +57,13 @@ class MyUser(AbstractBaseUser):
     def get_short_name(self):
         return self.email
 
-  def has_perm(self,perm,obj=None):
-#     "Does the user have a specific permission ?"
-      return True
+    def has_perm(self,perm,obj=None):
+        #"Does the user have a specific permission ?"
+        return True
 
-  def has_module_perms(self,app_label):
-#     "Does the user have a permissions to view the app `app_label` ?"
-      return True
+    def has_module_perms(self,app_label):
+        #"Does the user have a permissions to view the app `app_label` ?"
+        return True
 
 class Forbidden(models.Model):
     word = models.CharField(max_length=100)
@@ -121,7 +121,7 @@ class Post(models.Model):
         return "/post/%i" % self.pk
 
     def content_short(self):
-        return self.content[:200]
+        return self.content[:150]
 
 
 class User_Post(models.Model):
