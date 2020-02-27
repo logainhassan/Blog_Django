@@ -93,7 +93,7 @@ def PostDetails(request, num):
         'commentForm':comment_form,
         'cats':cats,
         'tags':tags,
-        'color':color,
+        # 'color':color,
     } 
     return render(request,'Blog/postDetails.html',context)  
 
