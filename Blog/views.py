@@ -28,7 +28,6 @@ def allPosts(request) :
     return render(request,'Blog/allPosts.html',context)
 
 def PostDetails(request, num):
-
     bad_list = []
     forbidden_words = Forbidden.objects.all()
     for bad_word in forbidden_words:
