@@ -17,7 +17,13 @@
 			<div >
  				<h4 style="color:red;">{{ form.non_field_errors.as_text }}</h4>
  			</div>
-
+ 			{% if messages %}
+			<ul class="messages">
+			    {% for message in messages %}
+			    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+			    {% endfor %}
+			</ul>
+			{% endif %}
 			
 			<div class="container-login100-form-btn">
 				<button class="login100-form-btn">

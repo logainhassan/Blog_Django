@@ -39,7 +39,7 @@ def PostDetails(request, num):
     tags = allTags()
     cats = allCategories()
     if request.method == 'POST':
-        comment_form=CommentForm(request.POST or None)
+        comment_form=CommentForm(request.POST or None,request.FILES or None)
         if comment_form.is_valid():
             content=request.POST.get('content')
             new_comment = []

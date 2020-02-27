@@ -11,8 +11,12 @@ class UserCreationForm(forms.ModelForm):
 	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
-
-
+	ROLES = (
+      (1, 'Admin'),
+      (2, 'User'),
+ 	)
+	role= forms.CharField(label = "role", widget=forms.Select(choices=ROLES,attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }))
+	
 	class Meta:
 		model = MyUser
 		fields =('username','email','password','is_active','role')
@@ -21,10 +25,8 @@ class UserCreationForm(forms.ModelForm):
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image','required':'false'}),
 			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 	
 	def clean_username(self):
@@ -62,6 +64,13 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
+	ROLES = (
+      (1, 'Admin'),
+      (2, 'User'),
+ 	)
+	role= forms.CharField(label = "role", widget=forms.Select(choices=ROLES,attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }))
+	
+
 	class Meta:
 		model = User
 		fields = ('username','email','first_name','last_name','avatar', 'is_active', 'role')
@@ -70,9 +79,7 @@ class UserChangeForm(forms.ModelForm):
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image'}),
 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 
 	def clean_username(self):

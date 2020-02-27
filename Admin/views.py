@@ -44,21 +44,30 @@ class userSearch(ListView):
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
 	form = UserChangeForm(instance = user)
-	print("formaaak       " ,user.avatar.url)
-	if request.method == "POST":
-		form = UserChangeForm(request.POST ,request.FILES ,instance = user)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect("/Admin/users")
 
-	context = {'form':form,'avatar':user.avatar.url}
-	return render(request,'Admin/edit_user.html',context)
+	if request.user.role != user.role or request.user.id == user.id :
+		print("loglog : ",request.user.id)
+		print("lagalego : ",user.id)
+		if request.method == "POST":
+			form = UserChangeForm(request.POST ,request.FILES ,instance = user)
+			if form.is_valid():
+				form.save()
+				return HttpResponseRedirect("/Admin/users")
+		context = {'form':form,'avatar':user.avatar.url}
+		return render(request,'Admin/edit_user.html',context)
+	else:
+		return HttpResponseRedirect("/Admin/users")
+	
 
 
 def deleteUser(request,num):
 	user = MyUser.objects.get(id = num)
-	user.delete()
-	messages.success(request, 'Message sent.')
+	if request.user.role != user.role :
+		user.delete()
+	elif request.user.id == user.id :
+		user.delete()
+		return HttpResponseRedirect("/Accounts/login")
+
 	return HttpResponseRedirect("/Admin/users")
 
 
