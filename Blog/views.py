@@ -29,10 +29,10 @@ def allPosts(request) :
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
-    comments=Comment.objects.filter(post=post,reply=None).order_by('id')
-    tags=allTags()
-    cats=allCategories()
-    if request.method=='POST':
+    comments = Comment.objects.filter(post=post,reply=None).order_by('id')
+    tags = allTags()
+    cats = allCategories()
+    if request.method == 'POST':
         comment_form=CommentForm(request.POST or None)
         if comment_form.is_valid():
             content=request.POST.get('content')
@@ -41,7 +41,7 @@ def PostDetails(request,num):
             # if reply_id:
             #     replays_qs=Comment.objects.get(id=reply_id)
             #     print(replays_qs)
-            comment=Comment.objects.create(post=post,content=content,user_id=2,reply_id=reply_id)
+            comment=Comment.objects.create(post=post,content=content,user_id=1,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
@@ -55,7 +55,7 @@ def PostDetails(request,num):
             like = User_Post.objects.create(post=post,user=user,like=False)
             like.save()
     else:
-        comment_form= CommentForm()  
+        comment_form= CommentForm()        
            
     context={
         'post':post,
@@ -99,6 +99,21 @@ def tagPosts(request,name):
         }
     return render(request,'Blog/cat_tag.html',context)
 
+
+def sub_category(request,num):
+    category=Category.objects.get(id=num)
+    subs=category.subscribes.all()
+    user=subs.filter(id=request.user.id).first()
+    # print(user)
+    print(subs)
+    if user :
+        print(user.id)
+        category.subscribes.remove(user)
+    else:
+        category.subscribes.add(request.user)   
+        category.save()
+    print(request.user)
+    return HttpResponseRedirect("/")
 # def like(request,num):  
 #     post=get_object_or_404(Post,id=num)
 #     if request.method == 'POST':
