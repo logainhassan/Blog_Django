@@ -98,7 +98,7 @@ def edit_forbidden_word(request, num):
 	return render(request, 'Admin/add_forbidden_word.html', context)
 
 def Search_forbidden_word(request):
-	template = 'admin/forbidden_words.html'
+	template = 'Admin/forbidden_words.html'
 	query = request.GET.get('word')
 	results = Forbidden.objects.filter(Q(word__icontains = query))
 
