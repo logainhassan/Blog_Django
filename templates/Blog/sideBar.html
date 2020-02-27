@@ -6,6 +6,7 @@
 						</div>
 						<div class="category-widget">
 							<ul>
+
 								{% comment %} <li>
 									<a href="#">Lifestyle <span>451</span></a>
 									<a href="#" class="supscripe-btn">Subscripe</a>
@@ -29,19 +30,27 @@
 									<a href="#" class="supscripe-btn">Subscripe</a>
 								</li> {% endcomment %}
 
+
 								{% for cat in cats  %}
 								<li>
-									<a href="/category/{{cat.Name}}">{{cat.Name}} <span>{{cat.posts.all|length}}</span></a>
+									<a class="paddind_top" href="/category/{{cat.Name}}">{{cat.Name}} <span>{{cat.posts.all|length}}</span></a>
+
 								
-									{% if request.user in cat.subscribes.all %}
-										<a href="/category/unsub-category/{{cat.id}}" class="supscripe-btn">un Subscripe</a>
-									{% else %}
-										<a href="/category/sub-category/{{cat.id}}" class="supscripe-btn">Subscripe</a>
+									{% if user.is_authenticated %}
+										{% if request.user in cat.subscribes.all %}
+											<a href="/category/unsub-category/{{cat.id}}" class="supscripe-btn">un Subscripe</a>
+										{% else %}
+											<a href="/category/sub-category/{{cat.id}}" class="supscripe-btn">Subscripe</a>
+										{% endif %}
 									{% endif %}
+
+
+										
+									</li>
+									{% endfor %}
+
 									
-									
-								</li>
-								{% endfor %}
+								
 							</ul>
 						</div>
 					</div>

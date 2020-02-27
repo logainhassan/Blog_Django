@@ -29,7 +29,13 @@ def allPosts(request) :
         }
     return render(request,'Blog/allPosts.html',context)
 
-def PostDetails(request,num):
+def PostDetails(request, num):
+
+    bad_list = []
+    forbidden_words = Forbidden.objects.all()
+    for bad_word in forbidden_words:
+        bad_list.append(bad_word.word)
+
     post=get_object_or_404(Post,id=num)
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags = allTags()
@@ -42,15 +48,26 @@ def PostDetails(request,num):
 
     user = MyUser.objects.get(id=request.user.id)
     if request.method == 'POST':
-        comment_form=CommentForm(request.POST or None)
+        comment_form=CommentForm(request.POST or None,request.FILES or None)
+
         if comment_form.is_valid():
             content=request.POST.get('content')
+            new_comment = []
+            comment_words = content.split(" ")
+            for word in comment_words:
+                if word in bad_list:
+                    word = len(word) * "*"
+
+                new_comment.append(word)
+
+            new_comment_clear = ' '.join(map(str, new_comment))
+
             reply_id=request.POST.get('comment_id')  
             replys_qs=None
             # if reply_id:
             #     replays_qs=Comment.objects.get(id=reply_id)
             #     print(replays_qs)
-            comment=Comment.objects.create(post=post,content=content,user_id=1,reply_id=reply_id)
+            comment=Comment.objects.create(post=post,content=new_comment_clear,user_id=1,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
@@ -124,7 +141,7 @@ def categoryPosts(request,name):
         'posts':posts,
         'cats':categories,
         'tags':tags
-        }
+    }
     return render(request,'Blog/cat_tag.html',context)
 
 def tagPosts(request,name):
@@ -136,7 +153,7 @@ def tagPosts(request,name):
         'posts':posts,
         'cats':categories,
         'tags':tags
-        }
+    }
     return render(request,'Blog/cat_tag.html',context)
 
 

@@ -7,30 +7,36 @@
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-8">
+					<div class="section-title">
+						<h2 class="title">All posts</h2>
+					</div>
 					<!-- post -->
-					
 					{% for post in allposts %}
-					<div class="post post-row">
-						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
+					<div class="post post-row post_add_shadow">
+						<a class="post-img raduis_img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
 						<div class="post-body">
+							
+							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
+							<p>{{post.content_short}}...</p>
 							<div class="post-category">
 								{% for category in post.category.all %}
-								<a href="/category/{{category.Name}}">{{category.Name}}</a>
-								{%endfor%}
+									<a class="cat_link" href="/category/{{category.Name}}">{{category.Name}}</a>
+								{% endfor %}
 							</div>
-							<div class="post-tag" style="font-weight:bold;">
+							<div class="post-tag">
 								{% for tag in post.tag.all %}
-								<a href="/tag/{{tag.name}}">{{tag.name}}</a>
-								{%endfor%}
+									<a class="tag_link" href="/tag/{{tag.name}}">{{tag.name}}</a>
+								{% endfor %}
 							</div>
-							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">{{post.user.user_name}}</a></li>
-								<li>{{post.date}}</li>
+								<li><a href="author.html">{{post.user.username}}</a></li>
+								<li>{{ post.date}}</li>
 							</ul>
 						</div>
 					</div>
-					{%endfor%}
+					{% endfor %}
+					<!-- /post -->
+
 <!-- 
 					<div class="section-row loadmore text-center">
 						<a href="#" class="primary-button">Load More</a>
