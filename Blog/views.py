@@ -24,7 +24,7 @@ def allPosts(request) :
         }
     return render(request,'Blog/allPosts.html',context)   
 
-def PostDetails(request,num):
+def PostDetails(request, num):
     post=get_object_or_404(Post,id=num)
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags=allTags()
@@ -76,5 +76,5 @@ def tagPosts(request,name):
         'posts':posts,
         'cats':categories,
         'tags':tags
-        }
+    }
     return render(request,'Blog/cat_tag.html',context)
