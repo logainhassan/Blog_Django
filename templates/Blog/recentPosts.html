@@ -20,101 +20,40 @@
 						{% for top in recent %}
 						<div class="col-md-6">
 							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/post-1.jpg'%}" alt=""></a>
-								<div class="post-body recent_post_style">
-								
 								<a class="post-img" href="/post/{{top.id}}"><img class="img-fluid" style="height: 200px;" src="{{top.image.url}}" alt=""></a>
-								<div class="post-body">
+								<div class="post-body recent_post_style post_add_shadow">
+
+									<h2><a class="link_white" href="/post/{{top.id}}">{{top.title}}</a></h2>
+									<p class="post-title p_content"> {{top.content_short}} </p>
 									<div class="post-category">
-										<a class="cat_link" href="category.html">Travel</a>
+										<div class="post_cat">
 										{% for category in top.category.all %}
-										<a href="/category/{{category.Name}}">{{category.Name}}</a>
-										{%endfor%}
+											<a class="cat_link" href="/category/{{category.Name}}">{{category.Name}}</a>
+										{% endfor %}
+										</div>
 										<div class="post-tag">
 											{% for tag in top.tag.all %}
-											<a style="font-weight:bold; color: black;" href="/tag/{{tag.name}}">{{tag.name}}</a>
-											{%endfor%}
+												<a class="tag_link" style="font-weight:bold; color: black;" href="/tag/{{tag.name}}">{{tag.name}}</a>
+											{% endfor %}
 										</div>
-										<h3>{{top.title}}</h3>
 									</div>
-									<h3 class="post-title"><a class="link_white" href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<h3 class="post-title"><a href="/post/{{top.id}}">{{top.content}}</a></h3>
-									<h3></h3>
 									<ul class="post-meta">
-										<li><a class="link_ccc" href="author.html">John Doe</a></li>
-										<li class="link_ccc" >20 April 2018</li>
-										<li><a href="author.html">{{top.user.user_name}}</a></li>
-										<li>{{top.date}}</li>
+										<li><a class="link_ccc" href="author.html">{{top.user.username}}</a></li>
+										<li class="link_ccc" >{{top.date}}</li>
 									</ul>
-								</div>
-							</div>
-						</div>
-						{%endfor%}
-						<!-- /post -->
 
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/post-2.jpg'%}" alt=""></a>
-								<div class="post-body recent_post_style">
-									<div class="post-category">
-										<a class="cat_link" href="category.html">Technology</a>
-										<a class="cat_link" href="category.html">Lifestyle</a>
-									</div>
-									<h3 class="post-title"><a class="link_white" href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-									<ul class="post-meta">
-										<li><a class="link_ccc" href="author.html">John Doe</a></li>
-										<li class="link_ccc" >20 April 2018</li>
-									</ul>
 								</div>
 							</div>
 						</div>
+						{% endfor %}
 						<!-- /post -->
-						<!-- <div class="clearfix visible-md visible-lg"></div> -->
 
 						<div class="clearfix visible-md visible-lg"></div>
 
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/post-4.jpg'%}" alt=""></a>
-								<div class="post-body recent_post_style">
-									<div class="post-category">
-										<a class="cat_link" href="category.html">Health</a>
-									</div>
-									<h3 class="post-title"><a class="link_white" href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-									<ul class="post-meta">
-										<li><a class="link_ccc" href="author.html">John Doe</a></li>
-										<li class="link_ccc" >20 April 2018</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/post-7.jpg'%}" alt=""></a>
-								<div class="post-body recent_post_style">
-									<div class="post-category">
-										<a class="cat_link" href="category.html">Health</a>
-										<a class="cat_link" href="category.html">Lifestyle</a>
-									</div>
-									<h3 class="post-title"><a class="link_white" href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<ul class="post-meta">
-										<li><a class="link_ccc" href="author.html">John Doe</a></li>
-										<li class="link_ccc">20 April 2018</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
 						
 					</div>
 					<!-- /row -->
 
-					<hr>
 				</div>
 				<div class="col-md-4">
 				
