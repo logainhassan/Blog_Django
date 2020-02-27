@@ -41,31 +41,31 @@
 						<div class="post-like">
 							<form method="POST" action="">
 								{% csrf_token %}
-								<p>{{color}}</p>
-								{%if color%}
-
-								<button class="like" style="color: white;">
-									<i class="fa fa-thumbs-up"></i>
-									<input name="like" value="Like" type="submit" >
-								</button>
-								{%else%}
-								<button class="like" style="color: purple;">
-									<i class="fa fa-thumbs-up"></i>
-									<input name="like" value="Like" type="submit" >
-								</button>
-								{%endif%}
 								
-								<button>
-									<i class="fa fa-thumbs-down"></i>
-									<input name="dislike" value="Dislike" type="submit">
-								</button>
+								<span>{{likeCounter}}</span>
+								
+									<span>{{dislikeCounter}}</span>
+								
+									<button class="like" style="color: purple;">
+										<i class="fa fa-thumbs-up"></i>
+										<input name="like" value="Like" type="submit" >
+									</button>
+									
+									<button style="color: purple;">
+										<i class="fa fa-thumbs-down"></i>
+										<input name="dislike" value="Dislike" type="submit">
+									</button>
+								
+							
+								
+					
 								<!-- checked data-toggle="toggle" data-on="style='background-color='red''" data-off="style='background-color='blue''" -->
 								<!-- data-toggle="toggle" data-on="liked" data-off="like" -->
 								
 								
 									<!-- <button name="like" type="submit" class="like">Like</button>
 									<button name="dislike" type="submit" class="dislike">Dislike</button> -->
-									<style>
+									<!-- <style>
 										.like {
 											background-color: white;
 											color:lawngreen;
@@ -96,7 +96,7 @@
 												$(this).toggleClass('pressed');
 											});
 										});
-									</script>
+									</script> -->
 								
 								
 								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
@@ -255,5 +255,5 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
-	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
 {% endblock  %}

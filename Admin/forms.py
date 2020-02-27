@@ -63,7 +63,7 @@ class UserCreationForm(forms.ModelForm):
 class UserChangeForm(forms.ModelForm):
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
 	class Meta:
-		model = User
+		model = MyUser
 		fields = ('username','email','first_name','last_name','avatar', 'is_active', 'role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),

@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404
 from Blog.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
   
+from django.views.generic import  ListView
+from django.db.models import Q
 # Create your views here.
 def allTags():
     tags=Tag.objects.all()
@@ -29,18 +31,17 @@ def allPosts(request) :
 
 def PostDetails(request,num):
     post=get_object_or_404(Post,id=num)
-<<<<<<< HEAD
-    comments=Comment.objects.filter(post=post,reply=None).order_by('id')
-    tags=allTags()
-    cats=allCategories()
-    color = 0
-    if request.method=='POST':
-=======
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags = allTags()
     cats = allCategories()
+    likeCounter = User_Post.objects.filter(post=post,like='1').count()
+    dislikeCounter = User_Post.objects.filter(post=post,like='0').count()
+    # color=0
+    # dicolor=0
+    like_form = Likes(request.POST)
+
+    user = MyUser.objects.get(id=request.user.id)
     if request.method == 'POST':
->>>>>>> fc637ad68bccafef670544e9a65edc527055551e
         comment_form=CommentForm(request.POST or None)
         if comment_form.is_valid():
             content=request.POST.get('content')
@@ -53,22 +54,25 @@ def PostDetails(request,num):
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
-        like_form = Likes(request.POST)
-        user = MyUser.objects.get(id=1)
+        
+        print ("here we are",user)
         if request.POST.get('like'):
             likeExist = User_Post.objects.filter(user=user,post=post,like=True)
-            color = 1
             if likeExist.exists():
-                
                 likeExist.delete()
+                # color=0
             else:
+                # color=1
                 like = User_Post.objects.create(post=post,user=user,like=True)
                 like.save()
         if request.POST.get('dislike'):
             dislikeExist = User_Post.objects.filter(user=user,post=post,like=False)
+            
             if dislikeExist.exists():
                 dislikeExist.delete()
+                # dicolor = 0
             else:
+                # dicolor = 1
                 dislike = User_Post.objects.create(post=post,user=user,like=False)
                 dislike.save()
             maxDislikes = User_Post.objects.filter(like = '0').count() 
@@ -85,7 +89,9 @@ def PostDetails(request,num):
         'commentForm':comment_form,
         'cats':cats,
         'tags':tags,
-        'color':color,
+        # 'color':color,
+        'likeCounter':likeCounter,
+        'dislikeCounter':dislikeCounter
     } 
     return render(request,'Blog/postDetails.html',context)  
 
@@ -97,6 +103,17 @@ def recentPosts():
 def posts():
     posts = Post.objects.all().order_by('-date')
     return posts
+
+class PostSearch(ListView):
+	model = Post
+	template_name = 'Blog/allposts.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list = Post.objects.filter(
+			Q(title__icontains=query) | Q(content__icontains=query)
+		)
+        # context = {'object_list':object_list}
+		return object_list
 
 def categoryPosts(request,name):
     category=Category.objects.get(Name=name)
