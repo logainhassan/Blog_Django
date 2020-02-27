@@ -18,7 +18,7 @@
 						<!-- post 1-->
 						
 						{% for top in recent %}
-						<div class="col-md-4">
+						<div class="col-md-6">
 							<div class="post">
 								<a class="post-img" href="/post/{{top.id}}"><img class="img-fluid" style="height: 200px;" src="{{top.image.url}}" alt=""></a>
 								<div class="post-body recent_post_style post_add_shadow">
@@ -33,7 +33,7 @@
 										</div>
 										<div class="post-tag">
 											{% for tag in top.tag.all %}
-												<a class="tag_link" style="font-weight:bold; color: black;" href="/tag/{{tag.name}}">{{tag.name}}</a>
+												<a class="tag_link" href="/tag/{{tag.name}}">{{tag.name}}</a>
 											{% endfor %}
 										</div>
 									</div>
