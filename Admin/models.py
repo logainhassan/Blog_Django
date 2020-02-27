@@ -33,7 +33,7 @@ class MyUser(AbstractBaseUser):
   last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
   email = models.EmailField(max_length=150, unique=True,verbose_name='email address')
   password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
-        message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
+        message="Password must contain at least one letter, at least one number, and be longer than eight characters."
         ,code="invalid_password")],)
   ROLES = (
       (0, 'Super_Admin'),
@@ -42,7 +42,7 @@ class MyUser(AbstractBaseUser):
   )
   role = models.IntegerField(default=2, choices=ROLES,verbose_name='role')
   is_active = models.BooleanField(default=True,verbose_name='active status')
-  avatar = models.ImageField(max_length=500,upload_to='Images/',null=True)
+  avatar = models.ImageField(max_length=500,upload_to='Users/',null=True ,default="/Users/new_logo.png")
   is_staff= models.BooleanField(default=True, verbose_name='staff status')
 
   objects = MyUserManager()
@@ -51,10 +51,11 @@ class MyUser(AbstractBaseUser):
   REQUIRED_FIELDS = ['email']
 
   def __str__(self):
-      return self.email
+      return self.username
 
   def get_short_name(self):
-      return self.email
+      return self.first_name
+
 
   def has_perm(self,perm,obj=None):
 #     "Does the user have a specific permission ?"
@@ -121,11 +122,12 @@ class Post(models.Model):
 
 
 class User_Post(models.Model):
-    #id = models.CharField(primary_key=True, max_length=30, auto_created=True)
+    # id = models.CharField(primary_key=True, max_length=30,)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     like = models.BooleanField()
-
+    class Meta:
+        unique_together = ('user','post')
     # def __init__(self):
     #     return self.like
 
