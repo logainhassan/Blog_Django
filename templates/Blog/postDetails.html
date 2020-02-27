@@ -37,6 +37,7 @@
 					</div>
 					<!-- /post content -->
 					<!-- like and dislike buttons -->
+					{% if user.is_authenticated %}
 					<div class="section-row">
 						<div class="post-like">
 							<form method="POST" action="">
@@ -48,6 +49,7 @@
 							</form>
 						</div>
 					</div>
+					{% endif %}
 					<!-- /like and dislike buttons -->
 					<!-- post tags -->
 					<div class="section-row">
@@ -127,6 +129,7 @@
 									</div>
 									<!-- /reply -->
 									{% endfor %}
+									{% if user.is_authenticated %}
 									<a href="#" class="reply replybtn">Reply</a>
 									<!--replay form-->
 										
@@ -150,6 +153,7 @@
 												</div>
 											</form>
 										</div>
+									{% endif %}
 								
 									<!--/replay form-->
 								</div>
@@ -160,6 +164,7 @@
 						</div>
 					</div>
 					<!-- / comments  section-->
+					{% if user.is_authenticated %}
 
 					<!-- post comment -->
 					<div class="section-row">
@@ -182,6 +187,7 @@
 						</form>
 					</div>
 					<!-- /post comment -->
+					{% endif %}
 				</div>
 				<div class="col-md-2">
 
