@@ -87,10 +87,10 @@
                             {% if user.role == 1 and user.id != users.id %}
                              {% if users.role == 1 or users.role == 0 %}
                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title="Disable Edit" disabled>
-                                <i class="material-icons">edit</i>
+                                <i class="material-icons" style="color:#ab3434;">edit</i>
                               </button>
                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Disable Delete" disabled>
-                                <i class="material-icons icon-image-preview">delete_outline</i>
+                                <i class="material-icons icon-image-preview" style="color:#ab3434;">delete_outline</i>
                               </button>
 
                             {% else %}
