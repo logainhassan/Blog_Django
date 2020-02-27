@@ -6,25 +6,25 @@ from django.core.validators import RegexValidator
 PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$'
 
 class MyUserManager(BaseUserManager):
-  def create_user(self,username,email,password=None):
-      if not email:
-          raise ValueError('Users must have an email address')
+    def create_user(self,username,email,password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
 
-      user =self.model(
-          username=username,
-          email = self.normalize_email(email)
-      )
-      user.set_password(password)
-      user.save(using=self.db)
-      return user
+        user =self.model(
+            username=username,
+            email = self.normalize_email(email)
+        )
+        user.set_password(password)
+        user.save(using=self.db)
+        return user
 
-  def create_superuser(self,username,email,password=None):
-      user =self.create_user(
-          username,email,password=password
-      )
-      user.role = 0
-      user.save(using=self.db)
-      return user
+    def create_superuser(self,username,email,password=None):
+        user =self.create_user(
+            username,email,password=password
+        )
+        user.role = 0
+        user.save(using=self.db)
+        return user
 
 
 class MyUser(AbstractBaseUser):
@@ -108,7 +108,7 @@ class Tag(models.Model):
 class Post(models.Model):
     # post_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='Posts/',max_length=500)
+    image = models.ImageField(upload_to='Posts/',max_length=200)
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
@@ -119,6 +119,9 @@ class Post(models.Model):
         return '{}{}'.format(self.title,str(self.user.username))
     def get_absolute_url(self):
         return "/post/%i" % self.pk
+
+    def content_short(self):
+        return self.content[:150]
 
 
 class User_Post(models.Model):
@@ -135,7 +138,7 @@ class User_Post(models.Model):
 class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
     date = models.DateField(auto_now_add=True)
-    content = models.TextField(max_length=200)
+    content = models.TextField(max_length=300)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name='replies')
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post,default=0, on_delete=models.CASCADE)

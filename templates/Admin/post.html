@@ -6,20 +6,20 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
            <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Categories</a>
-            <button class="btn btn-primary btn-round"><a href="/Admin/category/add_category"> Add Category</a></button>
+            <!-- <a class="navbar-brand" href="javascript:void(0)">Posts</a> -->
+            <!-- <button class="btn btn-primary btn-round"><a href="/Blog_App/add_post/"> Add Post</a></button> -->
           </div>
+          
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
-          <div class="collapse navbar-collapse justify-content-end">
-          
-            <form class="navbar-form" action="/Admin/category/search" method="GET">
+          <!-- <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search..." name="q">
+                <input type="text" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -27,7 +27,7 @@
               </div>
             </form>
            
-          </div>
+          </div> -->
         </div>
       </nav>
       <!-- End Navbar -->
@@ -38,50 +38,31 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">{{title}}</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h4 class="card-title ">Post</h4>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive">
-                        <table class="table" >
-                          <thead text-primary align="center"> 
-                            {%for field in fields%}
-                            <th>{{field.name}}</th>
-                            {% endfor%}
-                            {% if fields %}
-                            <th>Actions</th>
-                            {%endif%}
-                          </thead>
-                          <tbody align="center">
-                            {% if object_list %}
-                            {% for cat in object_list %}
-                            <tr>
-                              <td>{{cat.id}}</td>
-                              <td>{{cat.Name}}</td>
-                               <td>
-                              
-                                <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/edit_category/{{cat.id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/delete_category/{{cat.id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
-                            </tr>
-                            {% endfor %}
-                            {% else %}
-                            <td colspan="{{fields|length|add:"1"}}">No results Found</td>
-                            {%endif%}
+                  
 
-
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h3>{{post.title}}</h3>
+                      </div>
+                      <div class="col-md-5">
+                        <img class="img-fluid" src="{{post.image.url}}">
+                      </div>
+                      
+                        <div class="col-md-5" style="display: block;">
+                          <p style="font-size: medium;color: beige;">{{post.content}}</p>
+                          <div style="display: block;">
+                            {{post.user.email}}
+                               
                             
-                             
-                          </tbody>
-                        </table>
-                        
-                        
-                       
-               
+                          </div>
+                          <div style="display: block;">
+                            {{post.date}}
+                          </div>
+                        </div>
+                     
                   </div>
                 </div>
               </div>

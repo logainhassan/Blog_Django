@@ -104,6 +104,17 @@ def edit_forbidden_word(request, num):
 	context = {'form': form}
 	return render(request, 'Admin/add_forbidden_word.html', context)
 
+def Search_forbidden_word(request):
+	template = 'Admin/forbidden_words.html'
+	query = request.GET.get('word')
+	results = Forbidden.objects.filter(Q(word__icontains = query))
+
+	context = {
+		'results': results
+	}
+	return render(request, template, context)
+
+
 def all_Category(request):
 	objects=Category.objects.all()
 	fields=Category.get_model_fields(Category)
@@ -159,12 +170,12 @@ class Cat_searchResults(ListView):
 	def get_queryset(self):
 		query=self.request.GET.get('q')
 		object_list=Category.objects.filter(
-		Name__icontains=query
+			Name__icontains=query
 		)
 		return object_list
 	def get_context_data(self,**kwargs):
 		data = super().get_context_data(**kwargs)
-		data['page_title'] = 'Authors'
+		# data['page_title'] = 'Authors'
 		data['fields']=Category.get_model_fields(Category)
 		return data
 
@@ -213,7 +224,7 @@ class PostSearch(ListView):
 		return object_list
 
 def post(request,num):
-	post = Posts.objects.get(post_id=num)
+	post = Post.objects.get(id=num)
 	context = {'post':post}
 	return render(request,'Admin/post.html',context)
 
