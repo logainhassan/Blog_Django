@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import login ,get_user_model , logout
 
 from django.http import HttpResponseRedirect
-
+from django.contrib import messages
 # Create your views here.
 from .forms import UserCreationForm,UserLoginForm
 
@@ -12,6 +12,7 @@ def register(request, *args , **kwargs):
 	form = UserCreationForm(request.POST or None)
 	if form.is_valid():
 		form.save()
+		messages.success(request, "Configuration successfully submitted")
 		return HttpResponseRedirect('../login')
 	context = {
 		'form' : form
@@ -24,8 +25,6 @@ def login_view(request, *args , **kwargs):
 	if form.is_valid():
 		user_obj = form.cleaned_data.get('user_obj')
 		login(request,user_obj)
-		user = User.objects.get(username=request.POST['query'])
-		request.session['user_id'] = user.id
 		return HttpResponseRedirect("/")	
 
 	context = {
@@ -34,10 +33,6 @@ def login_view(request, *args , **kwargs):
 	return render(request,"Accounts/login.html",context)
 
 def logout_view(request):
-	try:
-		del request.session['user_id']
-	except KeyError:
-		pass
 	logout(request)
-	message.info(request,"logged out successfully !")
-	return HttpResponseRedirect("/login")
+	#message.info(request,"logged out successfully !")
+	return HttpResponseRedirect("../login")

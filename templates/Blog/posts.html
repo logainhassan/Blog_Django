@@ -8,96 +8,33 @@
 			<div class="row">
 				<div class="col-md-8">
 					<!-- post -->
-					<div class="post post-row post_add_shadow">
-						<a class="post-img raduis_img" href="blog-post.html"><img src="{% static 'Blog/img/post-13.jpg'%}" alt=""></a>
+					
+					{% for post in allposts %}
+					<div class="post post-row">
+						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Travel</a>
-								<a href="category.html">Lifestyle</a>
+								{% for category in post.category.all %}
+								<a href="/category/{{category.Name}}">{{category.Name}}</a>
+								{% endfor %}
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
+							<div class="post-tag" style="font-weight:bold;">
+								{% for tag in post.tag.all %}
+								<a href="/tag/{{tag.name}}">{{tag.name}}</a>
+								{%endfor%}
+							</div>
+							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li>{{post.date}}</li>
 							</ul>
-							<p>mahmoud ipsum dolor sitmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
 						</div>
 					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row post_add_shadow">
-						<a class="post-img raduis_img" href="blog-post.html"><img src="{% static 'Blog/img/post-1.jpg'%}" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Travel</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row post_add_shadow">
-						<a class="post-img raduis_img" href="blog-post.html"><img src="{% static 'Blog/img/post-5.jpg'%}" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row post_add_shadow">
-						<a class="post-img raduis_img" href="blog-post.html"><img src="{% static 'Blog/img/post-6.jpg'%}" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Fashion</a>
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row post_add_shadow">
-						<a class="post-img raduis_img" href="blog-post.html"><img src="{% static 'Blog/img/post-7.jpg'%}" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category.html">Health</a>
-								<a href="category.html">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
+					{% endfor %}
+<!-- 
 					<div class="section-row loadmore text-center">
 						<a href="#" class="primary-button">Load More</a>
-					</div>
+					</div> -->
 				</div>
 				<div class="col-md-4">
 

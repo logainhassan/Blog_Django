@@ -6,14 +6,14 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-6">
 					<!-- post share -->
 
 					<!-- post content -->
 					<div class="section-row pt-5">
 						<h3>{{post.title}}.</h3>
 						<figure>
-							<img src="{{post.image.url}}" alt="">
+							<img class="img-fluid" src="{{post.image.url}}" alt="">
 						</figure>
 						<div class="section-post-info">
 							<div class="post-category">
@@ -36,7 +36,18 @@
 						
 					</div>
 					<!-- /post content -->
-
+					<!-- like and dislike buttons -->
+					<div class="section-row">
+						<div class="post-like">
+							<form method="POST" action="">
+								{% csrf_token %}
+								<input name="like" value="Like" type="submit" checked data-toggle="toggle" data-on="liked" data-off="like">
+								<input name="dislike" value="Dislike" type="submit" checked data-toggle="toggle" data-on="disliked" data-off="dislike">
+								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
+							</form>
+						</div>
+					</div>
+					<!-- /like and dislike buttons -->
 					<!-- post tags -->
 					<div class="section-row">
 						<div class="post-tags ">
@@ -87,7 +98,7 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
-									<img class="media-object" src="{{comment.user.image.url}}" alt="">
+									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
 									<div class="media-heading">
@@ -102,7 +113,7 @@
 									{% for reply in comment.replies.all  %}
 									<div class="media media-author">
 										<div class="media-left">
-											<img class="media-object" src="{{reply.user.image.url}}" alt="">
+											<img class="media-object" src="{{reply.user.avatar.url}}" alt="">
 										</div>
 										<div class="media-body">
 											<div class="media-heading">
@@ -170,6 +181,9 @@
 						</form>
 					</div>
 					<!-- /post comment -->
+				</div>
+				<div class="col-md-2">
+
 				</div>
 				<div class="col-md-4">
 				

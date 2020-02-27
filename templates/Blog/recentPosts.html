@@ -1,4 +1,6 @@
+
 {% load static %}
+
 <!-- SECTION -->
 	<div class="section">
 		<!-- container -->
@@ -13,22 +15,41 @@
 								<h2 class="title">Recent posts</h2>
 							</div>
 						</div>
-						<!-- post -->
+						<!-- post 1-->
+						
+						{% for top in recent %}
 						<div class="col-md-6">
 							<div class="post">
 								<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/post-1.jpg'%}" alt=""></a>
 								<div class="post-body recent_post_style">
+								
+								<a class="post-img" href="/post/{{top.id}}"><img class="img-fluid" style="height: 200px;" src="{{top.image.url}}" alt=""></a>
+								<div class="post-body">
 									<div class="post-category">
 										<a class="cat_link" href="category.html">Travel</a>
+										{% for category in top.category.all %}
+										<a href="/category/{{category.Name}}">{{category.Name}}</a>
+										{%endfor%}
+										<div class="post-tag">
+											{% for tag in top.tag.all %}
+											<a style="font-weight:bold; color: black;" href="/tag/{{tag.name}}">{{tag.name}}</a>
+											{%endfor%}
+										</div>
+										<h3>{{top.title}}</h3>
 									</div>
 									<h3 class="post-title"><a class="link_white" href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+									<h3 class="post-title"><a href="/post/{{top.id}}">{{top.content}}</a></h3>
+									<h3></h3>
 									<ul class="post-meta">
 										<li><a class="link_ccc" href="author.html">John Doe</a></li>
 										<li class="link_ccc" >20 April 2018</li>
+										<li><a href="author.html">{{top.user.user_name}}</a></li>
+										<li>{{top.date}}</li>
 									</ul>
 								</div>
 							</div>
 						</div>
+						{%endfor%}
 						<!-- /post -->
 
 						<!-- post -->
@@ -49,6 +70,7 @@
 							</div>
 						</div>
 						<!-- /post -->
+						<!-- <div class="clearfix visible-md visible-lg"></div> -->
 
 						<div class="clearfix visible-md visible-lg"></div>
 
@@ -88,6 +110,7 @@
 							</div>
 						</div>
 						<!-- /post -->
+						
 					</div>
 					<!-- /row -->
 

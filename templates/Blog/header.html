@@ -15,6 +15,15 @@
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
+						{% if user.role == 0 or user.role == 1 %}
+							<a href="Admin/users" style="margin-right: 10px;">Manage App</a>
+					    {% endif %}
+
+						{% if user.is_authenticated %}
+							<a href="/Accounts/logout">Log Out</a>
+					    {% else %}
+					    	<a href="/Accounts/login">Log In</a>
+					     {% endif %}	
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">

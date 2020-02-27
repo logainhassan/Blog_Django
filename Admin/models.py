@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import ( BaseUserManager,AbstractBaseUser)
 from django.core.validators import RegexValidator
 
-PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$'
+PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$'
 
 class MyUserManager(BaseUserManager):
     def create_user(self,username,email,password=None):
@@ -28,11 +28,11 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    username = models.CharField(max_length=100, unique=True, verbose_name='username')
-    first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
-    last_name = models.CharField(blank=True, max_length=50, verbose_name='last name')
-    email = models.EmailField(max_length=150, unique=True, verbose_name='email address')
-    password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
+  username = models.CharField(max_length=150, unique=True,verbose_name='username')
+  first_name =  models.CharField(blank=True, max_length=30, verbose_name='first name')
+  last_name = models.CharField(blank=True, max_length=150, verbose_name='last name')
+  email = models.EmailField(max_length=150, unique=True,verbose_name='email address')
+  password = models.CharField(max_length=100,validators=[RegexValidator(regex=PASSWORD_REGEX,
         message="Password must contain at least one letter, at least one number, and be longer than eight charaters."
         ,code="invalid_password")],)
     ROLES = (
@@ -57,14 +57,13 @@ class MyUser(AbstractBaseUser):
     def get_short_name(self):
         return self.email
 
-
-# def has_perm(self,perm,obj=None):
+  def has_perm(self,perm,obj=None):
 #     "Does the user have a specific permission ?"
-#     return True
+      return True
 
-# def has_module_perms(self,app_label):
+  def has_module_perms(self,app_label):
 #     "Does the user have a permissions to view the app `app_label` ?"
-#     return True
+      return True
 
 class Forbidden(models.Model):
     word = models.CharField(max_length=100)
@@ -75,6 +74,7 @@ class Forbidden(models.Model):
 
 class Category(models.Model):
     Name = models.CharField(max_length=100)
+    subscribes=models.ManyToManyField(MyUser,related_name="users")
     def get_model_fields(self):
         return self._meta.fields
     def __str__(self):
@@ -96,7 +96,7 @@ class Category(models.Model):
 #     role = models.IntegerField(default=2, choices=ROLES)
 #     image = models.ImageField(upload_to='Users/',max_length=500,default=None)
 
-
+    
 class Tag(models.Model):
     name=models.CharField(max_length=100)
     def get_model_fields(self):
@@ -125,7 +125,7 @@ class Post(models.Model):
 
 
 class User_Post(models.Model):
-    id = models.CharField(primary_key=True, max_length=30)
+    #id = models.CharField(primary_key=True, max_length=30, auto_created=True)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     like = models.BooleanField()

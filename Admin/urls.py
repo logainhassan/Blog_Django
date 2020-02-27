@@ -3,14 +3,13 @@ from Admin import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
 
-    # User part
-    path('table/', views.table),
-    path('user/',views.user),
-    path('table/delete_user/<num>',views.deleteUser),
-    path('table/add_user',views.addUser),
-    path('table/edit_user/<num>',views.editUser),
+urlpatterns = [
+    path('users/', views.user),
+    # path('user/',views.user),
+    path('users/add_user',views.addUser),
+    path('users/edit_user/<num>',views.editUser),
+    path('users/delete_user/<num>',views.deleteUser),
 
     # Forbidden_Words part 
     path('Forbidden_Words/', views.Forbidden_Words),
@@ -31,6 +30,7 @@ urlpatterns = [
     path('add_post/',views.addPost),
     path('edit_post/<num>',views.editPost),
     path('posts/<num>',views.deletePost),
+    path('posts/search/',views.PostSearch.as_view()),
     path('post/<num>',views.post),
 
     path('tags/',views.tags),
@@ -38,6 +38,5 @@ urlpatterns = [
     path('editTag/<num>',views.edit_tag),
     path('delTag/<num>',views.delete_tag),
     path('tag/search/',views.Tag_searchResults.as_view()),
-
 
 ]

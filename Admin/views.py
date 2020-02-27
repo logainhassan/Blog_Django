@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse ,HttpResponseRedirect
-from Admin.forms import PostForm
-from Accounts.forms import UserCreationForm
+from Admin.forms import PostForm,UserCreationForm
 from .models import *
 from Admin.forms import *
 
@@ -11,48 +10,58 @@ from django.db.models import Q
 # Create your views here.
 
 
-def table(request):
-	all_users = User.objects.all()
+
+def user(request):
+	all_users = MyUser.objects.all()
 	context ={'all_users' : all_users}
 	return render(request, 'Admin/tables.html',context)
 
 
 def addUser(request):
-	if request.method == "POST":
-		user_form = UserCreationForm(request.POST)
-		if user_form.is_valid():
-			user_form.save()
-		return HttpResponseRedirect("/Admin/table")
-	else:
-		user_form =UserForm() 
-		context = {'user_form':user_form}
-		return render(request,'Admin/user.html',context)
+	form = UserCreationForm(request.POST or None)
+	if form.is_valid():
+		form.save()
+		return HttpResponseRedirect("/Admin/users")
+	context = {
+		
+		'form' : form
+	}
+	return render(request,'Admin/user.html',context)
 
+	# if request.method == "POST":
+	# 	user_form = UserCreationForm(request.POST)
+	# 	if user_form.is_valid():
+	# 		user_form.save()
+	# 	return HttpResponseRedirect("/Admin/table")
+	# else:
+	# 	user_form =UserForm() 
+	# 	context = {'user_form':user_form}
+	# 	return render(request,'Admin/user.html',context)
 
 def editUser(request,num):
-	user = User.objects.get(id =num)
+	user = MyUser.objects.get(id =num)
 	if request.method == "POST":
-		user_form = UserCreationForm(request.POST,instance = user)
-		if user_form.is_valid():
-			user_form.save()
-		return HttpResponseRedirect("/Admin/table")
+		form = UserCreationForm(request.POST,instance = user)
+		if form.is_valid():
+			form.save()
+		return HttpResponseRedirect("/Admin/users")
 	else:
-		user_form = UserCreationForm(instance = user)
-		context = {'user_form':user_form}
+		form = UserCreationForm(instance = user)
+		context = {'form':form}
 		return render(request,'Admin/user.html',context)
 
 
 def deleteUser(request,num):
-	user = User.objects.get(id = num)
+	user = MyUser.objects.get(id = num)
 	user.delete()
-	return HttpResponseRedirect("/Admin/table")
+	return HttpResponseRedirect("/Admin/users")
 
 
 
-def user(request):
-	# return render(request, 'Admin/user.html')
-	form = UserCreationForm()
-	return render(request, 'Admin/user.html',{'form':form})
+# def user(request):
+# 	# return render(request, 'Admin/user.html')
+# 	form = UserCreationForm()
+# 	return render(request, 'Admin/user.html',{'form':form})
 
 
 def Forbidden_Words(request):
@@ -166,8 +175,7 @@ class Cat_searchResults(ListView):
 			
 def posts(request):
 	all_posts = Post.objects.all()
-
-	context = {'all_posts':all_posts}
+	context = {'object_list':all_posts}
 	return render(request,'Admin/posts.html',context)
 
 def addPost(request):
@@ -197,6 +205,16 @@ def deletePost(request,num):
 	post= Post.objects.get(id=num)
 	post.delete()
 	return HttpResponseRedirect('/Admin/posts/')
+
+class PostSearch(ListView):
+	model = Post
+	template_name = 'Admin/posts.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list = Post.objects.filter(
+			Q(title__icontains=query) | Q(content__icontains=query)
+		)
+		return object_list
 
 def post(request,num):
 	post = Posts.objects.get(post_id=num)

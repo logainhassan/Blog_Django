@@ -32,11 +32,26 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
+<<<<<<< HEAD
                 ('username', models.CharField(max_length=100, unique=True, verbose_name='username')),
+||||||| merged common ancestors
+                ('username', models.CharField(max_length=200, unique=True, verbose_name='username')),
+=======
+                ('username', models.CharField(max_length=150, unique=True, verbose_name='username')),
+>>>>>>> b511ff6a1d220183b468f9e86ad53c6c1e548aca
                 ('first_name', models.CharField(blank=True, max_length=30, verbose_name='first name')),
+<<<<<<< HEAD
                 ('last_name', models.CharField(blank=True, max_length=50, verbose_name='last name')),
                 ('email', models.EmailField(max_length=150, unique=True, verbose_name='email address')),
                 ('password', models.CharField(max_length=100, validators=[django.core.validators.RegexValidator(code='invalid_password', message='Password must contain at least one letter, at least one number, and be longer than eight charaters.', regex='^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')])),
+||||||| merged common ancestors
+                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
+                ('email', models.EmailField(max_length=254, unique=True, verbose_name='email address')),
+=======
+                ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
+                ('email', models.EmailField(max_length=150, unique=True, verbose_name='email address')),
+                ('password', models.CharField(max_length=100, validators=[django.core.validators.RegexValidator(code='invalid_password', message='Password must contain at least one letter, at least one number, and be longer than eight charaters.', regex='^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')])),
+>>>>>>> b511ff6a1d220183b468f9e86ad53c6c1e548aca
                 ('role', models.IntegerField(choices=[(0, 'Super_Admin'), (1, 'Admin'), (2, 'User')], default=2, verbose_name='role')),
                 ('is_active', models.BooleanField(default=True, verbose_name='active status')),
                 ('avatar', models.ImageField(max_length=200, null=True, upload_to='Images/')),
@@ -47,6 +62,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
+<<<<<<< HEAD
             name='Post',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -65,6 +81,27 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+||||||| merged common ancestors
+=======
+            name='Post',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=100)),
+                ('image', models.ImageField(max_length=500, upload_to='Posts/')),
+                ('content', models.TextField()),
+                ('date', models.DateTimeField(auto_now_add=True)),
+                ('category', models.ManyToManyField(related_name='posts', to='Admin.Category')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Tag',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=100)),
+            ],
+        ),
+        migrations.CreateModel(
+>>>>>>> b511ff6a1d220183b468f9e86ad53c6c1e548aca
             name='User_Post',
             fields=[
                 ('id', models.CharField(max_length=30, primary_key=True, serialize=False)),
