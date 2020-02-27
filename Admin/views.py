@@ -4,6 +4,7 @@ from django.http import HttpResponse ,HttpResponseRedirect
 from Admin.forms import PostForm,UserCreationForm,UserChangeForm
 from .models import *
 from Admin.forms import *
+from django.contrib import messages
 
 from django.views.generic import  ListView
 from django.db.models import Q
@@ -14,7 +15,7 @@ from django.db.models import Q
 
 def user(request):
 	all_users = MyUser.objects.all()
-	context ={'all_users' : all_users,"title":"User List"}
+	context ={'object_list' : all_users}
 	return render(request, 'Admin/tables.html',context)
 
 
@@ -28,6 +29,17 @@ def addUser(request):
 
 	context = {'form':form}
 	return render(request,'Admin/user.html',context)
+
+class userSearch(ListView):
+	model = MyUser
+	template_name = 'Admin/tables.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list = MyUser.objects.filter(
+			Q(username__icontains=query) | Q(first_name__icontains=query)
+			| Q(last_name__icontains=query)
+		)
+		return object_list
 
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
@@ -46,6 +58,7 @@ def editUser(request,num):
 def deleteUser(request,num):
 	user = MyUser.objects.get(id = num)
 	user.delete()
+	messages.success(request, 'Message sent.')
 	return HttpResponseRedirect("/Admin/users")
 
 
