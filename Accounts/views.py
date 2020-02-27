@@ -4,7 +4,8 @@ from django.contrib.auth import login ,get_user_model , logout
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 # Create your views here.
-from .forms import UserCreationForm,UserLoginForm
+from .forms import UserCreationForm,UserLoginForm, PasswordChangeForm
+
 
 User = get_user_model()	
 

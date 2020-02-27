@@ -76,3 +76,23 @@ class UserLoginForm(forms.Form):
 			raise forms.ValidationError("sorry you are blocked contact the admin")
 		self.cleaned_data["user_obj"] = user_obj
 		return super(UserLoginForm, self).clean(*args,**kwargs)
+
+
+
+
+def PasswordChangeForm(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'Admin/change_user_password.html', {
+        'form': form
+    })
+

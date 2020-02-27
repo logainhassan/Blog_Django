@@ -154,7 +154,7 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
-									<img class="media-object" src="{{comment.user.image.url}}" alt="">
+									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
 									<div class="media-heading">
@@ -169,7 +169,7 @@
 									{% for reply in comment.replies.all  %}
 									<div class="media media-author">
 										<div class="media-left">
-											<img class="media-object" src="{{reply.user.image.url}}" alt="">
+											<img class="media-object" src="{{reply.user.avatar.url}}" alt="">
 										</div>
 										<div class="media-body">
 											<div class="media-heading">

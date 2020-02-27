@@ -3,19 +3,25 @@ from Admin.models import *
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.utils import timezone
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 User = get_user_model()	
 
 class UserCreationForm(forms.ModelForm):
 	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
+
 
 	class Meta:
 		model = MyUser
 		fields =('username','email','password','is_active','role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
+			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
+			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
+			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image','required':'false'}),
 			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
 			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
@@ -54,30 +60,36 @@ class UserCreationForm(forms.ModelForm):
 		return user
 
 
+class UserChangeForm(forms.ModelForm):
+	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
+	class Meta:
+		model = User
+		fields = ('username','email','first_name','last_name','avatar', 'is_active', 'role')
+		widgets = {
+			'username' : forms.TextInput(attrs={'class':'form-control'}),
+			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
+			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
+			'email' : forms.EmailInput(attrs={'class':'form-control'}),
+			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image'}),
+			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
+			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
+		}
+
+	def clean_username(self):
+		username = self.cleaned_data['username'].lower()
+		r = User.objects.filter(username=username)
+		if r.count() > 1:
+			raise  forms.ValidationError("Username already exists")
+		return username
+
+	def clean_email(self):
+		email = self.cleaned_data['email'].lower()
+		r = User.objects.filter(email=email)
+		if r.count() > 1:
+			raise  forms.ValidationError("Email already exists")
+		return email
 
 
-# class UserForm(forms.ModelForm):
-# 	confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
-# 	class Meta:
-# 		model = MyUser
-# 		fields = ('user_name','email','password','confirm_password','is_active','role')
-# 		widgets = {
-# 			'user_name' : forms.TextInput(attrs={'class':'form-control'}),
-# 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-# 			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
-# 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-# 			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
-# 		}
-
-# 	def clean(self):
-# 	    cleaned_data = super(UserForm, self).clean()
-# 	    password = cleaned_data.get("password")
-# 	    confirm_password = cleaned_data.get("confirm_password")
-# 	    if password and confirm_password:
-# 	    	if password != confirm_password:
-# 	    		raise forms.ValidationError("The two password fields must match.")
-# 	    return cleaned_data
-	
 class Category_form(forms.ModelForm):
 	class Meta:
 		model=Category

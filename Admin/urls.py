@@ -10,6 +10,8 @@ urlpatterns = [
     path('users/add_user',views.addUser),
     path('users/edit_user/<num>',views.editUser),
     path('users/delete_user/<num>',views.deleteUser),
+    path('users/search/',views.userSearch.as_view()),
+
 
     path('Forbidden_Words/', views.Forbidden_Words),
     path('Forbidden_Words/Add_Forbidden_Word', views.add_forbidden_word),
