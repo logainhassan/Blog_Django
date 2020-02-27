@@ -41,7 +41,7 @@ def PostDetails(request,num):
             # if reply_id:
             #     replays_qs=Comment.objects.get(id=reply_id)
             #     print(replays_qs)
-            comment=Comment.objects.create(post=post,content=content,user_id=1,reply_id=reply_id)
+            comment=Comment.objects.create(post=post,content=content,user_id=request.user.id,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
