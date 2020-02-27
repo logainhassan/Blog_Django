@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse ,HttpResponseRedirect
-from Admin.forms import PostForm,UserCreationForm
+from Admin.forms import PostForm,UserCreationForm,UserChangeForm
 from .models import *
 from Admin.forms import *
+from django.contrib import messages
 
 from django.views.generic import  ListView
 from django.db.models import Q
@@ -13,55 +15,51 @@ from django.db.models import Q
 
 def user(request):
 	all_users = MyUser.objects.all()
-	context ={'all_users' : all_users}
+	context ={'object_list' : all_users}
 	return render(request, 'Admin/tables.html',context)
 
 
 def addUser(request):
-	form = UserCreationForm(request.POST or None)
-	if form.is_valid():
-		form.save()
-		return HttpResponseRedirect("/Admin/users")
-	context = {
-		
-		'form' : form
-	}
+	form = UserCreationForm()
+	if request.method=="POST":
+		form = UserCreationForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/Admin/users/')
+
+	context = {'form':form}
 	return render(request,'Admin/user.html',context)
 
-	# if request.method == "POST":
-	# 	user_form = UserCreationForm(request.POST)
-	# 	if user_form.is_valid():
-	# 		user_form.save()
-	# 	return HttpResponseRedirect("/Admin/table")
-	# else:
-	# 	user_form =UserForm() 
-	# 	context = {'user_form':user_form}
-	# 	return render(request,'Admin/user.html',context)
+class userSearch(ListView):
+	model = MyUser
+	template_name = 'Admin/tables.html'
+	def get_queryset(self):
+		query=self.request.GET.get('q')
+		object_list = MyUser.objects.filter(
+			Q(username__icontains=query) | Q(first_name__icontains=query)
+			| Q(last_name__icontains=query)
+		)
+		return object_list
 
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
+	form = UserChangeForm(instance = user)
+	print("formaaak       " ,user.avatar.url)
 	if request.method == "POST":
-		form = UserCreationForm(request.POST,instance = user)
+		form = UserChangeForm(request.POST ,request.FILES ,instance = user)
 		if form.is_valid():
 			form.save()
-		return HttpResponseRedirect("/Admin/users")
-	else:
-		form = UserCreationForm(instance = user)
-		context = {'form':form}
-		return render(request,'Admin/user.html',context)
+			return HttpResponseRedirect("/Admin/users")
+
+	context = {'form':form,'avatar':user.avatar.url}
+	return render(request,'Admin/edit_user.html',context)
 
 
 def deleteUser(request,num):
 	user = MyUser.objects.get(id = num)
 	user.delete()
+	messages.success(request, 'Message sent.')
 	return HttpResponseRedirect("/Admin/users")
-
-
-
-# def user(request):
-# 	# return render(request, 'Admin/user.html')
-# 	form = UserCreationForm()
-# 	return render(request, 'Admin/user.html',{'form':form})
 
 
 def Forbidden_Words(request):
@@ -217,7 +215,7 @@ class PostSearch(ListView):
 		return object_list
 
 def post(request,num):
-	post = Posts.objects.get(post_id=num)
+	post = Post.objects.get(id=num)
 	context = {'post':post}
 	return render(request,'Admin/post.html',context)
 

@@ -62,7 +62,7 @@
                           <td><img class="img-fluid" style="height: 100px;" src="{{post.image.url}}"></td>
                           <td style="max-width:100px;">{{post.content|truncatechars:50}}</td>
                           <td>{{post.date}}</td>
-                          <td>{{post.user.user_name}}</td>
+                          <td>{{post.user.email}}</td>
                           <td>
                             <ul>
                             {% for tag in post.tag.all  %}

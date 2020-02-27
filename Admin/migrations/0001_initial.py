@@ -37,13 +37,19 @@ class Migration(migrations.Migration):
                 ('content', models.TextField()),
                 ('date', models.DateTimeField(auto_now_add=True)),
                 ('category', models.ManyToManyField(related_name='posts', to='Admin.Category')),
+                ('tag', models.ManyToManyField(related_name='posts', to='Admin.Tag')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Admin.MyUser')),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name='Comment',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
+                ('date', models.DateField(auto_now_add=True)),
+                ('content', models.TextField(max_length=200)),
+                ('post', models.ForeignKey(default=0, on_delete=django.db.models.deletion.CASCADE, to='Admin.Post')),
+                ('reply', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='replies', to='Admin.Comment')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Admin.MyUser')),
             ],
         ),
         migrations.CreateModel(
