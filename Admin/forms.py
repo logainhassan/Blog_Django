@@ -11,7 +11,7 @@ class UserCreationForm(forms.ModelForm):
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 
 	class Meta:
-		model = User
+		model = MyUser
 		fields =('username','email','password','is_active','role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
@@ -23,14 +23,14 @@ class UserCreationForm(forms.ModelForm):
 	
 	def clean_username(self):
 		username = self.cleaned_data['username'].lower()
-		r = User.objects.filter(username=username)
+		r = MyUser.objects.filter(username=username)
 		if r.count():
 			raise  forms.ValidationError("Username already exists")
 		return username
 
 	def clean_email(self):
 		email = self.cleaned_data['email'].lower()
-		r = User.objects.filter(email=email)
+		r = MyUser.objects.filter(email=email)
 		if r.count():
 			raise  forms.ValidationError("Email already exists")
 		return email

@@ -25,7 +25,7 @@
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
-								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li>{{post.user.email}}</li>
 								<li>{{post.date}}</li>
 								<li><i class="fa fa-comments"></i>{{comments|length}}</li>
 								<li><i class="fa fa-eye"></i> 807</li>
@@ -41,9 +41,64 @@
 						<div class="post-like">
 							<form method="POST" action="">
 								{% csrf_token %}
-								<input name="like" value="Like" type="submit">
-								<input name="dislike" value="Dislike" type="submit">
-								<i class="fas fa-thumbs-up"></i>
+								<p>{{color}}</p>
+								{%if color%}
+
+								<button class="like" style="color: white;">
+									<i class="fa fa-thumbs-up"></i>
+									<input name="like" value="Like" type="submit" >
+								</button>
+								{%else%}
+								<button class="like" style="color: purple;">
+									<i class="fa fa-thumbs-up"></i>
+									<input name="like" value="Like" type="submit" >
+								</button>
+								{%endif%}
+								
+								<button>
+									<i class="fa fa-thumbs-down"></i>
+									<input name="dislike" value="Dislike" type="submit">
+								</button>
+								<!-- checked data-toggle="toggle" data-on="style='background-color='red''" data-off="style='background-color='blue''" -->
+								<!-- data-toggle="toggle" data-on="liked" data-off="like" -->
+								
+								
+									<!-- <button name="like" type="submit" class="like">Like</button>
+									<button name="dislike" type="submit" class="dislike">Dislike</button> -->
+									<style>
+										.like {
+											background-color: white;
+											color:lawngreen;
+											
+										}
+										.dislike{
+											background-color: white;
+											color: hotpink;
+											
+										}
+										.like.pressed {
+											background-color: lawngreen;
+											color: white;
+										}
+										.dislike.pressed {
+											background-color: hotpink;
+											color: white;
+										}
+									</style>
+									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+									<script>
+										$(() => {
+											
+											$('like').click(function() {
+												$(this).toggleClass('pressed');
+											});
+											$('dislike').click(function() {
+												$(this).toggleClass('pressed');
+											});
+										});
+									</script>
+								
+								
 								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
 							</form>
 						</div>
@@ -200,4 +255,5 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
+	<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 {% endblock  %}
