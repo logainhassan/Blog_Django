@@ -14,7 +14,7 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
-          <div class="collapse navbar-collapse justify-content-end">
+         <div class="collapse navbar-collapse justify-content-end">
             <form class="navbar-form" method="GET" action="/Admin/users/search/">
               <div class="input-group no-border">
                 <input type="text" name="q" value="" class="form-control" placeholder="Search...">
@@ -28,7 +28,6 @@
           </div>
         </div>
       </nav>
-    
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
@@ -36,17 +35,15 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Add User</h4>
+                  <h4 class="card-title">Edit User</h4>
                 </div>
                 <div class="card-body">
-                  <form action="" method="post" autocomplete="off"  enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
+                  <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+                    {% csrf_token %}                    
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
-                          <!-- <input type="text" class="form-control"> -->
                           {{form.username}}
                         </div>
                       </div>
@@ -60,18 +57,18 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">First Name</label>
-                          <!-- <input type="email" class="form-control"> -->
                           {{form.first_name}}
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <!-- <input type="email" class="form-control"> -->
                           {{form.last_name}}
                         </div>
+                      </div>
                     </div>
-                  </div>
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
@@ -85,35 +82,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Password</label>
-                          {{form.password}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <h5 style="color:red;">{{ form.password.errors.as_text }}</h5>
-                        </div>
-                      </div>
-                    </div>
 
                     <div class="row">
-                      <div class="col-md-5">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Confirm Password</label>
-                          {{form.password2}}
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <h5 style="color:red;">{{ form.password2.errors.as_text }}</h5>
-                        </div>
-                      </div>
-                    </div>
-
-                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <div class="form-check">
@@ -130,6 +100,11 @@
                     </div>
                      <div class="row">
                        <div class="col-md-4">
+                        <div>
+                          
+                          <img class="img-fluid" style="height: 100px;" src="{{avatar}}">
+                        </div>
+                          <br>
                           <label class="bmd-label-floating">Avatar :</label>
                           {{form.avatar}} 
                       </div>
@@ -140,21 +115,18 @@
                     <br>
                     <div class="row">
                       <div class="col-md-4">
-                        <div class="dropdown" style="margin-bottom: 40px;">
+                        <div class="dropdown">
                            {{form.role}}
-  
                         </div>
                       </div>
-                       
                     </div>
-
+                    <br>
                     <button type="submit" class="btn btn-primary pull-right">Submit</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
             </div>
-           
           </div>
         </div>
       </div>

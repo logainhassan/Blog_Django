@@ -9,14 +9,14 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="{% static 'Blog/img/logo.png'%}" alt=""></a>
+						<a href="" class="logo"><img src="{% static 'Blog/img/Logo.jpg'%}" width =300px height =300px alt=""></a>
 					</div>
 					<!-- /logo -->
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
 						{% if user.role == 0 or user.role == 1 %}
-							<a href="Admin/users" style="margin-right: 10px;">Manage App</a>
+							<a href="/Admin/users" style="margin-right: 10px;">Manage App</a>
 					    {% endif %}
 
 						{% if user.is_authenticated %}
@@ -27,8 +27,9 @@
 						<button class="aside-btn"><i class="fa fa-bars"></i></button>
 						<button class="search-btn"><i class="fa fa-search"></i></button>
 						<div id="nav-search">
-							<form>
-								<input class="input" name="search" placeholder="Enter your search...">
+							<form action="/ps/search" method="get">
+							{% csrf_token %}
+								<input class="input" name="q" placeholder="Enter your search...">
 							</form>
 							<button class="nav-close search-close">
 								<span></span>
@@ -46,8 +47,8 @@
 					<!-- nav -->
 					<ul class="nav-menu">
 						<li><a href="/">Home</a></li>
-						<li><a href="about.html">About Us</a></li>
-						<li><a href="author.html">Author Page</a></li>
+						<li><a href="/profile">profile</a></li>
+						<li><a href="/about">About Us</a></li>
 
 					</ul>
 					<!-- /nav -->
@@ -58,9 +59,9 @@
 			<!-- Aside Nav -->
 			<div id="nav-aside">
 				<ul class="nav-aside-menu">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About Us</a></li>
-					<li><a href="author.html">Author Page</a></li>
+					<li><a href="/">Home</a></li>
+						<li><a href="/profile">profile</a></li>
+						<li><a href="/about">About Us</a></li>
 				</ul>
 				<button class="nav-close nav-aside-close"><span></span></button>
 			</div>

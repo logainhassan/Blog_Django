@@ -1,0 +1,177 @@
+{% extends 'Blog/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <link href='{%static "Blog/about/css/bootstrap.css" %}' rel='stylesheet' />
+
+    <link href="{%static 'Blog/about/css/pe-icon-7-stroke.css' %}" rel="stylesheet" />
+
+<!--     <link href='css/ct-navbar.css' rel='stylesheet' /> -->
+    <link href='{%static "Blog/about/css/rotating-card.css" %}' rel='stylesheet' />
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+    {% comment %} <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script> {% endcomment %}
+    <style>
+        body{
+            {% comment %} margin-top: 100px; {% endcomment %}
+        }
+        .navbar-default .navbar-nav > li > a{
+            padding: 15px 15px;
+            margin: 5px 0;
+        }
+
+        .navbar-default{
+            padding: 10px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-color: transparent;
+            box-shadow: 0 0px 13px rgba(0,0,0,.2);
+        }
+        .btn-info,
+        .btn-info:hover,
+        .btn-info:focus{
+            color: #FFF !important;
+            background-color: #00bbff !important;
+            border-color: #00bbff !important;
+        }
+
+        .btn-info{
+            opacity: .8;
+            transition: all 0.1s;
+            -webkit-transition: all 0.1s;
+        }
+        .btn-info:hover,
+        .btn-info:focus{
+            opacity: 1;
+        }
+    </style>
+</head>
+<div class="container">
+   
+
+    <div class="row">
+        <h1 class="title">
+            This is {{user.username|capfirst}} profile
+            <br>
+        </h1>
+        <div class="col-sm-12 col-sm-offset-0">
+
+       
+         <div class="col-md-8 col-sm-6">
+             <div class="card-container">
+                <div class="card">
+                    <div class="front">
+                        <div class="cover">
+                            <img src="{%static 'Blog/about/images/bg.jpg' %}"/>
+                        </div>
+                        <div class="user">
+                            <img class="img-circle" src="{{user.avatar.url}}"/>
+                        </div>
+                        <div class="content">
+                            <div class="main">
+                                <h3 class="name">{{user.username}}</h3>
+                                {% if user.role == 1 %}
+                                <p class="profession">Normal User</p>
+                                {% elif user.role == 0 %}
+                                 <p class="profession">Super Admin User</p>
+                                 {% elif user.role == 2 %}
+                                  <p class="profession">Admin User</p>
+                                {% endif %}
+                                <p class="text-center">iam ITI-ian :D</p>
+                            </div>
+                            <div class="footer">
+                            </div>
+                        </div>
+                    </div> <!-- end front panel -->
+                    <div class="back">
+                        <div class="header">
+                            <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                        </div>
+                        <div class="content">
+                            <div class="main">
+                                <h4 class="text-center">Job Description</h4>
+                                <p class="text-center">python PHP javascript html css node.js  and many others...</p>
+
+                                <div class="stats-container text-center">
+                                    <div class="">
+                                        <h4>Email</h4>
+                                        <p>
+                                            {{user.email}}
+                                        </p>
+                                    </div>
+                                   
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <div class="social-links text-center">
+                                <a href="https://facebook.com" class="facebook"><i class="fa fa-facebook fa-fw"></i></a>
+                                <a href="https://google.com" class="google"><i class="fa fa-google-plus fa-fw"></i></a>
+                                <a href="https://twitter.com" class="twitter"><i class="fa fa-twitter fa-fw"></i></a>
+                            </div>
+                        </div>
+                    </div> <!-- end back panel -->
+                </div> <!-- end card -->
+            </div> <!-- end card-container -->
+        </div> <!-- end col sm 3 -->
+<!--         <div class="col-sm-1"></div> -->
+
+        <div class="col-md-4">
+				
+                {% include 'Blog/sideBar.html' %}
+
+					
+
+				
+				</div>
+        </div> <!-- end col-sm-10 -->
+    </div> <!-- end row -->
+    <div class="space-200"></div>
+</div>
+
+
+
+<script src="{%static 'Blog/about/js/jquery-1.10.2.js' %}" type="text/javascript"></script>
+<script src="{%static 'Blog/about/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $().ready(function(){
+        $('[rel="tooltip"]').tooltip();
+
+        $('a.scroll-down').click(function(e){
+            e.preventDefault();
+            scroll_target = $(this).data('href');
+             $('html, body').animate({
+                 scrollTop: $(scroll_target).offset().top - 60
+             }, 1000);
+        });
+
+    });
+
+    function rotateCard(btn){
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if($card.hasClass('hover')){
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
+{%endblock%}

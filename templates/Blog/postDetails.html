@@ -25,10 +25,14 @@
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
-								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li><a href="author.html">{{post.user.username}}</a></li>
+								{% comment %} <li>{{post.user.email}}</li> {% endcomment %}
 								<li>{{post.date}}</li>
 								<li><i class="fa fa-comments"></i>{{comments|length}}</li>
-								<li><i class="fa fa-eye"></i> 807</li>
+								{% comment %} <li><i class="fa fa-eye"></i> 807</li> {% endcomment %}
+								<li><i class="fa fa-thumbs-up"></i> {{likeCounter}}</li>
+								<li><i class="fa fa-thumbs-down"></i> {{dislikeCounter}}</li>
+								
 							</ul>
 						</div>	
 						{% comment %} <h3>Sit nulla quidam et, eam ea legimus deserunt neglegentur.</h3> {% endcomment %}
@@ -37,16 +41,94 @@
 					</div>
 					<!-- /post content -->
 					<!-- like and dislike buttons -->
+					{% if user.is_authenticated %}
 					<div class="section-row">
 						<div class="post-like">
 							<form method="POST" action="">
 								{% csrf_token %}
-								<input name="like" value="Like" type="submit" checked data-toggle="toggle" data-on="liked" data-off="like">
-								<input name="dislike" value="Dislike" type="submit" checked data-toggle="toggle" data-on="disliked" data-off="dislike">
+								
+								
+									{% if flag == 1 %}
+											<button class="like btn btn-success" >
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" >
+											</button>
+											<button class="btn-secondary btn like" disabled >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" disabled style="border:none;">
+											</button>
+										{% elif flag == -1 %}
+											<button class="like btn btn-secondary"  disabled style="border:none;">
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" disabled style="border:none;">
+											</button>
+											<button class="btn-danger like btn" >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" style="border:none;" >
+											</button>
+										{% else %}
+										
+											<button class="like btn btn-secondary"  >
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" style="border:none;">
+											</button>
+											<button class="like btn  btn-secondary " >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" >
+											</button>
+										{% endif %}
+									{% comment %} {% endif %} {% endcomment %}
+									
+									
+								
+							
+								
+					
+								<!-- checked data-toggle="toggle" data-on="style='background-color='red''" data-off="style='background-color='blue''" -->
+								<!-- data-toggle="toggle" data-on="liked" data-off="like" -->
+								
+								
+									<!-- <button name="like" type="submit" class="like">Like</button>
+									<button name="dislike" type="submit" class="dislike">Dislike</button> -->
+									<!-- <style>
+										.like {
+											background-color: white;
+											color:lawngreen;
+											
+										}
+										.dislike{
+											background-color: white;
+											color: hotpink;
+											
+										}
+										.like.pressed {
+											background-color: lawngreen;
+											color: white;
+										}
+										.dislike.pressed {
+											background-color: hotpink;
+											color: white;
+										}
+									</style>
+									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+									<script>
+										$(() => {
+											
+											$('like').click(function() {
+												$(this).toggleClass('pressed');
+											});
+											$('dislike').click(function() {
+												$(this).toggleClass('pressed');
+											});
+										});
+									</script> -->
+								
+								
 								<!-- <button ><i class="fas fa-thumbs-up" style="font-size: 50px;"></i></button> -->
 							</form>
 						</div>
 					</div>
+					{% endif %}
 					<!-- /like and dislike buttons -->
 					<!-- post tags -->
 					<div class="section-row">
@@ -98,11 +180,12 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
+								{% comment %} {{comment.user}} {% endcomment %}
 									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
 									<div class="media-heading">
-										<h4>{{comment.user.user_name}}</h4>
+										<h4>{{comment.user.username}}</h4>
 										<span class="time">{{comment.date}}</span>
 									</div>
 									<p>{{comment.content}}</p>
@@ -117,7 +200,7 @@
 										</div>
 										<div class="media-body">
 											<div class="media-heading">
-												<h4>{{reply.user.user_name}}</h4>
+												<h4>{{reply.user.username}}</h4>
 												<span class="time">{{reply.date}}</span>
 											</div>
 											<p>{{reply.content}}</p>
@@ -126,6 +209,7 @@
 									</div>
 									<!-- /reply -->
 									{% endfor %}
+									{% if user.is_authenticated %}
 									<a href="#" class="reply replybtn">Reply</a>
 									<!--replay form-->
 										
@@ -149,6 +233,7 @@
 												</div>
 											</form>
 										</div>
+									{% endif %}
 								
 									<!--/replay form-->
 								</div>
@@ -159,6 +244,7 @@
 						</div>
 					</div>
 					<!-- / comments  section-->
+					{% if user.is_authenticated %}
 
 					<!-- post comment -->
 					<div class="section-row">
@@ -176,11 +262,12 @@
 								<div class="col-md-12 ">
 									<input class="primary-button float-right" style="float:right" type="submit">
 								</div>
-
+								
 							</div>
 						</form>
 					</div>
 					<!-- /post comment -->
+					{% endif %}
 				</div>
 				<div class="col-md-2">
 
@@ -199,4 +286,5 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
+	<!-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
 {% endblock  %}

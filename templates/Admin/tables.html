@@ -15,10 +15,10 @@
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <form class="navbar-form">
+         <div class="collapse navbar-collapse justify-content-end">
+            <form class="navbar-form" method="GET" action="/Admin/users/search/">
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search...">
+                <input type="text" name="q" value="" class="form-control" placeholder="Search...">
                 <button type="submit" class="btn btn-default btn-round btn-just-icon">
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
@@ -28,91 +28,131 @@
            
           </div>
         </div>
+        
       </nav>
       <!-- End Navbar -->
+      <!-- alert -->
+      <!-- <div class="container" id="alert">
+       <div class="row">
+         
+        <div class="col-12">
+            <br><br><br>
+            <div class="alert alert-primary" role="alert">
+              This is a primary alert—check it out!
+            </div>
+        </div> 
+        </div>
+      </div> -->
+
+      <!-- /alert -->
+      <!-- modal -->
+     <!-- Modal -->
+
+
+{% for users in object_list  %}
+<div class="modal fade" id="exampleModal-{{users.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are tou sure you want to delete ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='delete_user/{{users.id}}';">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+      <!-- /modal -->
       <div class="content">
 
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12">
               <div class="card">
+              
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">{{title}}</h4>
-                  <p class="card-category"> Here is a subtitle for this table</p>
+                  <h4 class="card-title ">User List</h4>
                 </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                        {% comment %} <table class="table">
-                          <thead text-primary>
-                            {%for field in fields%}
-                            <th>{{field.name}}</th>
-                            {%endfor%}
-                          </thead>
-                          <tbody>
-                             {%for cat in Categories%}
-                            <tr>
-                              <td>{{cat.id}}</td>
-                              <td>{{cat.Name}}</td>
-                            </tr>
-                            {%endfor%}
-                          </tbody>
-                        </table> {% endcomment %}
-                        
-                        
-                    
-                   <h4 class="card-title ">Users List</h4>
-                </div>
+                
                 <div class="card-body">
                   <div class="table-responsive">
                     <table class="table">
                       <thead class=" text-primary" align="center">
-                        <th>
-                          ID
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Email
-                        </th>
-                        <th>
-                          Status
-                        </th>
-                        <th>
-                          Role
-                        </th>
-                        <th>
-                          Actions
-                        </th>
+                        <th>ID</th>
+                        <th>User Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Avatar</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Actions</th>
                       </thead>
                       <tbody align="center">
-                        {% for user in all_users %}
-                        <tr>
-                          <td>{{user.id}}</td>
-                          <td>{{user.username}}</td>
-                          <td>{{user.email}}</td>
-                          
-                            {% if user.is_active == 1 %}
-                              <td style="color :green;">Active</td>
-                            {% elif user.is_active == 0 %}
-                              <td style="color :red;">InActive</td>
-                            {%endif%}
-                      
-                          <td>{% if user.role == 0 %}
-                          Super Admin
-                          {% elif user.role == 1 %}
-                          Admin
+                        {% for users in object_list %}
+                          {% if users.id == user.id %}
+                          <tr style="background: #23425e;">
                           {% else %}
-                          User
-                           {%endif%}</td>
-                            <td>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{user.id}}';" data-original-title="Edit">
-                                  <i class="material-icons">edit</i>
-                                </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{user.id}}';" data-original-title="Delete">
-                                  <i class="material-icons icon-image-preview">delete_outline</i>
-                                </button>
-                            </td>
+                           <tr>
+                          {% endif %}
+                          <td>{{users.id}}</td>
+                          <td>{{users.username}}</td>
+                          <td>{{users.first_name}}</td>
+                          <td>{{users.last_name}}</td>
+                          <td>{{users.email}}</td>
+                          {% if users.avatar %}
+                          <td><img class="img-fluid" style="height: 100px;" src="{{users.avatar.url}}"></td>
+                          {% endif %}
+                          
+                          {% if users.is_active == 1 %}
+                            <td style="color :green;">Active</td>
+                          {% elif users.is_active == 0 %}
+                            <td style="color :red;">InActive</td>
+                          {%endif%}
+                      
+                          <td>{% if users.role == 0 %}
+                          Super Admin
+                          {% elif users.role == 1 %}
+                           Admin
+                          {% else %}
+                            User
+                          {%endif%}</td>
+                          <td>
+                            {% if user.role == 1 and user.id != users.id %}
+                             {% if users.role == 1 or users.role == 0 %}
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title="Disable Edit" disabled>
+                                <i class="material-icons" style="color:#ab3434;">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Disable Delete" disabled>
+                                <i class="material-icons icon-image-preview" style="color:#ab3434;">delete_outline</i>
+                              </button>
+
+                            {% else %}
+                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-toggle="modal" data-target="#exampleModal-{{users.id}}"  data-original-title="Delete" >
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                               {% endif%}
+                              {% else %}
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Delete" >
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                            {% endif%}
+
+                          </td>
                         </tr>
                       {%endfor%}
               
@@ -120,7 +160,6 @@
                     </table> 
                   </div>
                 </div>
-              </div>
             </div>
             
           </div>

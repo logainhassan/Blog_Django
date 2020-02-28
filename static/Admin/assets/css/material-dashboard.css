@@ -18389,6 +18389,8 @@ Copyright (c) 2015 Daniel Eden
   background-color: #999;
 }
 
+
+
 @media all and (max-width: 991px) {
 
   [class*="navbar-expand-"]>.container,
@@ -20676,8 +20678,15 @@ Copyright (c) 2015 Daniel Eden
 .dark-edition .table>thead>tr>td,
 .dark-edition .table>tbody>tr>td,
 .dark-edition .table>tfoot>tr>td {
-  color: #8b92a9;
+  color:red;
   border-color: rgba(180, 180, 180, 0.1);
+}
+
+
+.dark-edition .table>thead>tr>td,
+.dark-edition .table>tbody>tr>td,
+.dark-edition .table>tfoot>tr>td {
+  color: red !important;
 }
 
 .dark-edition .table-hover tbody tr:hover {

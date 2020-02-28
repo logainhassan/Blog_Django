@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col-md-8">
 					<!-- post -->
-                    {% for post in posts  %}
+                    {% for post in object_list  %}
 					<div class="post post-row">
 						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
 						<div class="post-body">
