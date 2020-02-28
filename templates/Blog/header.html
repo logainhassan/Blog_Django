@@ -15,7 +15,9 @@
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
+						{% if user.is_authenticated %}
 						<a href="/profile" style="margin-right: 10px;">{{user}}	</a>
+						{% endif %}
 
 						{% if user.role == 0 or user.role == 1 %}
 							<a href="/Admin/users" style="margin-right: 10px;">Manage App</a>
