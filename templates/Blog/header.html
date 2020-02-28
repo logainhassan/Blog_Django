@@ -20,6 +20,7 @@
 					    {% endif %}
 
 						{% if user.is_authenticated %}
+							<img width="30px" height="30px" class="img-circle" src="{{requset.user.avatar.url}}" alt="userImage">
 							<a href="/Accounts/logout">Log Out</a>
 					    {% else %}
 					    	<a href="/Accounts/login">Log In</a>
