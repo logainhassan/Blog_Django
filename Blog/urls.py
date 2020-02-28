@@ -13,6 +13,10 @@ urlpatterns=[
     path('category/unsub-category/<num>',views.sub_category),
     path('category/sub-category/<num>',views.sub_category),
 
+    path('about',views.about),
+    path('profile',views.profile),
+    path('ps/search',views.PostSearch.as_view()),
+
     path('',views.PostSearch.as_view()),
     
 ]

@@ -137,3 +137,16 @@ figure .user_image_details{
     width: 80px;
     border: 2px solid #fff;
 }
+
+
+.like
+{
+    border:none; border-radius:5px;
+    padding: 5px !important;
+}
+
+.like input
+{
+    border:none;
+    background: transparent;
+}

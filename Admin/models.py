@@ -5,6 +5,8 @@ from django.core.validators import RegexValidator
 
 PASSWORD_REGEX = '^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{8,}$'
 
+
+
 class MyUserManager(BaseUserManager):
     def create_user(self,username,email,password=None):
         if not email:
@@ -114,7 +116,7 @@ class Post(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     tag=models.ManyToManyField(Tag,related_name="posts")
     category=models.ManyToManyField(Category,related_name='posts')
-
+    likes=models.IntegerField(default=0,blank=True,null=True)
     def __str__(self):
         return '{}{}'.format(self.title,str(self.user.username))
     def get_absolute_url(self):
@@ -122,6 +124,7 @@ class Post(models.Model):
 
     def content_short(self):
         return self.content[:150]
+   
 
 
 class User_Post(models.Model):
@@ -137,7 +140,7 @@ class User_Post(models.Model):
 
 class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=300)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name='replies')
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
@@ -162,3 +165,4 @@ class Comment(models.Model):
 # class Post_Category(models.Model):
 # 	post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
 # 	Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
+

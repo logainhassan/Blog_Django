@@ -28,9 +28,14 @@
 							<ul class="post-meta">
 								<li><img class="img-circle" width="50px" height="50px" src="{{post.user.avatar.url}}" alt="avatar"></li>
 								<li>{{post.user.username}}</li>
+								<li><a href="author.html">{{post.user.username}}</a></li>
+								{% comment %} <li>{{post.user.email}}</li> {% endcomment %}
 								<li>{{post.date}}</li>
 								<li><i class="fa fa-comments"></i>{{comments|length}}</li>
-								<li><i class="fa fa-eye"></i> 807</li>
+								{% comment %} <li><i class="fa fa-eye"></i> 807</li> {% endcomment %}
+								<li><i class="fa fa-thumbs-up"></i> {{likeCounter}}</li>
+								<li><i class="fa fa-thumbs-down"></i> {{dislikeCounter}}</li>
+								
 							</ul>
 						</div>	
 						{% comment %} <h3>Sit nulla quidam et, eam ea legimus deserunt neglegentur.</h3> {% endcomment %}
@@ -45,19 +50,39 @@
 							<form method="POST" action="">
 								{% csrf_token %}
 								
-								<span>{{likeCounter}}</span>
 								
-									<span>{{dislikeCounter}}</span>
-								
-									<button class="like" style="color: purple;">
-										<i class="fa fa-thumbs-up"></i>
-										<input name="like" value="Like" type="submit" >
-									</button>
+									{% if flag == 1 %}
+											<button class="like btn btn-success" >
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" >
+											</button>
+											<button class="btn-secondary btn like" disabled >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" disabled style="border:none;">
+											</button>
+										{% elif flag == -1 %}
+											<button class="like btn btn-secondary"  disabled style="border:none;">
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" disabled style="border:none;">
+											</button>
+											<button class="btn-danger like btn" >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" style="border:none;" >
+											</button>
+										{% else %}
+										
+											<button class="like btn btn-secondary"  >
+												<i class="fa fa-thumbs-up"></i>
+												<input name="like" value="Like" type="submit" style="border:none;">
+											</button>
+											<button class="like btn  btn-secondary " >
+												<i class="fa fa-thumbs-down"></i>
+												<input name="dislike" value="Dislike" type="submit" >
+											</button>
+										{% endif %}
+									{% comment %} {% endif %} {% endcomment %}
 									
-									<button style="color: purple;">
-										<i class="fa fa-thumbs-down"></i>
-										<input name="dislike" value="Dislike" type="submit">
-									</button>
+									
 								
 							
 								
@@ -158,6 +183,7 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
+								{% comment %} {{comment.user}} {% endcomment %}
 									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
