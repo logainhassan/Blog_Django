@@ -24,7 +24,7 @@
 								<div class="post-body recent_post_style post_add_shadow">
 
 									<h2><a class="link_white" href="/post/{{top.id}}">{{top.title}}</a></h2>
-									<p class="post-title p_content"> {{top.content_short}} </p>
+									<p class="post-title p_content"> {{top.content_short|truncatechars:25}} </p>
 									<div class="post-category">
 										<div class="post_cat">
 										{% for category in top.category.all %}
@@ -38,7 +38,7 @@
 										</div>
 									</div>
 									<ul class="post-meta">
-										<li><a class="link_ccc" href="author.html">{{top.user.username}}</a></li>
+										<li><a class="link_ccc" href="#">{{top.user.username}}</a></li>
 										<li class="link_ccc" >{{top.date}}</li>
 									</ul>
 
