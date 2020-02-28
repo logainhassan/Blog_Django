@@ -29,6 +29,32 @@
         </div>
       </nav>
       <!-- End Navbar -->
+       <!-- Modal -->
+{% for words in forbidden_words  %}
+<div class="modal fade" id="exampleModal-{{words.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are tou sure you want to delete ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='Delete_Forbidden_Word/{{words.id}}';">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+      <!-- /modal -->
+
+
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -60,8 +86,14 @@
                           <td>{{words.id}}</td>
                           <td>{{words.word}}</td>
                           <td class="text-primary">
-                            <a href="Edit_Forbidden_Word/{{words.id}}">edit</a>
-                            <a href="Delete_Forbidden_Word/{{words.id}}">delete</a>
+                            {% comment %} <a href="Edit_Forbidden_Word/{{words.id}}">edit</a> {% endcomment %}
+                            {% comment %} <a href="Delete_Forbidden_Word/{{words.id}}">delete</a> {% endcomment %}
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='Edit_Forbidden_Word/{{words.id}}';" data-original-title=" Edit" >
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm" data-toggle="modal" data-target="#exampleModal-{{words.id}}"  data-original-title="Delete" >
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
                           </td>
                         </tr>
                         {% endfor %}

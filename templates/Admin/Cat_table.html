@@ -30,6 +30,31 @@
         </div>
       </nav>
       <!-- End Navbar -->
+      <!-- modal -->
+{% for cat in object_list  %}
+<div class="modal fade" id="exampleModal-{{cat.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are tou sure you want to delete ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='delete_category/{{cat.id}}';">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+      <!-- /modal -->
+
+
       <div class="content">
 
         <div class="container-fluid">
@@ -62,7 +87,7 @@
                                 <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/edit_category/{{cat.id}}';" data-original-title="Edit">
                                   <i class="material-icons">edit</i>
                                 </button>
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='/Admin/category/delete_category/{{cat.id}}';" data-original-title="Delete">
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  data-toggle="modal" data-target="#exampleModal-{{cat.id}}"    data-original-title="Delete">
                                   <i class="material-icons icon-image-preview">delete_outline</i>
                                 </button>
                             </td>
