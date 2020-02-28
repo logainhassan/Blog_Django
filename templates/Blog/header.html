@@ -9,14 +9,14 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="{% static 'Blog/img/logo.png'%}" alt=""></a>
+						<a href="" class="logo"><img src="{% static 'Blog/img/Logo.jpg'%}" width =300px height =300px alt=""></a>
 					</div>
 					<!-- /logo -->
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
 						{% if user.role == 0 or user.role == 1 %}
-							<a href="Admin/users" style="margin-right: 10px;">Manage App</a>
+							<a href="/Admin/users" style="margin-right: 10px;">Manage App</a>
 					    {% endif %}
 
 						{% if user.is_authenticated %}
@@ -58,7 +58,7 @@
 			<!-- Aside Nav -->
 			<div id="nav-aside">
 				<ul class="nav-aside-menu">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="/">Home</a></li>
 					<li><a href="about.html">About Us</a></li>
 					<li><a href="author.html">Author Page</a></li>
 				</ul>

@@ -51,6 +51,7 @@ def user(request):
 	form = UserForm()
 	return render(request, 'admin/user.html',{'form':form})
 
+# ---------------------------- start Forbidden words part -------------------------#
 
 def Forbidden_Words(request):
 	all_forbidden_words = Forbidden.objects.all()
@@ -85,13 +86,31 @@ def edit_forbidden_word(request, num):
 	context = {'form': form}
 	return render(request, 'admin/add_forbidden_word.html', context)
 
+class Forbudden_Search_Word(ListView):
+	model = Forbidden
+
+	template_name='admin/forbidden_words.html'
+	def get_queryset(self):
+		query=self.request.GET.get('word')
+		object_list=Category.objects.filter(
+			Name__icontains=query
+		)
+		return object_list
+	def get_context_data(self,**kwargs):
+		data = super().get_context_data(**kwargs)
+		data['page_title'] = 'Authors'
+		data['fields']=Category.get_model_fields(Forbidden)
+		return data
+
+# ---------------------------- end Forbidden words part -------------------------#
+
 def all_Category(request):
 	objects=Category.objects.all()
 	fields=Category.get_model_fields(Category)
 	context={
-		'object_list' : objects ,
-		 'fields' : fields ,
-		 'title' : "Categories"
+			'object_list' : objects ,
+			'fields' : fields ,
+			'title' : "Categories"
 		 }
 	return render(request,'admin/Cat_table.html',context)
 
@@ -140,7 +159,7 @@ class Cat_searchResults(ListView):
 	def get_queryset(self):
 		query=self.request.GET.get('q')
 		object_list=Category.objects.filter(
-		Name__icontains=query
+			Name__icontains=query
 		)
 		return object_list
 	def get_context_data(self,**kwargs):

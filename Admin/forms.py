@@ -11,32 +11,34 @@ class UserCreationForm(forms.ModelForm):
 	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
-
-
+	ROLES = (
+      (1, 'Admin'),
+      (2, 'User'),
+ 	)
+	role= forms.CharField(label = "role", widget=forms.Select(choices=ROLES,attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }))
+	
 	class Meta:
-		model = User
-		fields =('username','email','first_name','last_name','avatar', 'password','is_active','role')
+		model = MyUser
+		fields =('username','email','password','is_active','role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image','required':'false'}),
 			'password' : forms.PasswordInput(attrs={'class':'form-control'}),
 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 	
 	def clean_username(self):
 		username = self.cleaned_data['username'].lower()
-		r = User.objects.filter(username=username)
+		r = MyUser.objects.filter(username=username)
 		if r.count():
 			raise  forms.ValidationError("Username already exists")
 		return username
 
 	def clean_email(self):
 		email = self.cleaned_data['email'].lower()
-		r = User.objects.filter(email=email)
+		r = MyUser.objects.filter(email=email)
 		if r.count():
 			raise  forms.ValidationError("Email already exists")
 		return email
@@ -62,17 +64,22 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
+	ROLES = (
+      (1, 'Admin'),
+      (2, 'User'),
+ 	)
+	role= forms.CharField(label = "role", widget=forms.Select(choices=ROLES,attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }))
+	
+
 	class Meta:
-		model = User
+		model = MyUser
 		fields = ('username','email','first_name','last_name','avatar', 'is_active', 'role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'last_name' : forms.TextInput(attrs={'class':'form-control'}),
 			'email' : forms.EmailInput(attrs={'class':'form-control'}),
-			# 'avatar' : forms.FileInput(attrs={'class':'form-control-image'}),
 			'is_active' : forms.CheckboxInput(attrs={'class':'form-check-input'}),
-			'role' : forms.Select(attrs={'class':"btn btn-primary dropdown-toggle", 'type':"button" }),
 		}
 
 	def clean_username(self):
@@ -95,7 +102,7 @@ class Category_form(forms.ModelForm):
 		model=Category
 		fields=('Name',)
 		widgets={
-		'Name':forms.TextInput(attrs={'class' :'form-control'})
+			'Name':forms.TextInput(attrs={'class' :'form-control'})
 		}
 class TagForm(forms.ModelForm):
 	class Meta:
