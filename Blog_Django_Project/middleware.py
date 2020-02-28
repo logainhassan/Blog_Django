@@ -46,7 +46,7 @@ class LoginRequiredMiddleware:
 				return redirect(settings.LOGIN_URL)
 
 		if request.user.is_authenticated:
-			print("alooooooooooo",ADMIN_URL)
+			# print("alooooooooooo",ADMIN_URL)
 			if request.user.role == 2 and any(url.match(path) for url in ADMIN_URL):
 				return redirect(settings.LOGIN_REDIRECT_URL)
 		elif not request.user.is_authenticated and any(url.match(path) for url in ADMIN_URL):

@@ -1299,9 +1299,9 @@ textarea.input {
 \*----------------------------*/
 
 .category-widget ul li {
-  padding: 10px 0px;
+  display: block ;
+  padding: 15px 0px 20px 0px ;
   border-bottom: 1px solid #e8eaed;
-  margin: 5px;
 }
 
 .category-widget ul li a {
