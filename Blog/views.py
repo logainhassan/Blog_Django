@@ -188,7 +188,7 @@ def posts(request):
 
 class PostSearch(ListView):
 	model = Post
-	template_name = 'Blog/allposts.html'
+	template_name = 'Blog/search_result.html'
 	def get_queryset(self):
 		query=self.request.GET.get('q')
 		object_list = Post.objects.filter(
@@ -259,3 +259,15 @@ def about(request):
         'tags':tags
     }
     return render(request,'Blog/about.html',context)
+
+def profile(request):
+    tags=allTags()
+    categories=allCategories()
+    user=request.user
+    context={
+        'cats':categories,
+        'tags':tags,
+        'user':user
+    }
+    return render(request,'Blog/profile.html',context)
+    
