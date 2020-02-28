@@ -126,3 +126,14 @@
 .paddind_top{
     padding-top: 6px;
 }
+.image_post_details{
+    position: relative;
+}
+figure .user_image_details{
+    display: block;
+    position: absolute;
+    top: 7%;
+    left: 6%;
+    width: 80px;
+    border: 2px solid #fff;
+}
