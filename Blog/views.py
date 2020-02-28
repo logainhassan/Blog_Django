@@ -65,7 +65,11 @@ def PostDetails(request, num):
     # dicolor=0
     like_form = Likes(request.POST)
 
-    user = MyUser.objects.get(id=request.user.id)
+    print(request.user)
+    if  request.user.is_authenticated:
+        print("hi there ")
+        user = MyUser.objects.get(id=request.user.id)
+
     if request.method == 'POST':
         comment_form=CommentForm(request.POST or None,request.FILES or None)
 
@@ -122,15 +126,17 @@ def PostDetails(request, num):
            
     likeCounter = User_Post.objects.filter(post=post,like='1').count()
     dislikeCounter = User_Post.objects.filter(post=post,like='0').count()
-    flag = User_Post.objects.filter(post=post,user=request.user).first()
-    if flag:
-        if flag.like==True:
-            print(flag)
-            flag=1
+    flag=0
+    if request.user.is_authenticated:
+        flag = User_Post.objects.filter(post=post,user=request.user).first()
+        if flag:
+            if flag.like==True:
+                print(flag)
+                flag=1
+            else:
+                flag=-1
         else:
-            flag=-1
-    else:
-        flag=0     
+            flag=0     
     context={
         'post':post,
         'comments':comments,
