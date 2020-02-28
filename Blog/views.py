@@ -3,6 +3,7 @@ from Admin.models import *
 from django.shortcuts import get_object_or_404
 from Blog.forms import *
 from django.http import HttpResponse, HttpResponseRedirect
+
   
 from django.views.generic import  ListView
 from django.db.models import Q
@@ -17,7 +18,7 @@ def allCategories():
 
 
 def allPosts(request) :
-    recent = recentPosts()
+    recent = recentPosts(request)
     allposts = posts()
     tags=allTags()
     cats=allCategories()
@@ -67,7 +68,7 @@ def PostDetails(request, num):
             # if reply_id:
             #     replays_qs=Comment.objects.get(id=reply_id)
             #     print(replays_qs)
-            comment=Comment.objects.create(post=post,content=new_comment_clear,user_id=1,reply_id=reply_id)
+            comment=Comment.objects.create(post=post,content=new_comment_clear,user_id=request.user.id,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
@@ -112,11 +113,31 @@ def PostDetails(request, num):
     } 
     return render(request,'Blog/postDetails.html',context)  
 
-
-def recentPosts():
-    all_top = Post.objects.order_by('-date')[:5]
-    return all_top
-    
+# all posts >>cats >>user
+def recentPosts(request):
+    posts = [];
+    categories = Category.objects.all()
+    cats = []
+    for cat in categories:
+        subs = cat.subscribes.all()
+        user=subs.filter(id=request.user.id).first()
+        if user:
+            posts += list(cat.posts.all())
+            posts.sort(key = lambda a: a.date,reverse=True)
+   
+    if posts:
+        print(posts[0].title)
+        return posts 
+    else:
+        all_top = Post.objects.order_by('-date')[:4]
+        return all_top
+    s=Post.objects.filter(category = cats)
+    # print(s)
+def com_items(a,b):
+    if a.date > b.date:
+        return 1
+    else :
+        return 0   
 def posts():
     posts = Post.objects.all().order_by('-date')
     return posts
@@ -162,14 +183,14 @@ def sub_category(request,num):
     subs=category.subscribes.all()
     user=subs.filter(id=request.user.id).first()
     # print(user)
-    print(subs)
+    # print(subs)
     if user :
-        print(user.id)
+        # print(user.id)
         category.subscribes.remove(user)
     else:
         category.subscribes.add(request.user)   
         category.save()
-    print(request.user)
+    # print(request.user)
     return HttpResponseRedirect("/")
 # def like(request,num):  
 #     post=get_object_or_404(Post,id=num)

@@ -25,6 +25,7 @@
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
+								<li><a href="author.html">{{post.user.username}}</a></li>
 								<li>{{post.user.email}}</li>
 								<li>{{post.date}}</li>
 								<li><i class="fa fa-comments"></i>{{comments|length}}</li>
@@ -156,6 +157,7 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
+								{% comment %} {{comment.user}} {% endcomment %}
 									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
