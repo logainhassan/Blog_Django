@@ -140,7 +140,7 @@ class User_Post(models.Model):
 
 class Comment(models.Model):
     # id = models.IntegerField(primary_key=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=300)
     reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True , blank=True, related_name='replies')
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
