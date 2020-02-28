@@ -68,6 +68,7 @@
     border: 1px solid #ee4266;
 }
 .recent_post_style .p_content{
+    font-size: 16px !important;
     color: #f9f0f0;
     line-height: 1.3;
 }
@@ -124,6 +125,17 @@
 
 .paddind_top{
     padding-top: 6px;
+}
+.image_post_details{
+    position: relative;
+}
+figure .user_image_details{
+    display: block;
+    position: absolute;
+    top: 7%;
+    left: 6%;
+    width: 80px;
+    border: 2px solid #fff;
 }
 
 

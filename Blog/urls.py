@@ -15,8 +15,8 @@ urlpatterns=[
 
     path('about',views.about),
     path('profile',views.profile),
-    path('ps/search',views.PostSearch.as_view()),
+    path('ps/search',views.search_posts),
 
-    path('',views.PostSearch.as_view()),
+    # path('',views.PostSearch.as_view()),
     
 ]

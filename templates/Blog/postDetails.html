@@ -12,7 +12,8 @@
 					<!-- post content -->
 					<div class="section-row pt-5">
 						<h3>{{post.title}}.</h3>
-						<figure>
+						<figure class="image_post_details">
+							<img class="img-circle user_image_details" width="80px" height="80px" src="{{post.user.avatar.url}}" alt="avatar">
 							<img class="img-fluid" src="{{post.image.url}}" alt="">
 						</figure>
 						<div class="section-post-info">
@@ -25,6 +26,8 @@
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
+								<li><img class="img-circle" width="50px" height="50px" src="{{post.user.avatar.url}}" alt="avatar"></li>
+								<li>{{post.user.username}}</li>
 								<li><a href="author.html">{{post.user.username}}</a></li>
 								{% comment %} <li>{{post.user.email}}</li> {% endcomment %}
 								<li>{{post.date}}</li>

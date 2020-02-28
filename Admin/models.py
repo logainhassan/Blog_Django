@@ -84,20 +84,6 @@ class Category(models.Model):
     
 
 
-# class User(models.Model):
-#     # user_id = models.AutoField(primary_key=True)
-#     user_name = models.CharField(max_length=100, unique=True)
-#     email = models.EmailField(max_length=100, unique=True)
-#     password = models.CharField(max_length=100)
-#     is_active = models.BooleanField(default=True)
-#     ROLES = (
-#         (0, 'Super_Admin'),
-#         (1, 'Admin'),
-#         (2, 'User'),
-#     )
-#     role = models.IntegerField(default=2, choices=ROLES)
-#     image = models.ImageField(upload_to='Users/',max_length=500,default=None)
-
     
 class Tag(models.Model):
     name=models.CharField(max_length=100)
@@ -153,16 +139,4 @@ class Comment(models.Model):
 
 
 
-
-# class User_Category(models.Model):
-#     User_id = models.ForeignKey(User, on_delete=models.CASCADE)
-#     Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    # def __init__(self):
-    #     return self.id
-
-
-# class Post_Category(models.Model):
-# 	post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
-# 	Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
 

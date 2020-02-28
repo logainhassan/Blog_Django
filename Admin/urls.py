@@ -34,6 +34,7 @@ urlpatterns = [
     path('posts/<num>',views.deletePost),
     path('posts/search/',views.PostSearch.as_view()),
     path('post/<num>',views.post),
+    path('post_details/<num>', views.view_Post_Details),
 
     path('tags/',views.tags),
     path('addTag/',views.add_tag),
