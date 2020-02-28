@@ -68,14 +68,14 @@ class MyUser(AbstractBaseUser):
       return True
 
 class Forbidden(models.Model):
-    word = models.CharField(max_length=100)
+    word = models.CharField(max_length=100,unique=True)
     def __str__(self):
         return self.word
     
 
 
 class Category(models.Model):
-    Name = models.CharField(max_length=100)
+    Name = models.CharField(max_length=100,unique=True)
     subscribes=models.ManyToManyField(MyUser,related_name="users")
     def get_model_fields(self):
         return self._meta.fields
@@ -86,7 +86,7 @@ class Category(models.Model):
 
     
 class Tag(models.Model):
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100,unique=True)
     def get_model_fields(self):
         return self._meta.fields
     def __str__(self):
