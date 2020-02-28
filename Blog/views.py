@@ -247,4 +247,15 @@ def sub_category(request,num):
         # elif request.POST.get('dislike'):
         #     User_Post.like = False
     
+def about(request):
+    # users=MyUser.objects.get(role=0)
+    users=MyUser.objects.filter(role=0)
+    tags=allTags()
+    categories=allCategories()
 
+    context={
+        'users':users,
+        'cats':categories,
+        'tags':tags
+    }
+    return render(request,'Blog/about.html',context)
