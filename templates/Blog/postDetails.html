@@ -25,7 +25,7 @@
 							</div>
 							<h1>{{post.title}}</h1>
 							<ul class="post-meta">
-								<li><a href="author.html">{{post.user.user_name}}</a></li>
+								<li><a href="author.html">{{post.user.username}}</a></li>
 								<li>{{post.date}}</li>
 								<li><i class="fa fa-comments"></i>{{comments|length}}</li>
 								<li><i class="fa fa-eye"></i> 807</li>
@@ -99,11 +99,12 @@
 							<!-- comment -->
 							<div class="media" style="">
 								<div class="media-left">
+								{% comment %} {{comment.user}} {% endcomment %}
 									<img class="media-object" src="{{comment.user.avatar.url}}" alt="">
 								</div>
 								<div class="media-body">
 									<div class="media-heading">
-										<h4>{{comment.user.user_name}}</h4>
+										<h4>{{comment.user.username}}</h4>
 										<span class="time">{{comment.date}}</span>
 									</div>
 									<p>{{comment.content}}</p>
@@ -118,7 +119,7 @@
 										</div>
 										<div class="media-body">
 											<div class="media-heading">
-												<h4>{{reply.user.user_name}}</h4>
+												<h4>{{reply.user.username}}</h4>
 												<span class="time">{{reply.date}}</span>
 											</div>
 											<p>{{reply.content}}</p>
