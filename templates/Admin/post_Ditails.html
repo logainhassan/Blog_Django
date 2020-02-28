@@ -1,0 +1,108 @@
+{% extends 'Admin/base.html' %}
+
+{% block content %}
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+        <div class="container-fluid">
+           <div class="navbar-wrapper">
+            <a class="navbar-brand" href="">Post Details</a>
+            <button class="btn btn-primary btn-round"><a href="/Admin/add_post/"> Add Post</a></button>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+          
+            
+           
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-2">
+              <p>ID</p>
+            </div>
+            <div class="col-md-10">
+              <p>{{all_post_Details.id}}</p>
+            </div>
+            <div class="col-md-2">
+              <p>Title</p>
+            </div>
+            <div class="col-md-10">
+              <p>{{all_post_Details.title}}</p>
+            </div>
+
+            <div class="col-md-2">
+              <p>Image</p>
+            </div>
+            <div class="col-md-10">
+              <img width="300px" height="200px" src="{{all_post_Details.image.url}}" alt="here">
+            </div>
+
+            <div class="col-md-2 mt-3">
+              <p>Content</p>
+            </div>
+            <div class="col-md-10 mt-3">
+              <p>{{all_post_Details.content}}</p>
+            </div>
+
+            <div class="col-md-2 mt-3">
+              <p>Date</p>
+            </div>
+            <div class="col-md-10 mt-3">
+              <p>{{all_post_Details.date}}</p>
+            </div>
+
+            <div class="col-md-2 mt-3">
+              <p>User</p>
+            </div>
+            <div class="col-md-10 mt-3">
+              <p>{{all_post_Details.user.email}}</p>
+            </div>
+
+            <div class="col-md-2 mt-3">
+              <p>Tags</p>
+            </div>
+            <div class="col-md-10 mt-3">
+                <ul>
+                  {% for tag in all_post_Details.tag.all  %}
+                    <li>{{tag.name}}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="col-md-2 mt-3">
+              <p>Categories</p>
+            </div>
+            <div class="col-md-10 mt-3">
+                <ul>
+                  {% for category in all_post_Details.category.all  %}
+                    <li>{{category.Name}}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+
+            
+            
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <div class="copyright" id="date">
+            Made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </footer>
+    </div>
+{% endblock %}
+

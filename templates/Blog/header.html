@@ -9,7 +9,7 @@
 
 					<!-- logo -->
 					<div class="nav-logo">
-						<a href="" class="logo"><img src="{% static 'Blog/img/Logo.jpg'%}" width =300px height =300px alt=""></a>
+						<a href="" class="logo"><img src="{% static 'Blog/img/Logo.jpg'%}" width ="90px" height ="90px" alt=""></a>
 					</div>
 					<!-- /logo -->
 
@@ -20,6 +20,8 @@
 					    {% endif %}
 
 						{% if user.is_authenticated %}
+							<img width="30px" height="30px" class="img-circle" src="{{request.user.avatar.url}}" alt="userImage">
+							<span style="margin:0px 20px 0px 0px"><a href="/profile">{{request.user.username}}</a></span>
 							<a href="/Accounts/logout">Log Out</a>
 					    {% else %}
 					    	<a href="/Accounts/login">Log In</a>

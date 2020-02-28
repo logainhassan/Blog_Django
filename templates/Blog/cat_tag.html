@@ -9,25 +9,30 @@
 			<div class="row">
 				<div class="col-md-8">
 					<!-- post -->
-                    {% for post in posts  %}
-					<div class="post post-row">
-						<a class="post-img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
+                    {% for post in posts %}
+					<div class="post post-row post_add_shadow">
+						<a class="post-img raduis_img" href="/post/{{post.id}}"><img src="{{post.image.url}}" alt=""></a>
 						<div class="post-body">
+							
+							<h3 class="post-title"><a href="/post/{{post.id}}">{{post.title}}</a></h3>
+							<p>{{post.content_short}}...</p>
 							<div class="post-category">
-                                {% for cat in post.category.all  %}
-								<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
-                                {% endfor %}
+								{% for category in post.category.all %}
+									<a class="cat_link" href="/category/{{category.Name}}">{{category.Name}}</a>
+								{% endfor %}
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">{{post.title}}</a></h3>
+							<div class="post-tag">
+								{% for tag in post.tag.all %}
+									<a class="tag_link" href="/tag/{{tag.name}}">{{tag.name}}</a>
+								{% endfor %}
+							</div>
 							<ul class="post-meta">
-								<li><a href="author.html">{{post.user.user_name}}</a></li>
-								<li>{{post.date}}</li>
+								<li><a href="author.html">{{post.user.username}}</a></li>
+								<li>{{ post.date}}</li>
 							</ul>
-							<p>{{post.content_short}}</p>
 						</div>
 					</div>
-					<!-- /post -->
-                    {% endfor %}
+					{% endfor %}
 					
 
 					
