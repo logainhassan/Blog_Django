@@ -21,6 +21,7 @@
 
 .recent_post_style .link_white{
     font-size: 22px !important;
+    word-break: break-word !important;
     color: #fff;
     transition: all .2s ease-in-out;
 }
