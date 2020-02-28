@@ -19,7 +19,7 @@ class UserCreationForm(forms.ModelForm):
 	
 	class Meta:
 		model = MyUser
-		fields =('username','email','password','is_active','role')
+		fields =('username','email','password','is_active','role','first_name','last_name')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
