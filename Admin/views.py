@@ -9,8 +9,6 @@ from django.contrib import messages
 from django.views.generic import  ListView
 from django.db.models import Q
 
-# Create your views here.
-
 
 
 def user(request):
@@ -44,10 +42,9 @@ class userSearch(ListView):
 def editUser(request,num):
 	user = MyUser.objects.get(id =num)
 	form = UserChangeForm(instance = user)
-
-	if request.user.role != user.role or request.user.id == user.id :
-		print("loglog : ",request.user.id)
-		print("lagalego : ",user.id)
+	print("request : ",request.user.role)
+	print("user : ",user.role)
+	if request.user.role < user.role or request.user.id == user.id :
 		if request.method == "POST":
 			form = UserChangeForm(request.POST ,request.FILES ,instance = user)
 			if form.is_valid():
@@ -228,13 +225,6 @@ def post(request,num):
 	context = {'post':post}
 	return render(request,'Admin/post.html',context)
 
-
-# def tags(request):
-#     tags=Tag.objects.all()
-# 	context={
-# 		'tags': tags
-# 		}
-# 	return render(request,'Admin/tags.html',context)
 
 def tags(request):
 	tags=Tag.objects.all()

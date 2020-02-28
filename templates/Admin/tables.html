@@ -1,13 +1,12 @@
 {% extends 'Admin/base.html' %}
 
 {% block content %}
-    <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
            <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:void(0)">Users</a>
-            <button class="btn btn-primary btn-round"><a href="add_user"> Add User</a></button>
+            <button class="btn btn-primary btn-round"><a href="add_user"> Add new User</a></button>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -30,23 +29,6 @@
         </div>
         
       </nav>
-      <!-- End Navbar -->
-      <!-- alert -->
-      <!-- <div class="container" id="alert">
-       <div class="row">
-         
-        <div class="col-12">
-            <br><br><br>
-            <div class="alert alert-primary" role="alert">
-              This is a primary alert—check it out!
-            </div>
-        </div> 
-        </div>
-      </div> -->
-
-      <!-- /alert -->
-      <!-- modal -->
-     <!-- Modal -->
 
 
 {% for users in object_list  %}
@@ -79,7 +61,7 @@
               <div class="card">
               
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">User List</h4>
+                  <h4 class="card-title ">Users List</h4>
                 </div>
                 
                 <div class="card-body">
@@ -113,9 +95,9 @@
                           {% endif %}
                           
                           {% if users.is_active == 1 %}
-                            <td style="color :green;">Active</td>
+                            <td style="color :green !important;">Active</td>
                           {% elif users.is_active == 0 %}
-                            <td style="color :red;">InActive</td>
+                            <td style="color :red !important;">InActive</td>
                           {%endif%}
                       
                           <td>{% if users.role == 0 %}
@@ -143,14 +125,30 @@
                                 <i class="material-icons icon-image-preview">delete_outline</i>
                               </button>
                                {% endif%}
-                              {% else %}
-                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
+                              {% elif user.role == 0 and user.id != users.id %}
+                               {% if users.role == 0 %}
+                                <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title="Disable Edit" disabled>
+                                <i class="material-icons" style="color:#ab3434;">edit</i>
+                              </button>
+                              <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Disable Delete" disabled>
+                                <i class="material-icons icon-image-preview" style="color:#ab3434;">delete_outline</i>
+                              </button>
+                             {% else %}
+                               <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
                                 <i class="material-icons">edit</i>
                               </button>
                             <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Delete" >
                                 <i class="material-icons icon-image-preview">delete_outline</i>
                               </button>
                             {% endif%}
+                              {%else%}
+                               <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='edit_user/{{users.id}}';" data-original-title=" Edit" >
+                                <i class="material-icons">edit</i>
+                              </button>
+                            <button type="button" rel="tooltip" title="" class="btn btn-white btn-link btn-sm"  onclick="window.location.href='delete_user/{{users.id}}';" data-original-title="Delete" >
+                                <i class="material-icons icon-image-preview">delete_outline</i>
+                              </button>
+                            {% endif %}
 
                           </td>
                         </tr>
@@ -165,43 +163,6 @@
           </div>
         </div>
       </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right" id="date">
-            , made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
-      <script>
-        const x = new Date().getFullYear();
-        let date = document.getElementById('date');
-        date.innerHTML = '&copy; ' + x + date.innerHTML;
-      </script>
-    </div>
+ 
 {% endblock %}
 

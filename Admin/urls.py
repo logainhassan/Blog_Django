@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+
+  
+    # User part 
     path('users/', views.user),
-    # path('user/',views.user),
     path('users/add_user',views.addUser),
     path('users/edit_user/<num>',views.editUser),
     path('users/delete_user/<num>',views.deleteUser),

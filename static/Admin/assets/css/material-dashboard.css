@@ -20678,7 +20678,6 @@ Copyright (c) 2015 Daniel Eden
 .dark-edition .table>thead>tr>td,
 .dark-edition .table>tbody>tr>td,
 .dark-edition .table>tfoot>tr>td {
-  color:red;
   border-color: rgba(180, 180, 180, 0.1);
 }
 
@@ -20686,7 +20685,7 @@ Copyright (c) 2015 Daniel Eden
 .dark-edition .table>thead>tr>td,
 .dark-edition .table>tbody>tr>td,
 .dark-edition .table>tfoot>tr>td {
-  color: red !important;
+  color: white !important;
 }
 
 .dark-edition .table-hover tbody tr:hover {

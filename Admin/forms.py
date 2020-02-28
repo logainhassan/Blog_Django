@@ -8,7 +8,6 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 User = get_user_model()	
 
 class UserCreationForm(forms.ModelForm):
-	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	avatar =forms.ImageField(label='Avatar', required=False, error_messages={'invalid':"Images only"}, widget=forms.FileInput(attrs={'class':'form-control-image'}))
 	ROLES = (
@@ -19,7 +18,7 @@ class UserCreationForm(forms.ModelForm):
 	
 	class Meta:
 		model = MyUser
-		fields =('username','email','password','is_active','role')
+		fields =('username','email','password','first_name','last_name','is_active','role')
 		widgets = {
 			'username' : forms.TextInput(attrs={'class':'form-control'}),
 			'first_name' : forms.TextInput(attrs={'class':'form-control'}),
@@ -122,9 +121,7 @@ class ForbiddenForm(forms.ModelForm):
 
 
 class PostForm(forms.ModelForm):
-	# choices=Post.tag.all()
-    
-	# tag=forms.MultipleChoiceField(choices=(('s','s'),('s','a')),widget =forms.CheckboxSelectMultiple())
+	
 	class Meta:
 		model = Post
 		fields = ('title','image','content','user','tag','category')
@@ -133,4 +130,3 @@ class PostForm(forms.ModelForm):
 		'image' : forms.FileInput(attrs={'class':'form-control-image'}),
 		'content' : forms.Textarea(attrs={'class':'form-control'}),
 		}
-		# tag = forms.MultipleChoiceField(choices=CHOICES, widget=forms.CheckboxSelectMultiple())

@@ -9,7 +9,6 @@ from django.utils import timezone
 User = get_user_model()	
 
 class UserCreationForm(forms.ModelForm):
-	# password1 =forms.CharField(label="Password",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password'}))
 	password2 =forms.CharField(label="Password Confirmation",widget=forms.PasswordInput(attrs={'class':'input100','placeholder':'Password Confirmation'}))
 
 	class Meta:
@@ -80,19 +79,4 @@ class UserLoginForm(forms.Form):
 
 
 
-def PasswordChangeForm(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'Admin/change_user_password.html', {
-        'form': form
-    })
 

@@ -4,7 +4,7 @@
 		<!-- NAV -->
 		<div id="nav">
 			<!-- Top Nav -->
-			<div id="nav-top">
+			<div id="nav-top" style="margin-bottom: 18px;">
 				<div class="container">
 
 					<!-- logo -->
@@ -15,6 +15,8 @@
 
 					<!-- search & aside toggle -->
 					<div class="nav-btns">
+						<a href="/profile" style="margin-right: 10px;">{{user}}	</a>
+
 						{% if user.role == 0 or user.role == 1 %}
 							<a href="/Admin/users" style="margin-right: 10px;">Manage App</a>
 					    {% endif %}

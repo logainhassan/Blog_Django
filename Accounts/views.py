@@ -3,8 +3,7 @@ from django.contrib.auth import login ,get_user_model , logout
 
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-# Create your views here.
-from .forms import UserCreationForm,UserLoginForm, PasswordChangeForm
+from .forms import UserCreationForm,UserLoginForm
 
 
 User = get_user_model()	
@@ -35,5 +34,4 @@ def login_view(request, *args , **kwargs):
 
 def logout_view(request):
 	logout(request)
-	#message.info(request,"logged out successfully !")
 	return HttpResponseRedirect("../login")

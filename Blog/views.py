@@ -7,7 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
   
 from django.views.generic import  ListView
 from django.db.models import Q
-# Create your views here.
+
 def allTags():
     tags=Tag.objects.all()
     return tags
@@ -28,7 +28,6 @@ def top_posts(request):
             posts.sort(key = lambda a: a.likes,reverse=True)
    
     if len(posts) >= 3:
-        # print(posts[0].title)
         return posts[:3] 
     else:
         all_top = Post.objects.order_by('-likes')[:3]
@@ -60,9 +59,7 @@ def PostDetails(request, num):
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags = allTags()
     cats = allCategories()
-    
-    # color=0
-    # dicolor=0
+
     like_form = Likes(request.POST)
 
     user = MyUser.objects.get(id=request.user.id)
@@ -105,9 +102,7 @@ def PostDetails(request, num):
             
             if dislikeExist.exists():
                 dislikeExist.delete()
-                # dicolor = 0
             else:
-                # dicolor = 1
                 dislike = User_Post.objects.create(post=post,user=user,like=False)
                 dislike.save()
                 post.likes-=1
@@ -156,18 +151,11 @@ def recentPosts(request):
             posts.sort(key = lambda a: a.date,reverse=True)
    
     if posts:
-        # print(posts[0].title)
         return posts[:4] 
     else:
         all_top = Post.objects.order_by('-date')[:4]
         return all_top
-    # s=Post.objects.filter(category = cats)
-    # print(s)
-# def com_items(a,b):
-#     if a.date > b.date:
-#         return 1
-#     else :
-#         return 0   
+    
 def posts(request):
     posts = [];
     categories = Category.objects.all()
@@ -180,7 +168,6 @@ def posts(request):
             posts.sort(key = lambda a: a.date,reverse=True)
    
     if posts:
-        # print(posts[0].title)
         return posts
     else:
         posts = Post.objects.all().order_by('-date')
@@ -194,7 +181,6 @@ class PostSearch(ListView):
 		object_list = Post.objects.filter(
 			Q(title__icontains=query) | Q(content__icontains=query)
 		)
-        # context = {'object_list':object_list}
 		return object_list
 
 def categoryPosts(request,name):
@@ -226,29 +212,16 @@ def sub_category(request,num):
     category=Category.objects.get(id=num)
     subs=category.subscribes.all()
     user=subs.filter(id=request.user.id).first()
-    # print(user)
-    # print(subs)
+   
     if user :
-        # print(user.id)
         category.subscribes.remove(user)
     else:
         category.subscribes.add(request.user)   
         category.save()
-    # print(request.user)
     return HttpResponseRedirect("/")
-# def like(request,num):  
-#     post=get_object_or_404(Post,id=num)
-#     if request.method == 'POST':
-#         like_form = Likes(request.POST)
-#         if request.POST.get('like'):
-#             like = User_Post.objects.create(post=num,user=1,like=True)
-#             like.save()
-#     return HttpResponseRedirect(post.get_absolute_url())
-        # elif request.POST.get('dislike'):
-        #     User_Post.like = False
+
     
 def about(request):
-    # users=MyUser.objects.get(role=0)
     users=MyUser.objects.filter(role=0)
     tags=allTags()
     categories=allCategories()
