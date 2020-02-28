@@ -16,17 +16,36 @@ def allCategories():
     categories=Category.objects.all()
     return categories
 
+def top_posts(request):
+    posts = [];
+    categories = Category.objects.all()
+    cats = []
+    for cat in categories:
+        subs = cat.subscribes.all()
+        user=subs.filter(id=request.user.id).first()
+        if user:
+            posts += list(cat.posts.all())
+            posts.sort(key = lambda a: a.likes,reverse=True)
+   
+    if len(posts) >= 3:
+        # print(posts[0].title)
+        return posts[:3] 
+    else:
+        all_top = Post.objects.order_by('-likes')[:3]
+        return all_top
 
 def allPosts(request) :
     recent = recentPosts(request)
-    allposts = posts()
+    allposts = posts(request)
     tags=allTags()
     cats=allCategories()
+    tops = top_posts(request)
     context = {
         'recent':recent,
         'allposts':allposts,
         'cats':cats,
         'tags':tags,
+        'tops':tops
         }
     return render(request,'Blog/allPosts.html',context)
 
@@ -79,6 +98,8 @@ def PostDetails(request, num):
                 # color=1
                 like = User_Post.objects.create(post=post,user=user,like=True)
                 like.save()
+                post.likes+=1
+                post.save()
         elif request.POST.get('dislike'):
             dislikeExist = User_Post.objects.filter(user=user,post=post,like=False)
             
@@ -89,6 +110,8 @@ def PostDetails(request, num):
                 # dicolor = 1
                 dislike = User_Post.objects.create(post=post,user=user,like=False)
                 dislike.save()
+                post.likes-=1
+                post.save()
             maxDislikes = User_Post.objects.filter(like = '0').count() 
             if maxDislikes==10:
 	            post.delete()
@@ -107,8 +130,7 @@ def PostDetails(request, num):
         else:
             flag=-1
     else:
-        flag=0
-    print(flag)      
+        flag=0     
     context={
         'post':post,
         'comments':comments,
@@ -134,21 +156,35 @@ def recentPosts(request):
             posts.sort(key = lambda a: a.date,reverse=True)
    
     if posts:
-        print(posts[0].title)
-        return posts 
+        # print(posts[0].title)
+        return posts[:4] 
     else:
         all_top = Post.objects.order_by('-date')[:4]
         return all_top
-    s=Post.objects.filter(category = cats)
+    # s=Post.objects.filter(category = cats)
     # print(s)
-def com_items(a,b):
-    if a.date > b.date:
-        return 1
-    else :
-        return 0   
-def posts():
-    posts = Post.objects.all().order_by('-date')
-    return posts
+# def com_items(a,b):
+#     if a.date > b.date:
+#         return 1
+#     else :
+#         return 0   
+def posts(request):
+    posts = [];
+    categories = Category.objects.all()
+    cats = []
+    for cat in categories:
+        subs = cat.subscribes.all()
+        user=subs.filter(id=request.user.id).first()
+        if user:
+            posts += list(cat.posts.all())
+            posts.sort(key = lambda a: a.date,reverse=True)
+   
+    if posts:
+        # print(posts[0].title)
+        return posts
+    else:
+        posts = Post.objects.all().order_by('-date')
+        return posts
 
 class PostSearch(ListView):
 	model = Post
