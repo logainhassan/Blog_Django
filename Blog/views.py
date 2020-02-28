@@ -41,8 +41,7 @@ def PostDetails(request, num):
     comments = Comment.objects.filter(post=post,reply=None).order_by('id')
     tags = allTags()
     cats = allCategories()
-    likeCounter = User_Post.objects.filter(post=post,like='1').count()
-    dislikeCounter = User_Post.objects.filter(post=post,like='0').count()
+    
     # color=0
     # dicolor=0
     like_form = Likes(request.POST)
@@ -64,16 +63,13 @@ def PostDetails(request, num):
             new_comment_clear = ' '.join(map(str, new_comment))
 
             reply_id=request.POST.get('comment_id')  
-            replys_qs=None
-            # if reply_id:
-            #     replays_qs=Comment.objects.get(id=reply_id)
-            #     print(replays_qs)
+            
+            
             comment=Comment.objects.create(post=post,content=new_comment_clear,user_id=request.user.id,reply_id=reply_id)
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
             # comment_form.save()
         
-        print ("here we are",user)
         if request.POST.get('like'):
             likeExist = User_Post.objects.filter(user=user,post=post,like=True)
             if likeExist.exists():
@@ -83,7 +79,7 @@ def PostDetails(request, num):
                 # color=1
                 like = User_Post.objects.create(post=post,user=user,like=True)
                 like.save()
-        if request.POST.get('dislike'):
+        elif request.POST.get('dislike'):
             dislikeExist = User_Post.objects.filter(user=user,post=post,like=False)
             
             if dislikeExist.exists():
@@ -97,17 +93,29 @@ def PostDetails(request, num):
             if maxDislikes==10:
 	            post.delete()
 	            return HttpResponseRedirect('')
+            return HttpResponseRedirect(post.get_absolute_url())
     else:
         comment_form= CommentForm()        
            
-
+    likeCounter = User_Post.objects.filter(post=post,like='1').count()
+    dislikeCounter = User_Post.objects.filter(post=post,like='0').count()
+    flag = User_Post.objects.filter(post=post,user=request.user).first()
+    if flag:
+        if flag.like==True:
+            print(flag)
+            flag=1
+        else:
+            flag=-1
+    else:
+        flag=0
+    print(flag)      
     context={
         'post':post,
         'comments':comments,
         'commentForm':comment_form,
         'cats':cats,
         'tags':tags,
-        # 'color':color,
+        'flag':flag,
         'likeCounter':likeCounter,
         'dislikeCounter':dislikeCounter
     } 
