@@ -2,21 +2,26 @@
 <!-- SECTION -->
 	<div class="section">
 		<!-- container -->
+		
 		<div class="container">
 			<!-- row -->
 			<div id="hot-post" class="row hot-post">
 				<div class="col-md-8 hot-post-left">
 					<!-- post -->
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/hot-post-1.jpg'%}" alt=""></a>
+						<a class="post-img" href="/post/{{tops.0.id}}"><img src="{{tops.0.image.url}}" alt="" height="510px"></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
+							{% for cat in tops.0.category.all %}
+								<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
+							{% endfor %}
+								
 							</div>
-							<h3 class="post-title title-lg"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
+							<h3 class="post-title title-lg"><a href="/post/{{tops.0.id}}">{{tops.0.content|truncatechars:25}}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author.html">{{tops.0.user.username}}</a></li>
+								<li>{{tops.0.date}}</li>
+								<li><i class="fa fa-thumbs-up"></i> {{tops.0.likes}}</li>
 							</ul>
 						</div>
 					</div>
@@ -25,15 +30,19 @@
 				<div class="col-md-4 hot-post-right">
 					<!-- post -->
 					<div class="post post-thumb">
-						<a class="post-img img-responsive img-fluid" href="blog-post.html"><img src="{% static 'Blog/img/hot-post-2.jpg'%}" alt=""></a>
+						<a class="post-img img-responsive img-fluid" href="/post/{{tops.1.id}}"><img src="{{tops.1.image.url}}" alt="" height="250px"></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Lifestyle</a>
+								{% for cat in tops.1.category.all %}
+									<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
+								{% endfor %}
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+							<h3 class="post-title"><a href="/post/{{tops.1.id}}">{{tops.1.content|truncatechars:25}}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author.html">{{tops.1.user.username}}</a></li>
+								<li>{{tops.1.date}}</li>
+								<li><i class="fa fa-thumbs-up"></i> {{tops.1.likes}}</li>
+								
 							</ul>
 						</div>
 					</div>
@@ -41,16 +50,18 @@
 
 					<!-- post -->
 					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img src="{% static 'Blog/img/hot-post-3.jpg'%}" alt=""></a>
+						<a class="post-img" href="/post/{{tops.2.id}}"><img src="{{tops.2.image.url}}" alt="" height="253px"></a>
 						<div class="post-body">
 							<div class="post-category">
-								<a href="category.html">Fashion</a>
-								<a href="category.html">Lifestyle</a>
+								{% for cat in tops.2.category.all %}
+									<a href="/category/{{cat.Name}}">{{cat.Name}}</a>
+								{% endfor %}
 							</div>
-							<h3 class="post-title"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
+							<h3 class="post-title"><a href="/post/{{tops.2.id}}">{{tops.2.content|truncatechars:25}}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author.html">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author.html">{{tops.2.user.username}}</a></li>
+								<li>{{tops.2.date}}</li>
+								<li><i class="fa fa-thumbs-up"></i> {{tops.2.likes}}</li>
 							</ul>
 						</div>
 					</div>

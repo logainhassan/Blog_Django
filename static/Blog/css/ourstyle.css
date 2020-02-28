@@ -125,3 +125,16 @@
 .paddind_top{
     padding-top: 6px;
 }
+
+
+.like
+{
+    border:none; border-radius:5px;
+    padding: 5px !important;
+}
+
+.like input
+{
+    border:none;
+    background: transparent;
+}
