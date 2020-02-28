@@ -26,6 +26,7 @@ def top_posts(request):
         if user:
             posts += list(cat.posts.all())
             posts.sort(key = lambda a: a.likes,reverse=True)
+            posts=list(dict.fromkeys(posts))
    
     if len(posts) >= 3:
         # print(posts[0].title)
@@ -153,6 +154,7 @@ def recentPosts(request):
         if user:
             posts += list(cat.posts.all())
             posts.sort(key = lambda a: a.date,reverse=True)
+            posts=list(dict.fromkeys(posts))
    
     if posts:
         # print(posts[0].title)
@@ -177,6 +179,7 @@ def posts(request):
         if user:
             posts += list(cat.posts.all())
             posts.sort(key = lambda a: a.date,reverse=True)
+            posts=list(dict.fromkeys(posts))
    
     if posts:
         # print(posts[0].title)
@@ -185,16 +188,33 @@ def posts(request):
         posts = Post.objects.all().order_by('-date')
         return posts
 
-class PostSearch(ListView):
-	model = Post
-	template_name = 'Blog/search_result.html'
-	def get_queryset(self):
-		query=self.request.GET.get('q')
-		object_list = Post.objects.filter(
+# class PostSearch(ListView):
+# 	model = Post
+# 	template_name = 'Blog/search_result.html'
+# 	def get_queryset(self):
+# 		query=self.request.GET.get('q')
+# 		object_list = Post.objects.filter(
+# 			Q(title__icontains=query) | Q(content__icontains=query)
+# 		)
+#         # context = {'object_list':object_list}
+# 		return object_list
+
+def search_posts(request):
+    template = 'Blog/search_result.html'
+    query = request.GET.get('q')
+    object_list = Post.objects.filter(
 			Q(title__icontains=query) | Q(content__icontains=query)
 		)
-        # context = {'object_list':object_list}
-		return object_list
+    tags = allTags()
+    cats = allCategories()
+
+    context = {
+        'object_list': object_list,
+        'tags' : tags,
+        'cats' : cats,
+    }
+
+    return render(request, template, context)
 
 def categoryPosts(request,name):
     category=Category.objects.get(Name=name)
