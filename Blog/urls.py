@@ -13,6 +13,8 @@ urlpatterns=[
     path('category/unsub-category/<num>',views.sub_category),
     path('category/sub-category/<num>',views.sub_category),
 
+    path('about',views.about),
+
     path('',views.PostSearch.as_view()),
     
 ]
